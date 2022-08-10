@@ -34,7 +34,7 @@ services:
 
   ts-ui-dashboard:
     image: codewisdom/ts-ui-dashboard-with-jaeger:v1
-    restart: always
+    restart: IfNotPresent
     ports:
       - 8080:8080
     networks:
@@ -42,7 +42,7 @@ services:
 
   ts-auth-service:
     image: codewisdom/ts-auth-service-with-jaeger:v1
-    restart: always
+    restart: IfNotPresent
     ports:
       - 12340:12340
     networks:
@@ -55,7 +55,7 @@ services:
 
   ts-user-service:
     image: codewisdom/ts-user-service-with-jaeger:v1
-    restart: always
+    restart: IfNotPresent
     ports:
       - 12342:12342
     networks:
@@ -68,7 +68,7 @@ services:
 
   ts-verification-code-service:
     image: codewisdom/ts-verification-code-service-with-jaeger:v1
-    restart: always
+    restart: IfNotPresent
     ports:
       - 15678:15678
     networks:
@@ -82,7 +82,7 @@ services:
 
   ts-route-service:
     image: codewisdom/ts-route-service-with-jaeger:v1
-    restart: always
+    restart: IfNotPresent
     ports:
          - 11178:11178
     networks:
@@ -95,7 +95,7 @@ services:
 
   ts-contacts-service:
     image: codewisdom/ts-contacts-service-with-jaeger:v1
-    restart: always
+    restart: IfNotPresent
     ports:
       - 12347:12347
     networks:
@@ -108,7 +108,7 @@ services:
 
   ts-order-service:
     image: codewisdom/ts-order-service-with-jaeger:v1
-    restart: always
+    restart: IfNotPresent
     ports:
       - 12031:12031
     networks:
@@ -122,7 +122,7 @@ services:
 
   ts-order-other-service:
     image: codewisdom/ts-order-other-service-with-jaeger:v1
-    restart: always
+    restart: IfNotPresent
     ports:
       - 12032:12032
     networks:
@@ -136,7 +136,7 @@ services:
 
   ts-config-service:
     image: codewisdom/ts-config-service-with-jaeger:v1
-    restart: always
+    restart: IfNotPresent
     ports:
       - 15679:15679
     networks:
@@ -149,7 +149,7 @@ services:
 
   ts-station-service:
     image: codewisdom/ts-station-service-with-jaeger:v1
-    restart: always
+    restart: IfNotPresent
     ports:
       - 12345:12345
     networks:
@@ -162,7 +162,7 @@ services:
 
   ts-train-service:
     image: codewisdom/ts-train-service-with-jaeger:v1
-    restart: always
+    restart: IfNotPresent
     ports:
       - 14567:14567
     networks:
@@ -175,7 +175,7 @@ services:
 
   ts-travel-service:
     image: codewisdom/ts-travel-service-with-jaeger:v1
-    restart: always
+    restart: IfNotPresent
     ports:
       - 12346:12346
     networks:
@@ -188,7 +188,7 @@ services:
 
   ts-travel2-service:
       image: codewisdom/ts-travel2-service-with-jaeger:v1
-      restart: always
+      restart: IfNotPresent
       ports:
         - 16346:16346
       networks:
@@ -201,7 +201,7 @@ services:
 
   ts-preserve-service:
     image: codewisdom/ts-preserve-service-with-jaeger:v1
-    restart: always
+    restart: IfNotPresent
     ports:
       - 14568:14568
     networks:
@@ -209,7 +209,7 @@ services:
 
   ts-preserve-other-service:
     image: codewisdom/ts-preserve-other-service-with-jaeger:v1
-    restart: always
+    restart: IfNotPresent
     ports:
       - 14569:14569
     networks:
@@ -218,7 +218,7 @@ services:
 
   ts-basic-service:
       image: codewisdom/ts-basic-service-with-jaeger:v1
-      restart: always
+      restart: IfNotPresent
       ports:
         - 15680:15680
       networks:
@@ -226,7 +226,7 @@ services:
 
 #  ts-ticketinfo-service:
 #        image: codewisdom/ts-ticketinfo-service-with-jaeger:v1
-#        restart: always
+#        restart: IfNotPresent
 #        ports:
 #          - 15681:15681
 #        networks:
@@ -234,7 +234,7 @@ services:
 
   ts-price-service:
         image: codewisdom/ts-price-service-with-jaeger:v1
-        restart: always
+        restart: IfNotPresent
         ports:
           - 16579:16579
         networks:
@@ -247,7 +247,7 @@ services:
 
   ts-notification-service:
         image: codewisdom/ts-notification-service-with-jaeger:v1
-        restart: always
+        restart: IfNotPresent
         ports:
           - 17853:17853
         networks:
@@ -260,7 +260,7 @@ services:
 
   ts-security-service:
         image: codewisdom/ts-security-service-with-jaeger:v1
-        restart: always
+        restart: IfNotPresent
         ports:
           - 11188:11188
         networks:
@@ -273,7 +273,7 @@ services:
 
   ts-inside-payment-service:
         image: codewisdom/ts-inside-payment-service-with-jaeger:v1
-        restart: always
+        restart: IfNotPresent
         ports:
           - 18673:18673
         networks:
@@ -286,7 +286,7 @@ services:
 
   ts-execute-service:
         image: codewisdom/ts-execute-service-with-jaeger:v1
-        restart: always
+        restart: IfNotPresent
         ports:
           - 12386:12386
         networks:
@@ -294,7 +294,7 @@ services:
 
   ts-payment-service:
         image: codewisdom/ts-payment-service-with-jaeger:v1
-        restart: always
+        restart: IfNotPresent
         ports:
           - 19001:19001
         networks:
@@ -307,7 +307,7 @@ services:
 
   ts-rebook-service:
         image: codewisdom/ts-rebook-service-with-jaeger:v1
-        restart: always
+        restart: IfNotPresent
         ports:
           - 18886:18886
         networks:
@@ -320,7 +320,7 @@ services:
 
   ts-cancel-service:
         image: codewisdom/ts-cancel-service-with-jaeger:v1
-        restart: always
+        restart: IfNotPresent
         ports:
           - 18885:18885
         networks:
@@ -328,7 +328,7 @@ services:
 
   ts-assurance-service:
         image: codewisdom/ts-assurance-service-with-jaeger:v1
-        restart: always
+        restart: IfNotPresent
         ports:
           - 18888:18888
         networks:
@@ -341,7 +341,7 @@ services:
 
   ts-seat-service:
         image: codewisdom/ts-seat-service-with-jaeger:v1
-        restart: always
+        restart: IfNotPresent
         ports:
           - 18898:18898
         networks:
@@ -349,7 +349,7 @@ services:
 
   ts-travel-plan-service:
         image: codewisdom/ts-travel-plan-service-with-jaeger:v1
-        restart: always
+        restart: IfNotPresent
         ports:
           - 14322:14322
         networks:
@@ -357,7 +357,7 @@ services:
 
 #  ts-ticket-office-service:
 #        image: codewisdom/ts-ticket-office-service-with-jaeger:v1
-#        restart: always
+#        restart: IfNotPresent
 #        ports:
 #          - 16108:16108
 #        networks:
@@ -370,7 +370,7 @@ services:
 
   ts-news-service:
     image: codewisdom/ts-news-service-with-jaeger:v1
-    restart: always
+    restart: IfNotPresent
     ports:
       - 12862:12862
     networks:
@@ -392,7 +392,7 @@ services:
 
   ts-voucher-service:
           image: codewisdom/ts-voucher-service-with-jaeger:v1
-          restart: always
+          restart: IfNotPresent
           ports:
             - 16101:16101
           depends_on:
@@ -404,7 +404,7 @@ services:
 
 #  ts-food-map-service:
 #        image: codewisdom/ts-food-map-service-with-jaeger:v1
-#        restart: always
+#        restart: IfNotPresent
 #        ports:
 #          - 18855:18855
 #        networks:
@@ -417,7 +417,7 @@ services:
 
   ts-route-plan-service:
           image: codewisdom/ts-route-plan-service-with-jaeger:v1
-          restart: always
+          restart: IfNotPresent
           ports:
             - 14578:14578
           networks:
@@ -425,7 +425,7 @@ services:
 
   ts-food-service:
       image: codewisdom/ts-food-service-with-jaeger:v1
-      restart: always
+      restart: IfNotPresent
       ports:
         - 18856:18856
       networks:
@@ -439,7 +439,7 @@ services:
 
   ts-consign-service:
             image: codewisdom/ts-consign-service-with-jaeger:v1
-            restart: always
+            restart: IfNotPresent
             ports:
               - 16111:16111
             networks:
@@ -452,7 +452,7 @@ services:
 
   ts-consign-price-service:
             image: codewisdom/ts-consign-price-service-with-jaeger:v1
-            restart: always
+            restart: IfNotPresent
             ports:
               - 16110:16110
             networks:
@@ -466,7 +466,7 @@ services:
 
   ts-admin-basic-info-service:
         image: codewisdom/ts-admin-basic-info-service-with-jaeger:v1
-        restart: always
+        restart: IfNotPresent
         ports:
           - 18767:18767
         networks:
@@ -474,7 +474,7 @@ services:
 
   ts-admin-order-service:
             image: codewisdom/ts-admin-order-service-with-jaeger:v1
-            restart: always
+            restart: IfNotPresent
             ports:
               - 16112:16112
             networks:
@@ -482,7 +482,7 @@ services:
 
   ts-admin-route-service:
               image: codewisdom/ts-admin-route-service-with-jaeger:v1
-              restart: always
+              restart: IfNotPresent
               ports:
                 - 16113:16113
               deploy:
@@ -494,7 +494,7 @@ services:
 
   ts-admin-travel-service:
                 image: codewisdom/ts-admin-travel-service-with-jaeger:v1
-                restart: always
+                restart: IfNotPresent
                 ports:
                   - 16114:16114
                 deploy:
@@ -506,7 +506,7 @@ services:
 
   ts-admin-user-service:
     image: codewisdom/ts-admin-user-service-with-jaeger:v1
-    restart: always
+    restart: IfNotPresent
     ports:
       - 16115:16115
     deploy:
@@ -518,7 +518,7 @@ services:
 
   ts-avatar-service:
     image: codewisdom/ts-avatar-service-with-jaeger:v1
-    restart: always
+    restart: IfNotPresent
     ports:
       - 17001:17001
     networks:
@@ -527,7 +527,7 @@ services:
 
   ts-delivery-service:
     image: ${NAMESPACE}/ts-delivery-servicee-with-jaeger:v1
-    restart: always
+    restart: IfNotPresent
     ports:
       - 18808:18808
     networks:
@@ -541,7 +541,7 @@ services:
 
   ts-food-delivery-service:
     image: ${NAMESPACE}/ts-food-delivery-service-with-jaeger:v1
-    restart: always
+    restart: IfNotPresent
     ports:
       - 18957:18957
     networks:
@@ -555,7 +555,7 @@ services:
 
   ts-gateway-service:
     image: ${NAMESPACE}/ts-gateway-service-with-jaeger:v1
-    restart: always
+    restart: IfNotPresent
     ports:
       - 18888:18888
     networks:
@@ -568,7 +568,7 @@ services:
 
   ts-station-food-service:
     image: ${NAMESPACE}/ts-station-food-service-with-jaeger:v1
-    restart: always
+    restart: IfNotPresent
     ports:
       - 18855:18855
     networks:
@@ -581,7 +581,7 @@ services:
 
   ts-train-food-service:
     image: ${NAMESPACE}/ts-train-food-service-with-jaeger:v1
-    restart: always
+    restart: IfNotPresent
     ports:
       - 19999:19999
     networks:
