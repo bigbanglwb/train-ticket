@@ -24,47 +24,6 @@ import org.springframework.web.client.*;
 import java.io.IOException;
 import java.net.URI;
 import java.util.*;
-@Component
-class myRestTemplate extends  RestTemplate
-{
-    private static final Logger LOGGER = LoggerFactory.getLogger(myRestTemplate.class);
-    @Override
-    @Nullable
-    protected <T> T doExecute(URI url, @Nullable HttpMethod method, @Nullable RequestCallback requestCallback, @Nullable ResponseExtractor<T> responseExtractor) throws RestClientException {
-        logger.info("this is my restTemplate");
-        Assert.notNull(url, "URI is required");
-        Assert.notNull(method, "HttpMethod is required");
-        ClientHttpResponse response = null;
-
-        Object var14;
-        try {
-            ClientHttpRequest request = this.createRequest(url, method);
-            if (requestCallback != null) {
-                requestCallback.doWithRequest(request);
-            }
-            long time = System.nanoTime();
-
-            response = request.execute();
-            LOGGER.info("send request used time[{}]",System.nanoTime()-time);
-            this.handleResponse(url, method, response);
-            var14 = responseExtractor != null ? responseExtractor.extractData(response) : null;
-        } catch (IOException var12) {
-            String resource = url.toString();
-            String query = url.getRawQuery();
-            resource = query != null ? resource.substring(0, resource.indexOf(63)) : resource;
-            throw new ResourceAccessException("I/O error on " + method.name() + " request for \"" + resource + "\": " + var12.getMessage(), var12);
-        } finally {
-            if (response != null) {
-                response.close();
-            }
-
-        }
-
-        return (T) var14;
-    }
-}
-
-
 
 
 /**
@@ -171,7 +130,7 @@ public class BasicServiceImpl implements BasicService {
 
     @Override
     public Response queryForTravels(List<Travel> infos, HttpHeaders headers) {
-        Response response = new Response<>();
+        Response<Object> response = new Response<>();
         response.setStatus(1);
         response.setMsg("Success");
 
