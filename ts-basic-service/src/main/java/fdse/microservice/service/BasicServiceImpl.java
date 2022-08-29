@@ -13,10 +13,59 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.client.ClientHttpRequest;
+import org.springframework.http.client.ClientHttpResponse;
+import org.springframework.lang.Nullable;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.util.Assert;
+import org.springframework.web.client.*;
 
+import java.io.IOException;
+import java.net.URI;
 import java.util.*;
+@Component
+class myRestTemplate extends  RestTemplate
+{
+    private static final Logger LOGGER = LoggerFactory.getLogger(myRestTemplate.class);
+    @Override
+    @Nullable
+    protected <T> T doExecute(URI url, @Nullable HttpMethod method, @Nullable RequestCallback requestCallback, @Nullable ResponseExtractor<T> responseExtractor) throws RestClientException {
+        logger.info("this is my restTemplate");
+        Assert.notNull(url, "URI is required");
+        Assert.notNull(method, "HttpMethod is required");
+        ClientHttpResponse response = null;
+
+        Object var14;
+        try {
+            ClientHttpRequest request = this.createRequest(url, method);
+            if (requestCallback != null) {
+                requestCallback.doWithRequest(request);
+            }
+            long time = System.nanoTime();
+
+            response = request.execute();
+            LOGGER.info("send request used time[{}]",System.nanoTime()-time);
+            this.handleResponse(url, method, response);
+            var14 = responseExtractor != null ? responseExtractor.extractData(response) : null;
+        } catch (IOException var12) {
+            String resource = url.toString();
+            String query = url.getRawQuery();
+            resource = query != null ? resource.substring(0, resource.indexOf(63)) : resource;
+            throw new ResourceAccessException("I/O error on " + method.name() + " request for \"" + resource + "\": " + var12.getMessage(), var12);
+        } finally {
+            if (response != null) {
+                response.close();
+            }
+
+        }
+
+        return (T) var14;
+    }
+}
+
+
+
 
 /**
  * @author fdse
@@ -25,7 +74,7 @@ import java.util.*;
 public class BasicServiceImpl implements BasicService {
 
     @Autowired
-    private RestTemplate restTemplate;
+    private myRestTemplate restTemplate;
 
     @Autowired
     private DiscoveryClient discoveryClient;
@@ -39,7 +88,7 @@ public class BasicServiceImpl implements BasicService {
     @Override
     public Response queryForTravel(Travel info, HttpHeaders headers) {
 
-        Response response = new Response<>();
+        Response<Object> response = new Response<>();
         TravelResult result = new TravelResult();
         result.setStatus(true);
         response.setStatus(1);
@@ -342,7 +391,7 @@ public class BasicServiceImpl implements BasicService {
 
     public Map<String,String> checkStationsExists(List<String> stationNames, HttpHeaders headers) {
         BasicServiceImpl.LOGGER.info("[checkStationsExists][Check Stations Exists][stationNames: {}]", stationNames);
-        HttpEntity requestEntity = new HttpEntity(stationNames, null);
+        HttpEntity<List<String>> requestEntity = new HttpEntity<>(stationNames, null);
         String station_service_url=getServiceUrl("ts-station-service");
         ResponseEntity<Response> re = restTemplate.exchange(
                 station_service_url + "/api/v1/stationservice/stations/idlist",
@@ -373,7 +422,7 @@ public class BasicServiceImpl implements BasicService {
 
     public List<TrainType> queryTrainTypeByNames(List<String> trainTypeNames, HttpHeaders headers) {
         BasicServiceImpl.LOGGER.info("[queryTrainTypeByNames][Query Train Type][Train Type names: {}]", trainTypeNames);
-        HttpEntity requestEntity = new HttpEntity(trainTypeNames, null);
+        HttpEntity<List<String>> requestEntity = new HttpEntity<>(trainTypeNames, null);
         String train_service_url=getServiceUrl("ts-train-service");
         ResponseEntity<Response> re = restTemplate.exchange(
                 train_service_url + "/api/v1/trainservice/trains/byNames",
@@ -404,7 +453,7 @@ public class BasicServiceImpl implements BasicService {
 
     private List<Route> getRoutesByRouteIds(List<String> routeIds, HttpHeaders headers) {
         BasicServiceImpl.LOGGER.info("[getRoutesByRouteIds][Get Route By Ids][Route IDs：{}]", routeIds);
-        HttpEntity requestEntity = new HttpEntity(routeIds, null);
+        HttpEntity<List<String>> requestEntity = new HttpEntity<>(routeIds, null);
         String route_service_url=getServiceUrl("ts-route-service");
         ResponseEntity<Response> re = restTemplate.exchange(
                 route_service_url + "/api/v1/routeservice/routes/byIds/",
@@ -458,7 +507,7 @@ public class BasicServiceImpl implements BasicService {
 
     private Map<String, PriceConfig> queryPriceConfigByRouteIdsAndTrainTypes(List<String> routeIdsTypes, HttpHeaders headers) {
         BasicServiceImpl.LOGGER.info("[queryPriceConfigByRouteIdsAndTrainTypes][Query For Price Config][RouteId and TrainType: {}]", routeIdsTypes);
-        HttpEntity requestEntity = new HttpEntity(routeIdsTypes, null);
+        HttpEntity<List<String>> requestEntity = new HttpEntity<>(routeIdsTypes, null);
         String price_service_url=getServiceUrl("ts-price-service");
         ResponseEntity<Response> re = restTemplate.exchange(
                 price_service_url + "/api/v1/priceservice/prices/byRouteIdsAndTrainTypes",

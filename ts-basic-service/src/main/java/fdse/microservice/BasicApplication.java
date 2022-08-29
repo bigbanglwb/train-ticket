@@ -6,7 +6,9 @@ import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.context.annotation.FilterType;
 import org.springframework.integration.annotation.IntegrationComponentScan;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.web.client.RestTemplate;
@@ -18,7 +20,8 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
 @SpringBootApplication
 @EnableAspectJAutoProxy(proxyTargetClass = true)
 @EnableAsync
-@IntegrationComponentScan
+@IntegrationComponentScan(excludeFilters = {@ComponentScan.Filter(type =
+		FilterType.ASSIGNABLE_TYPE, classes = {RestTemplate.class})})
 @EnableSwagger2
 @EnableDiscoveryClient
 // @ServletComponentScan
