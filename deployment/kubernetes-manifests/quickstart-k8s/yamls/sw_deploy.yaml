@@ -600,6 +600,7 @@ spec:
                 name: nacos
           ports:
             - containerPort: 15680
+            - containerPort: 32697
           resources:
             requests:
               cpu: 100m
