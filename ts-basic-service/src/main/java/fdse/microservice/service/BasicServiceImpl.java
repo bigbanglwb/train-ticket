@@ -33,7 +33,7 @@ import java.util.*;
 public class BasicServiceImpl implements BasicService {
 
     @Autowired
-    private myRestTemplate restTemplate;
+    private RestTemplate restTemplate;
 
     @Autowired
     private DiscoveryClient discoveryClient;
