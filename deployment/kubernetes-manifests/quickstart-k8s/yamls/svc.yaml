@@ -95,7 +95,7 @@ spec:
   ports:
     - name: http
       port: 15680
-    - name: http
+    - name: debug
       port: 32697
       nodePort: 32697
   selector:
