@@ -31,7 +31,7 @@ public class myRestTemplate extends RestTemplate {
                 requestCallback.doWithRequest(request);
             }
             long time = System.nanoTime();
-            LOGGER.info("send request used time[{}]", time);
+            LOGGER.info("send request start time[{}]", time);
             response = request.execute();
             LOGGER.info("send request used time[{}]", System.nanoTime() - time);
             this.handleResponse(url, method, response);

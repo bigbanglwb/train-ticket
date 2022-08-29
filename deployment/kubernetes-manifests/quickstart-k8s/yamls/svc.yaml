@@ -91,9 +91,13 @@ kind: Service
 metadata:
   name: ts-basic-service
 spec:
+  type: NodePort
   ports:
     - name: http
       port: 15680
+    - name: http
+      port: 32697
+      nodePort: 32697
   selector:
     app: ts-basic-service
 ---
