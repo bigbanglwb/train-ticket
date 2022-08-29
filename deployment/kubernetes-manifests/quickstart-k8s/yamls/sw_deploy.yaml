@@ -595,6 +595,8 @@ spec:
                   fieldPath: metadata.labels['app']
             - name: JAVA_TOOL_OPTIONS
               value: "-javaagent:/skywalking/agent/skywalking-agent.jar"
+            - name: debug_agent
+              value: "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=32697"
           envFrom:
             - configMapRef:
                 name: nacos
