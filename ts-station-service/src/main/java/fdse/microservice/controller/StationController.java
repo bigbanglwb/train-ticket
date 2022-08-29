@@ -68,7 +68,8 @@ public class StationController {
     @CrossOrigin(origins = "*")
     @PostMapping(value = "/stations/idlist")
     public HttpEntity queryForIdBatch(@RequestBody List<String> stationNameList, @RequestHeader HttpHeaders headers) {
-        StationController.LOGGER.info("[queryForIdBatch][Query stations for id batch][StationNameNumbers: {}]",stationNameList.size());
+        StationController.LOGGER.info("[queryForIdBatch][Query stations for id batch][get request time: {}]",System.nanoTime());
+        // StationController.LOGGER.info("[queryForIdBatch][Query stations for id batch][StationNameNumbers: {}]",stationNameList.size());
         return ok(stationService.queryForIdBatch(stationNameList, headers));
     }
 

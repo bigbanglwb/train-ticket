@@ -11,7 +11,7 @@ import org.springframework.integration.annotation.IntegrationComponentScan;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.web.client.RestTemplate;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
-
+import org.springframework.boot.web.servlet.ServletComponentScan;
 /**
  * @author fdse
  */
@@ -21,6 +21,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @IntegrationComponentScan
 @EnableSwagger2
 @EnableDiscoveryClient
+// @ServletComponentScan
 public class BasicApplication {
 
 	public static void main(String[] args) {

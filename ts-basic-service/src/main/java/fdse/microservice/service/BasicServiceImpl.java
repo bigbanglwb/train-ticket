@@ -181,7 +181,9 @@ public class BasicServiceImpl implements BasicService {
         //List<String> invalidTrips = new ArrayList<>();
 
         // check if station exist to exclude invalid travel info
+        BasicServiceImpl.LOGGER.info("[queryForTravels][checkStationsExists][send request time:{}]", System.nanoTime());
         Map<String, String> stationMap = checkStationsExists(new ArrayList<>(stationNames), headers);
+        BasicServiceImpl.LOGGER.info("[queryForTravels][checkStationsExists][get response time:{}]", System.nanoTime());
         if(stationMap == null) {
             response.setStatus(0);
             response.setMsg("all stations don't exist");

@@ -11,13 +11,14 @@ import org.springframework.integration.annotation.IntegrationComponentScan;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.web.client.RestTemplate;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
-
+import org.springframework.boot.web.servlet.ServletComponentScan;
 @SpringBootApplication
 @EnableAspectJAutoProxy(proxyTargetClass = true)
 @EnableAsync
 @IntegrationComponentScan
 @EnableSwagger2
 @EnableDiscoveryClient
+// @ServletComponentScan
 public class StationApplication {
 
 	public static void main(String[] args) {
