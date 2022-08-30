@@ -16,6 +16,10 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import fdse.microservice.service.BasicServiceImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -53,6 +57,7 @@ import org.springframework.web.util.UriTemplateHandler;
 import org.springframework.web.util.DefaultUriBuilderFactory.EncodingMode;
 
 public class RestTemplate extends InterceptingHttpAccessor implements RestOperations {
+    private static final Logger LOGGER = LoggerFactory.getLogger(RestTemplate.class);
     private static final boolean romePresent;
     private static final boolean jaxb2Present;
     private static final boolean jackson2Present;
@@ -442,6 +447,7 @@ public class RestTemplate extends InterceptingHttpAccessor implements RestOperat
             response = request.execute();
             this.handleResponse(url, method, response);
             var14 = responseExtractor != null ? responseExtractor.extractData(response) : null;
+            LOGGER.info("this is point 8 [{}]", System.nanoTime());
         } catch (IOException var12) {
             String resource = url.toString();
             String query = url.getRawQuery();
