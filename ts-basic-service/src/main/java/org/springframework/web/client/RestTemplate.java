@@ -190,7 +190,7 @@ public class RestTemplate extends InterceptingHttpAccessor implements RestOperat
     public <T> T getForObject(String url, Class<T> responseType, Map<String, ?> uriVariables) throws RestClientException {
         RequestCallback requestCallback = this.acceptHeaderRequestCallback(responseType);
         HttpMessageConverterExtractor<T> responseExtractor = new HttpMessageConverterExtractor(responseType, this.getMessageConverters(), this.logger);
-        return this.execute(url, HttpMethod.GET, requestCallback, responseExtractor, (Map)uriVariables);
+        return (T) this.execute(url, HttpMethod.GET, requestCallback, responseExtractor, (Map)uriVariables);
     }
 
     @Nullable
@@ -262,7 +262,7 @@ public class RestTemplate extends InterceptingHttpAccessor implements RestOperat
     public <T> T postForObject(String url, @Nullable Object request, Class<T> responseType, Map<String, ?> uriVariables) throws RestClientException {
         RequestCallback requestCallback = this.httpEntityCallback(request, responseType);
         HttpMessageConverterExtractor<T> responseExtractor = new HttpMessageConverterExtractor(responseType, this.getMessageConverters(), this.logger);
-        return this.execute(url, HttpMethod.POST, requestCallback, responseExtractor, (Map)uriVariables);
+        return (T) this.execute(url, HttpMethod.POST, requestCallback, responseExtractor, (Map)uriVariables);
     }
 
     @Nullable
@@ -316,7 +316,7 @@ public class RestTemplate extends InterceptingHttpAccessor implements RestOperat
     public <T> T patchForObject(String url, @Nullable Object request, Class<T> responseType, Map<String, ?> uriVariables) throws RestClientException {
         RequestCallback requestCallback = this.httpEntityCallback(request, responseType);
         HttpMessageConverterExtractor<T> responseExtractor = new HttpMessageConverterExtractor(responseType, this.getMessageConverters(), this.logger);
-        return this.execute(url, HttpMethod.PATCH, requestCallback, responseExtractor, (Map)uriVariables);
+        return (T) this.execute(url, HttpMethod.PATCH, requestCallback, responseExtractor, (Map)uriVariables);
     }
 
     @Nullable
@@ -454,7 +454,7 @@ public class RestTemplate extends InterceptingHttpAccessor implements RestOperat
 
         }
 
-        return var14;
+        return (T) var14;
     }
 
     protected void handleResponse(URI url, HttpMethod method, ClientHttpResponse response) throws IOException {
@@ -588,7 +588,7 @@ public class RestTemplate extends InterceptingHttpAccessor implements RestOperat
                 Iterator var8 = RestTemplate.this.getMessageConverters().iterator();
 
                 while(var8.hasNext()) {
-                    HttpMessageConverter<?> messageConverter = (HttpMessageConverter)var8.next();
+                    HttpMessageConverter<Object> messageConverter = (HttpMessageConverter)var8.next();
                     if (messageConverter instanceof GenericHttpMessageConverter) {
                         GenericHttpMessageConverter<Object> genericConverter = (GenericHttpMessageConverter)messageConverter;
                         if (genericConverter.canWrite((Type)requestBodyType, requestBodyClass, requestContentType)) {
