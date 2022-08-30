@@ -33,7 +33,7 @@ import java.util.*;
 public class BasicServiceImpl implements BasicService {
 
     @Autowired
-    private RestTemplate restTemplate;
+    private myRestTemplate restTemplate;
 
     @Autowired
     private DiscoveryClient discoveryClient;
@@ -46,7 +46,6 @@ public class BasicServiceImpl implements BasicService {
 
     @Override
     public Response queryForTravel(Travel info, HttpHeaders headers) {
-
         Response<Object> response = new Response<>();
         TravelResult result = new TravelResult();
         result.setStatus(true);

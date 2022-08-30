@@ -15,11 +15,11 @@ import java.net.URI;
 
 @Component
 public class myRestTemplate extends RestTemplate {
-    private static final Logger LOGGER = LoggerFactory.getLogger(myRestTemplate.class);
+//    private static final Logger LOGGER = LoggerFactory.getLogger(myRestTemplate.class);
 
     @Nullable
     protected <T> T doExecute(URI url, @Nullable HttpMethod method, @Nullable RequestCallback requestCallback, @Nullable ResponseExtractor<T> responseExtractor) throws RestClientException {
-        logger.info("this is my restTemplate");
+//        logger.info("this is my restTemplate");
         Assert.notNull(url, "URI is required");
         Assert.notNull(method, "HttpMethod is required");
         ClientHttpResponse response = null;
@@ -31,9 +31,9 @@ public class myRestTemplate extends RestTemplate {
                 requestCallback.doWithRequest(request);
             }
             long time = System.nanoTime();
-            LOGGER.info("send request start time[{}]", time);
+//            LOGGER.info("send request start time[{}]", time);
             response = request.execute();
-            LOGGER.info("send request used time[{}]", System.nanoTime() - time);
+//            LOGGER.info("send request used time[{}]", System.nanoTime() - time);
             this.handleResponse(url, method, response);
             var14 = responseExtractor != null ? responseExtractor.extractData(response) : null;
         } catch (IOException var12) {
