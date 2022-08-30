@@ -351,6 +351,7 @@ public class BasicServiceImpl implements BasicService {
         BasicServiceImpl.LOGGER.info("[checkStationsExists][Check Stations Exists][stationNames: {}]", stationNames);
         HttpEntity<List<String>> requestEntity = new HttpEntity<>(stationNames, null);
         String station_service_url=getServiceUrl("ts-station-service");
+        BasicServiceImpl.LOGGER.info("this is point 1 [{}]", System.nanoTime());
         ResponseEntity<Response> re = restTemplate.exchange(
                 station_service_url + "/api/v1/stationservice/stations/idlist",
                 HttpMethod.POST,
@@ -368,7 +369,6 @@ public class BasicServiceImpl implements BasicService {
         BasicServiceImpl.LOGGER.info("[checkStationExists][Check Station Exists][stationName: {}]", stationName);
         HttpEntity requestEntity = new HttpEntity(null);
         String station_service_url=getServiceUrl("ts-station-service");
-        BasicServiceImpl.LOGGER.info("this is point 1 [{}]", System.nanoTime());
         ResponseEntity<Response> re = restTemplate.exchange(
                 station_service_url + "/api/v1/stationservice/stations/id/" + stationName,
                 HttpMethod.GET,
