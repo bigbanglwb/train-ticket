@@ -29,9 +29,9 @@ abstract class AbstractBufferingClientHttpRequest extends AbstractClientHttpRequ
         if (headers.getContentLength() < 0L) {
             headers.setContentLength((long)bytes.length);
         }
-        LOGGER.info("this is point 2 [{}]",System.nanoTime());
+        LOGGER.info("AbstractBufferingClientHttpRequest this is point 2 [{}]",System.nanoTime());
         ClientHttpResponse result = this.executeInternal(headers, bytes);
-        LOGGER.info("this is point 7 [{}]",System.nanoTime());
+        LOGGER.info("AbstractBufferingClientHttpRequest this is point 7 [{}]",System.nanoTime());
         this.bufferedOutput = new ByteArrayOutputStream(0);
         return result;
     }
