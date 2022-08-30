@@ -20,9 +20,9 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
 @SpringBootApplication
 @EnableAspectJAutoProxy(proxyTargetClass = true)
 @EnableAsync
-@IntegrationComponentScan(excludeFilters = {@ComponentScan.Filter(type =
-		FilterType.ASSIGNABLE_TYPE, classes = {RestTemplate.class})})
-//@IntegrationComponentScan
+//@IntegrationComponentScan(excludeFilters = {@ComponentScan.Filter(type =
+//		FilterType.ASSIGNABLE_TYPE, classes = {RestTemplate.class})})
+@IntegrationComponentScan
 @EnableSwagger2
 @EnableDiscoveryClient
 // @ServletComponentScan
