@@ -16,7 +16,7 @@ import org.springframework.http.HttpHeaders;
 
 abstract class AbstractBufferingClientHttpRequest extends AbstractClientHttpRequest {
     private ByteArrayOutputStream bufferedOutput = new ByteArrayOutputStream(1024);
-    private final Logger LOGGER = LoggerFactory.getLogger(AbstractBufferingClientHttpRequest.class);
+
     AbstractBufferingClientHttpRequest() {
     }
 
@@ -29,9 +29,9 @@ abstract class AbstractBufferingClientHttpRequest extends AbstractClientHttpRequ
         if (headers.getContentLength() < 0L) {
             headers.setContentLength((long)bytes.length);
         }
-        LOGGER.info("AbstractBufferingClientHttpRequest this is point 2 [{}]",System.nanoTime());
+
         ClientHttpResponse result = this.executeInternal(headers, bytes);
-        LOGGER.info("AbstractBufferingClientHttpRequest this is point 7 [{}]",System.nanoTime());
+
         this.bufferedOutput = new ByteArrayOutputStream(0);
         return result;
     }
