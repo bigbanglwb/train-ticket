@@ -69,7 +69,6 @@ public class StationController {
     @PostMapping(value = "/stations/idlist")
     public HttpEntity queryForIdBatch(@RequestBody List<String> stationNameList, @RequestHeader HttpHeaders headers) throws InterruptedException {
         StationController.LOGGER.info("[queryForIdBatch][Query stations for id batch][get request time: {}]",System.nanoTime());
-        Thread.sleep(5000);
         return ok(stationService.queryForIdBatch(stationNameList, headers));
     }
 
