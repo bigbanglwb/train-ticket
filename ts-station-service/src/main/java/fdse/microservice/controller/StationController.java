@@ -67,9 +67,9 @@ public class StationController {
     // according to station name list --->  query all station ids
     @CrossOrigin(origins = "*")
     @PostMapping(value = "/stations/idlist")
-    public HttpEntity queryForIdBatch(@RequestBody List<String> stationNameList, @RequestHeader HttpHeaders headers) {
+    public HttpEntity queryForIdBatch(@RequestBody List<String> stationNameList, @RequestHeader HttpHeaders headers) throws InterruptedException {
         StationController.LOGGER.info("[queryForIdBatch][Query stations for id batch][get request time: {}]",System.nanoTime());
-        // StationController.LOGGER.info("[queryForIdBatch][Query stations for id batch][StationNameNumbers: {}]",stationNameList.size());
+        Thread.sleep(5000);
         return ok(stationService.queryForIdBatch(stationNameList, headers));
     }
 
