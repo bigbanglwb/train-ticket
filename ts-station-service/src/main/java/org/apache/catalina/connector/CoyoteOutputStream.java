@@ -67,6 +67,7 @@ public class CoyoteOutputStream extends ServletOutputStream {
     public void flush() throws IOException {
         boolean nonBlocking = this.checkNonBlockingWrite();
         this.ob.flush();
+        LOGGER.info("3Serialization end && send start time[{}]",System.nanoTime());
         if (nonBlocking) {
             this.checkRegisterForWrite();
         }
