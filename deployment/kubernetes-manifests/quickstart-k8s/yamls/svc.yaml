@@ -97,7 +97,7 @@ spec:
       port: 15680
     - name: debug
       port: 32697
-      nodePort: 33980
+      nodePort: 32767
   selector:
     app: ts-basic-service
 ---
