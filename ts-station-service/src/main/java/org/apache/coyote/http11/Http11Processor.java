@@ -782,9 +782,9 @@ public class Http11Processor extends AbstractProcessor {
         if (this.getErrorState().isIoAllowed()) {
             try {
                 this.action(ActionCode.COMMIT, (Object)null);
-                Thread.currentThread().sleep(5000);
+
                 this.outputBuffer.end();
-                LOGGER.info("Serialization end && socket send start time [{}]",System.nanoTime());
+
             } catch (IOException var2) {
                 this.setErrorState(ErrorState.CLOSE_CONNECTION_NOW, var2);
             } catch (Throwable var3) {
