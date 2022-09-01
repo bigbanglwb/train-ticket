@@ -97,7 +97,7 @@ spec:
       port: 15680
     - name: debug
       port: 32697
-      nodePort: 32697
+      nodePort: 33980
   selector:
     app: ts-basic-service
 ---
@@ -372,9 +372,13 @@ kind: Service
 metadata:
   name: ts-station-service
 spec:
+  type: NodePort
   ports:
     - name: http
       port: 12345
+    - name: debug
+      port: 32697
+      nodePort: 32697
   selector:
     app: ts-station-service
 ---
