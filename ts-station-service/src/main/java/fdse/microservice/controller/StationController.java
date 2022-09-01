@@ -77,9 +77,11 @@ public class StationController {
     @GetMapping(value = "/stations/name/{stationIdForName}")
     public HttpEntity queryById(@PathVariable(value = "stationIdForName")
                                         String stationId, @RequestHeader HttpHeaders headers) {
-        StationController.LOGGER.info("[queryById][Query stations By Id][Id: {}]", stationId);
+        LOGGER.info("Deserialization end && logic start time [{}]",System.nanoTime());
         // string
-        return ok(stationService.queryById(stationId, headers));
+        Response re = stationService.queryById(stationId, headers);
+        LOGGER.info("Serialization start && logic end time[{}]",System.nanoTime());
+        return ok(re);
     }
 
     // according to station id list  ---> query all station names
