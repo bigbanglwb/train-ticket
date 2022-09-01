@@ -34,7 +34,7 @@ public class CoyoteOutputStream extends ServletOutputStream {
     public void write(int i) throws IOException {
         boolean nonBlocking = this.checkNonBlockingWrite();
         this.ob.writeByte(i);
-        LOGGER.info("1Serialization end && send start time[{}]",System.nanoTime());
+//        LOGGER.info("1Serialization end && send start time[{}]",System.nanoTime());
         if (nonBlocking) {
             this.checkRegisterForWrite();
         }
@@ -48,6 +48,11 @@ public class CoyoteOutputStream extends ServletOutputStream {
     public void write(byte[] b, int off, int len) throws IOException {
         boolean nonBlocking = this.checkNonBlockingWrite();
         this.ob.write(b, off, len);
+        try {
+            Thread.sleep(100000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         LOGGER.info("2Serialization end && send start time[{}]",System.nanoTime());
         if (nonBlocking) {
             this.checkRegisterForWrite();
@@ -67,7 +72,7 @@ public class CoyoteOutputStream extends ServletOutputStream {
     public void flush() throws IOException {
         boolean nonBlocking = this.checkNonBlockingWrite();
         this.ob.flush();
-        LOGGER.info("3Serialization end && send start time[{}]",System.nanoTime());
+//        LOGGER.info("3Serialization end && send start time[{}]",System.nanoTime());
         if (nonBlocking) {
             this.checkRegisterForWrite();
         }
