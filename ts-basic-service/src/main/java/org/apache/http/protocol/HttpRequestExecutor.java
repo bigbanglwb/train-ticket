@@ -21,6 +21,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.client.AbstractClientHttpRequest;
 
+import javax.swing.plaf.TableHeaderUI;
+
 @Contract(
         threading = ThreadingBehavior.IMMUTABLE
 )
@@ -69,6 +71,8 @@ public class HttpRequestExecutor {
         } catch (RuntimeException var7) {
             closeConnection(conn);
             throw var7;
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -88,13 +92,15 @@ public class HttpRequestExecutor {
         processor.process(request, context);
     }
 
-    protected HttpResponse doSendRequest(HttpRequest request, HttpClientConnection conn, HttpContext context) throws IOException, HttpException {
+    protected HttpResponse doSendRequest(HttpRequest request, HttpClientConnection conn, HttpContext context) throws IOException, HttpException, InterruptedException {
         Args.notNull(request, "HTTP request");
         Args.notNull(conn, "Client connection");
         Args.notNull(context, "HTTP context");
         HttpResponse response = null;
         context.setAttribute("http.connection", conn);
         context.setAttribute("http.request_sent", Boolean.FALSE);
+        LOGGER.info("stop before write");
+        Thread.sleep(10000);
         conn.sendRequestHeader(request);
         if (request instanceof HttpEntityEnclosingRequest) {
             boolean sendentity = true;
@@ -124,7 +130,8 @@ public class HttpRequestExecutor {
                 conn.sendRequestEntity((HttpEntityEnclosingRequest)request);
             }
         }
-
+        LOGGER.info("stop before flush");
+        Thread.sleep(10000);
         conn.flush();
         context.setAttribute("http.request_sent", Boolean.TRUE);
         return response;
