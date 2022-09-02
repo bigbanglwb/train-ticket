@@ -67,11 +67,10 @@ public class StationController {
     // according to station name list --->  query all station ids
     @CrossOrigin(origins = "*")
     @PostMapping(value = "/stations/idlist")
-    public HttpEntity queryForIdBatch(@RequestBody List<String> stationNameList, @RequestHeader HttpHeaders headers) throws InterruptedException {
+    public HttpEntity queryForIdBatch(@RequestBody List<String> stationNameList, @RequestHeader HttpHeaders headers)  {
         LOGGER.info("Deserialization end && Logic start time [{}]",System.nanoTime());
         Response re = stationService.queryForIdBatch(stationNameList, headers);
         LOGGER.info("Logic end && Serialization start time[{}]",System.nanoTime());
-        Thread.sleep(1000000);
         return ok(re);
     }
 

@@ -164,12 +164,12 @@ public class DefaultBHttpClientConnection extends BHttpConnectionBase
     @Override
     public HttpResponse receiveResponseHeader() throws HttpException, IOException {
         ensureOpen();
-        LOGGER.info("this.responseParser.parse();");
+
         LOGGER.info("Get response && Start Serialization time [{}]",System.nanoTime());
         final HttpResponse response = this.responseParser.parse();
-        LOGGER.info("onResponseReceived(response)");
+
         onResponseReceived(response);
-        LOGGER.info("response.getStatusLine().getStatusCode()");
+
         if (response.getStatusLine().getStatusCode() >= HttpStatus.SC_OK) {
             incrementResponseCount();
         }
