@@ -99,8 +99,7 @@ public class HttpRequestExecutor {
         HttpResponse response = null;
         context.setAttribute("http.connection", conn);
         context.setAttribute("http.request_sent", Boolean.FALSE);
-        LOGGER.info("stop before write");
-        Thread.sleep(10000);
+
         conn.sendRequestHeader(request);
         if (request instanceof HttpEntityEnclosingRequest) {
             boolean sendentity = true;
@@ -130,8 +129,7 @@ public class HttpRequestExecutor {
                 conn.sendRequestEntity((HttpEntityEnclosingRequest)request);
             }
         }
-        LOGGER.info("stop before flush");
-        Thread.sleep(10000);
+
         conn.flush();
         context.setAttribute("http.request_sent", Boolean.TRUE);
         return response;
