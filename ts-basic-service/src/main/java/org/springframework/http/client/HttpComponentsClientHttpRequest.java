@@ -54,7 +54,7 @@ final class HttpComponentsClientHttpRequest extends AbstractBufferingClientHttpR
         }
 
         HttpResponse httpResponse = this.httpClient.execute(this.httpRequest, this.httpContext);
-        LOGGER.info("this is point 7 [{}]",System.nanoTime());
+
         return new HttpComponentsClientHttpResponse(httpResponse);
     }
 

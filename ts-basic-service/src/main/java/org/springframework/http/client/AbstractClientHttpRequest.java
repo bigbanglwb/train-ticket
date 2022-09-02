@@ -33,7 +33,7 @@ public abstract class AbstractClientHttpRequest implements ClientHttpRequest {
     public final ClientHttpResponse execute() throws IOException {
         this.assertNotExecuted();
         ClientHttpResponse result = this.executeInternal(this.headers);
-        LOGGER.info("this is point AbstractClientHttpRequest excute ");
+
         this.executed = true;
         return result;
     }
