@@ -119,7 +119,7 @@ public class Http11Processor extends AbstractProcessor {
     }
 
     public AbstractEndpoint.Handler.SocketState service(SocketWrapperBase<?> socketWrapper) throws IOException {
-        LOGGER.info("Serialization start time [{}]",System.nanoTime());
+        LOGGER.info("Get request && Deserialization start time [{}]",System.nanoTime());
         RequestInfo rp = this.request.getRequestProcessor();
         rp.setStage(1);
         this.setSocketWrapper(socketWrapper);
