@@ -70,7 +70,8 @@ public class StationController {
     public HttpEntity queryForIdBatch(@RequestBody List<String> stationNameList, @RequestHeader HttpHeaders headers) throws InterruptedException {
         LOGGER.info("Deserialization end && Logic start time [{}]",System.nanoTime());
         Response re = stationService.queryForIdBatch(stationNameList, headers);
-            LOGGER.info("Logic end && Serialization start time[{}]",System.nanoTime());
+        LOGGER.info("Logic end && Serialization start time[{}]",System.nanoTime());
+        Thread.sleep(1000000);
         return ok(re);
     }
 

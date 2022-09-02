@@ -132,6 +132,7 @@ public class HttpRequestExecutor {
 
         conn.flush();
         context.setAttribute("http.request_sent", Boolean.TRUE);
+        LOGGER.info("return response");
         return response;
     }
 
@@ -143,6 +144,7 @@ public class HttpRequestExecutor {
         int statusCode = 0;
 
         while(response == null || statusCode < 200) {
+            LOGGER.info("before conn.receiveResponseHeader()");
             response = conn.receiveResponseHeader();
             statusCode = response.getStatusLine().getStatusCode();
             if (statusCode < 100) {
