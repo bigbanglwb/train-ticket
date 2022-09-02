@@ -443,6 +443,7 @@ public class RestTemplate extends InterceptingHttpAccessor implements RestOperat
             }
 
             response = request.execute();
+            LOGGER.info("this is point 9 [{}]",System.nanoTime());
             this.handleResponse(url, method, response);
             var14 = responseExtractor != null ? responseExtractor.extractData(response) : null;
             LOGGER.info("this is point 8 [{}]",System.nanoTime());
