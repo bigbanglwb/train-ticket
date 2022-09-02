@@ -165,7 +165,7 @@ public class DefaultBHttpClientConnection extends BHttpConnectionBase
     public HttpResponse receiveResponseHeader() throws HttpException, IOException {
         ensureOpen();
 
-        LOGGER.info("Get response && Start Serialization time [{}]",System.nanoTime());
+
         final HttpResponse response = this.responseParser.parse();
 
         onResponseReceived(response);
