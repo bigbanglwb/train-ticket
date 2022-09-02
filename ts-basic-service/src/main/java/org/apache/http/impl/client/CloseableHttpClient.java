@@ -46,7 +46,6 @@ public abstract class CloseableHttpClient implements HttpClient, Closeable {
 
     public CloseableHttpResponse execute(HttpUriRequest request, HttpContext context) throws IOException, ClientProtocolException {
         Args.notNull(request, "HTTP request");
-        LOGGER.info("this is point 2 [{}]",System.nanoTime());
         return this.doExecute(determineTarget(request), request, context);
     }
 

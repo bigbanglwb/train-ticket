@@ -119,7 +119,6 @@ class InternalHttpClient extends CloseableHttpClient implements Configurable {
     }
 
     protected CloseableHttpResponse doExecute(HttpHost target, HttpRequest request, HttpContext context) throws IOException, ClientProtocolException {
-        LOGGER.info("this is interalClient");
         Args.notNull(request, "HTTP request");
         HttpExecutionAware execAware = null;
         if (request instanceof HttpExecutionAware) {
