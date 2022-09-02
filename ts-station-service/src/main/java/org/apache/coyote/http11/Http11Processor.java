@@ -698,7 +698,6 @@ public class Http11Processor extends AbstractProcessor {
                 this.outputBuffer.resetHeaderBuffer();
                 throw var14;
             }
-            LOGGER.info("Serialization end && send start time [{}]",System.nanoTime());
             this.outputBuffer.commit();
         }
     }
