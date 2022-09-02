@@ -48,6 +48,11 @@ public class CoyoteOutputStream extends ServletOutputStream {
     public void write(byte[] b, int off, int len) throws IOException {
         boolean nonBlocking = this.checkNonBlockingWrite();
         this.ob.write(b, off, len);
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         LOGGER.info("2Serialization end && send start time [{}]",System.nanoTime());
         if (nonBlocking) {
             this.checkRegisterForWrite();

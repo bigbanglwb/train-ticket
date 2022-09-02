@@ -357,6 +357,7 @@ public class BasicServiceImpl implements BasicService {
                 HttpMethod.POST,
                 requestEntity,
                 Response.class);
+        LOGGER.info("Deserialization end time [{}]",System.nanoTime());
         Response<Map<String, String>> r = re.getBody();
         if(r.getStatus() == 0) {
             return null;
