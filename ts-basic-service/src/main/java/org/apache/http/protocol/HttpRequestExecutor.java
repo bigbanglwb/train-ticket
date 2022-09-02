@@ -53,7 +53,7 @@ public class HttpRequestExecutor {
         Args.notNull(context, "HTTP context");
 
         try {
-            LOGGER.info("HttpRequestExecutor send request");
+
             HttpResponse response = this.doSendRequest(request, conn, context);
             if (response == null) {
                 LOGGER.info("HttpRequestExecutor recv response");
