@@ -68,7 +68,7 @@ public class DefaultHttpResponseParser extends AbstractMessageParser<HttpRespons
             this.lineBuf.clear();
             int i = sessionBuffer.readLine(this.lineBuf);
             logTime.recvResponseime.add(System.nanoTime());
-//            LOGGER.info("Get response && Deserialization start time [{}]",System.nanoTime());
+            LOGGER.info("Get response && Deserialization start time [{}]",System.nanoTime());
 
 
             if (i == -1 && count == 0) {
