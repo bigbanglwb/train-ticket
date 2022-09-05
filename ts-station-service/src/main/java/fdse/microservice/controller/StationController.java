@@ -69,7 +69,7 @@ public class StationController {
     @CrossOrigin(origins = "*")
     @PostMapping(value = "/stations/idlist")
     public HttpEntity queryForIdBatch(@RequestBody List<String> stationNameList, @RequestHeader HttpHeaders headers)  {
-        logTime.clear();
+
         logTime.logicStartTime.add(System.nanoTime());
 //        LOGGER.info("Deserialization end && Logic start time [{}]",System.nanoTime());
         Response re = stationService.queryForIdBatch(stationNameList, headers);
@@ -78,10 +78,11 @@ public class StationController {
         return ok(re);
     }
     @CrossOrigin(origins = "*")
-    @PostMapping(value = "/printTime")
-    public boolean printLogTime(@RequestBody List<String> stationNameList, @RequestHeader HttpHeaders headers)  {
+    @GetMapping(value = "/printTime")
+    public boolean printLogTime(@RequestHeader HttpHeaders headers)  {
         logTime.print();
-        return ok("1").hasBody();
+        logTime.clear();
+        return true;
     }
 
 

@@ -365,11 +365,7 @@ public class BasicServiceImpl implements BasicService {
 
 
 
-        ResponseEntity<Response> result = restTemplate.exchange(
-                station_service_url + "/api/v1/stationservice/printTime",
-                HttpMethod.POST,
-                requestEntity,
-                Response.class);
+        boolean result = Boolean.TRUE.equals(restTemplate.getForObject(station_service_url + "/api/v1/stationservice/printTime", Boolean.class));
         Response<Map<String, String>> r = re.getBody();
         if(r.getStatus() == 0) {
             return null;
