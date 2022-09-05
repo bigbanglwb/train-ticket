@@ -568,6 +568,8 @@ public class Http11Processor extends AbstractProcessor {
     }
 
     protected final void prepareResponse() throws IOException {
+        System.out.println(response);
+        logTime.serializationStartTime.add(System.nanoTime());
         boolean entityBody = true;
         this.contentDelimitation = false;
         OutputFilter[] outputFilters = this.outputBuffer.getFilters();

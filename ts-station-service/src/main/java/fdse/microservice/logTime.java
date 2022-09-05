@@ -14,10 +14,12 @@ public class logTime {
 
     public static  void clear()
     {
+        deserializationEndTime.clear();
         recvRequestTime.clear();
         logicStartTime.clear();
         logicEndTime.clear();
         sendResponseTime.clear();
+        serializationStartTime.clear();
     }
 
     public static void print()
