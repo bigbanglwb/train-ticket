@@ -26,6 +26,10 @@ public class logTime {
         {
             System.out.println("recvRequestTime: "+time);
         }
+        for (long time :deserializationEndTime)
+        {
+            System.out.println("deserializationEndTime: "+time);
+        }
         for (long time :logicStartTime)
         {
             System.out.println("logicStartTime: "+time);
@@ -33,6 +37,10 @@ public class logTime {
         for (long time :logicEndTime)
         {
             System.out.println("logicEndTime: "+time);
+        }
+        for (long time :serializationStartTime)
+        {
+            System.out.println("serializationStartTime: "+time);
         }
         for (long time :sendResponseTime)
         {

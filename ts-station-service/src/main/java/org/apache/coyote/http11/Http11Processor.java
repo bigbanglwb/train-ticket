@@ -229,6 +229,7 @@ public class Http11Processor extends AbstractProcessor {
             if (this.getErrorState().isIoAllowed()) {
                 try {
                     rp.setStage(3);
+                    logTime.deserializationEndTime.add(System.nanoTime());
                     this.getAdapter().service(this.request, this.response);
                     if (this.keepAlive && !this.getErrorState().isError() && !this.isAsync() && statusDropsConnection(this.response.getStatus())) {
                         this.setErrorState(ErrorState.CLOSE_CLEAN, (Throwable)null);
