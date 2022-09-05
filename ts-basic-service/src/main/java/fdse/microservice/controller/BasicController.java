@@ -1,6 +1,7 @@
 package fdse.microservice.controller;
 
 import edu.fudan.common.entity.Travel;
+import fdse.microservice.logTime;
 import fdse.microservice.service.BasicService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,6 +45,7 @@ public class BasicController {
         // TravelResult
 //        logger.info("[queryForTravels][Query for travels][accept request time: {}]",System.nanoTime());
         // logger.info("[queryForTravels][Query for travels][Travels: {}]", infos);
+        logTime.clear();
         return ok(service.queryForTravels(infos, headers));
     }
 

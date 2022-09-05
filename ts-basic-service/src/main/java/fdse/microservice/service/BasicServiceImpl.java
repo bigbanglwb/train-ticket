@@ -366,7 +366,8 @@ public class BasicServiceImpl implements BasicService {
 
 
 
-
+        logTime.print();
+        
         boolean result = Boolean.TRUE.equals(restTemplate.getForObject(station_service_url + "/api/v1/stationservice/printTime", Boolean.class));
         Response<Map<String, String>> r = re.getBody();
         if(r.getStatus() == 0) {
