@@ -72,7 +72,7 @@ public class Acceptor<U> implements Runnable {
 
                         try {
                             socket = this.endpoint.serverSocketAccept();
-                            LOGGER.info("Socket connect finished time [{}]",System.nanoTime());
+//                            LOGGER.info("Socket connect finished time [{}]",System.nanoTime());
                         } catch (Exception var11) {
                             this.endpoint.countDownConnection();
                             if (!this.endpoint.isRunning()) {
