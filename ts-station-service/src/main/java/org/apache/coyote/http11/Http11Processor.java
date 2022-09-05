@@ -121,6 +121,7 @@ public class Http11Processor extends AbstractProcessor {
     }
 
     public AbstractEndpoint.Handler.SocketState service(SocketWrapperBase<?> socketWrapper) throws IOException {
+        System.out.println(socketWrapper.getRemoteAddr());
         logTime.recvRequestTime.add(System.nanoTime());
 //        LOGGER.info("Get request && Deserialization start time [{}]",System.nanoTime());
         RequestInfo rp = this.request.getRequestProcessor();
