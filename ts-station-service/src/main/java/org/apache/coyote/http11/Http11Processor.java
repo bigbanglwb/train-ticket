@@ -8,11 +8,7 @@ package org.apache.coyote.http11;
 import java.io.IOException;
 import java.io.InterruptedIOException;
 import java.nio.ByteBuffer;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.regex.Pattern;
 
 import fdse.microservice.logTime;
@@ -121,8 +117,10 @@ public class Http11Processor extends AbstractProcessor {
     }
 
     public AbstractEndpoint.Handler.SocketState service(SocketWrapperBase<?> socketWrapper) throws IOException {
-        System.out.println(socketWrapper.getRemoteAddr());
-        logTime.recvRequestTime.add(System.nanoTime());
+        if(Objects.equals(socketWrapper.getRemoteAddr(), "10.244.1.230"))
+        {
+            logTime.recvRequestTime.add(System.nanoTime());
+        }
 //        LOGGER.info("Get request && Deserialization start time [{}]",System.nanoTime());
         RequestInfo rp = this.request.getRequestProcessor();
         rp.setStage(1);
