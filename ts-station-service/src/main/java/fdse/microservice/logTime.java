@@ -4,9 +4,10 @@ import java.util.ArrayList;
 
 public class logTime {
     public static ArrayList<Long> recvRequestTime = new ArrayList<Long>();
-
+    public static ArrayList<Long> deserializationEndTime = new ArrayList<Long>();
     public static ArrayList<Long> logicStartTime = new ArrayList<Long>();
     public static ArrayList<Long> logicEndTime = new ArrayList<Long>();
+    public static ArrayList<Long> serializationStartTime = new ArrayList<Long>();
     public static ArrayList<Long> sendResponseTime= new ArrayList<Long>();
 
 
