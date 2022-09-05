@@ -20,10 +20,10 @@ import com.fasterxml.jackson.databind.ser.*;
 import com.fasterxml.jackson.databind.ser.impl.TypeWrappedSerializer;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.fasterxml.jackson.databind.util.ClassUtil;
-import org.apache.coyote.http11.Http11Processor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import fdse.microservice.logTime;
 /**
  * Builder object that can be used for per-serialization configuration of
  * serialization parameters, such as JSON View and root type to use.
@@ -1009,7 +1009,8 @@ public class ObjectWriter
         } else {
             _prefetch.serialize(g, value, _serializerProvider());
             if (_config.isEnabled(SerializationFeature.FLUSH_AFTER_WRITE_VALUE)) {
-                LOGGER.info("Serialization end && Send Response time [{}]",System.nanoTime());
+                logTime.sendResponseTime.add(System.nanoTime());
+//                LOGGER.info("Serialization end && Send Response time [{}]",System.nanoTime());
                 g.flush();
 
             }

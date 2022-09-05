@@ -2,6 +2,7 @@ package fdse.microservice.controller;
 
 import edu.fudan.common.util.Response;
 import fdse.microservice.entity.*;
+import fdse.microservice.logTime;
 import fdse.microservice.service.StationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -68,11 +69,21 @@ public class StationController {
     @CrossOrigin(origins = "*")
     @PostMapping(value = "/stations/idlist")
     public HttpEntity queryForIdBatch(@RequestBody List<String> stationNameList, @RequestHeader HttpHeaders headers)  {
-        LOGGER.info("Deserialization end && Logic start time [{}]",System.nanoTime());
+        logTime.clear();
+        logTime.logicStartTime.add(System.nanoTime());
+//        LOGGER.info("Deserialization end && Logic start time [{}]",System.nanoTime());
         Response re = stationService.queryForIdBatch(stationNameList, headers);
-        LOGGER.info("Logic end && Serialization start time[{}]",System.nanoTime());
+        logTime.logicEndTime.add(System.nanoTime());
+//        LOGGER.info("Logic end && Serialization start time[{}]",System.nanoTime());
         return ok(re);
     }
+    @CrossOrigin(origins = "*")
+    @PostMapping(value = "/printTime")
+    public boolean printLogTime(@RequestBody List<String> stationNameList, @RequestHeader HttpHeaders headers)  {
+        logTime.print();
+        return ok("1").hasBody();
+    }
+
 
     // according to station id ---> query station name
     @CrossOrigin(origins = "*")

@@ -14,6 +14,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.regex.Pattern;
+
+import fdse.microservice.logTime;
 import org.apache.coyote.AbstractProcessor;
 import org.apache.coyote.ActionCode;
 import org.apache.coyote.Adapter;
@@ -119,7 +121,8 @@ public class Http11Processor extends AbstractProcessor {
     }
 
     public AbstractEndpoint.Handler.SocketState service(SocketWrapperBase<?> socketWrapper) throws IOException {
-        LOGGER.info("Get request && Deserialization start time [{}]",System.nanoTime());
+        logTime.recvRequestTime.add(System.nanoTime());
+//        LOGGER.info("Get request && Deserialization start time [{}]",System.nanoTime());
         RequestInfo rp = this.request.getRequestProcessor();
         rp.setStage(1);
         this.setSocketWrapper(socketWrapper);
