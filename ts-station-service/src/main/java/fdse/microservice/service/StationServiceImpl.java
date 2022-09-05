@@ -100,7 +100,6 @@ public class StationServiceImpl implements StationService {
 
     @Override
     public Response queryForIdBatch(List<String> nameList, HttpHeaders headers) {
-        StationServiceImpl.LOGGER.info("[queryForIdBatch][Find station ids][start logic time: {}]",System.nanoTime());
         Map<String, String> result = new HashMap<>();
         List<Station> stations = repository.findByNames(nameList);
         Map<String, String> stationMap = new HashMap<>();
@@ -113,7 +112,6 @@ public class StationServiceImpl implements StationService {
         }
 
         if (!result.isEmpty()) {
-            StationServiceImpl.LOGGER.info("[queryForIdBatch][Find station ids][all done logic time: {}]",System.nanoTime());
             return new Response<>(1, success, result);
         } else {
             StationServiceImpl.LOGGER.warn("[queryForIdBatch][Find station ids warn][Stations not found][StationNameNumber: {}]",nameList.size());
