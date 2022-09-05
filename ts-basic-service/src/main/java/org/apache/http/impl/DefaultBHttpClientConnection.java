@@ -157,7 +157,7 @@ public class DefaultBHttpClientConnection extends BHttpConnectionBase
             return;
         }
         final OutputStream outStream = prepareOutput(request);
-        System.out.println(request.getRequestLine().getUri());
+//        System.out.println(request.getRequestLine().getUri());
         logTime.sendRequestTime.add(System.nanoTime());
 //        LOGGER.info("Serialization end && Send Request time [{}]",System.nanoTime());
         entity.writeTo(outStream);
