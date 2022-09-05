@@ -69,7 +69,7 @@ public class Http11Processor extends AbstractProcessor {
     private boolean contentDelimitation = true;
     private UpgradeToken upgradeToken = null;
     private SendfileDataBase sendfileData = null;
-    private static final Logger LOGGER = LoggerFactory.getLogger(Http11Processor.class);
+
     public Http11Processor(AbstractHttp11Protocol<?> protocol, Adapter adapter) {
         super(adapter);
         this.protocol = protocol;
