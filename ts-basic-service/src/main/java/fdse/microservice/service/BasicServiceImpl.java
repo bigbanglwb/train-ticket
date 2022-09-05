@@ -355,14 +355,21 @@ public class BasicServiceImpl implements BasicService {
         String station_service_url=getServiceUrl("ts-station-service");
 //        BasicServiceImpl.LOGGER.info("Serialization start time  [{}]", System.nanoTime());
         serializationStartTime =System.nanoTime();
-        BasicServiceImpl.LOGGER.info("send request time (call checkStationExist)  [{}]", send_request_time);
-        BasicServiceImpl.LOGGER.info("Serialization start time  [{}]", serializationStartTime);
         ResponseEntity<Response> re = restTemplate.exchange(
                 station_service_url + "/api/v1/stationservice/stations/idlist",
                 HttpMethod.POST,
                 requestEntity,
                 Response.class);
         LOGGER.info("Deserialization end time [{}]",System.nanoTime());
+
+
+
+
+        ResponseEntity<Response> result = restTemplate.exchange(
+                station_service_url + "/api/v1/stationservice/printTime",
+                HttpMethod.POST,
+                requestEntity,
+                Response.class);
         Response<Map<String, String>> r = re.getBody();
         if(r.getStatus() == 0) {
             return null;
