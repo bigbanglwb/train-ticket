@@ -43,7 +43,8 @@ public class BasicServiceImpl implements BasicService {
     private String getServiceUrl(String serviceName) {
         return "http://" + serviceName;
     }
-
+    long send_request_time;
+    long serializationStartTime;
     @Override
     public Response queryForTravel(Travel info, HttpHeaders headers) {
         Response<Object> response = new Response<>();
@@ -188,7 +189,8 @@ public class BasicServiceImpl implements BasicService {
         //List<String> invalidTrips = new ArrayList<>();
 
         // check if station exist to exclude invalid travel info
-        BasicServiceImpl.LOGGER.info("[queryForTravels][checkStationsExists][send request time:{}]", System.nanoTime());
+        send_request_time = System.nanoTime();
+//        BasicServiceImpl.LOGGER.info("[queryForTravels][checkStationsExists][send request time:{}]", System.nanoTime());
         Map<String, String> stationMap = checkStationsExists(new ArrayList<>(stationNames), headers);
         BasicServiceImpl.LOGGER.info("[queryForTravels][checkStationsExists][get response time:{}]", System.nanoTime());
         if(stationMap == null) {
@@ -348,10 +350,13 @@ public class BasicServiceImpl implements BasicService {
     }
 
     public Map<String,String> checkStationsExists(List<String> stationNames, HttpHeaders headers) {
-        BasicServiceImpl.LOGGER.info("[checkStationsExists][Check Stations Exists][stationNames: {}]", stationNames);
+//        BasicServiceImpl.LOGGER.info("[checkStationsExists][Check Stations Exists][stationNames: {}]", stationNames);
         HttpEntity<List<String>> requestEntity = new HttpEntity<>(stationNames, null);
         String station_service_url=getServiceUrl("ts-station-service");
-        BasicServiceImpl.LOGGER.info("Serialization start time  [{}]", System.nanoTime());
+//        BasicServiceImpl.LOGGER.info("Serialization start time  [{}]", System.nanoTime());
+        serializationStartTime =System.nanoTime();
+        BasicServiceImpl.LOGGER.info("send request time (call checkStationExist)  [{}]", send_request_time);
+        BasicServiceImpl.LOGGER.info("Serialization start time  [{}]", serializationStartTime);
         ResponseEntity<Response> re = restTemplate.exchange(
                 station_service_url + "/api/v1/stationservice/stations/idlist",
                 HttpMethod.POST,
