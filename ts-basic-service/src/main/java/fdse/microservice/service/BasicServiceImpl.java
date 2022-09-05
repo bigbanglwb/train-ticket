@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.fudan.common.entity.*;
 import edu.fudan.common.util.JsonUtils;
 import edu.fudan.common.util.Response;
+import fdse.microservice.logTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -192,7 +193,7 @@ public class BasicServiceImpl implements BasicService {
         send_request_time = System.nanoTime();
 //        BasicServiceImpl.LOGGER.info("[queryForTravels][checkStationsExists][send request time:{}]", System.nanoTime());
         Map<String, String> stationMap = checkStationsExists(new ArrayList<>(stationNames), headers);
-        BasicServiceImpl.LOGGER.info("[queryForTravels][checkStationsExists][get response time:{}]", System.nanoTime());
+//        BasicServiceImpl.LOGGER.info("[queryForTravels][checkStationsExists][get response time:{}]", System.nanoTime());
         if(stationMap == null) {
             response.setStatus(0);
             response.setMsg("all stations don't exist");
@@ -354,13 +355,14 @@ public class BasicServiceImpl implements BasicService {
         HttpEntity<List<String>> requestEntity = new HttpEntity<>(stationNames, null);
         String station_service_url=getServiceUrl("ts-station-service");
 //        BasicServiceImpl.LOGGER.info("Serialization start time  [{}]", System.nanoTime());
-        serializationStartTime =System.nanoTime();
+        logTime.serializationStartTime.add(System.nanoTime());
         ResponseEntity<Response> re = restTemplate.exchange(
                 station_service_url + "/api/v1/stationservice/stations/idlist",
                 HttpMethod.POST,
                 requestEntity,
                 Response.class);
-        LOGGER.info("Deserialization end time [{}]",System.nanoTime());
+        logTime.deserializationEndTime.add(System.nanoTime());
+//        LOGGER.info("Deserialization end time [{}]",System.nanoTime());
 
 
 
