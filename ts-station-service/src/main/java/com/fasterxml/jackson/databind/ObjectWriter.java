@@ -1009,7 +1009,7 @@ public class ObjectWriter
         } else {
             _prefetch.serialize(g, value, _serializerProvider());
             if (_config.isEnabled(SerializationFeature.FLUSH_AFTER_WRITE_VALUE)) {
-                logTime.sendResponseTime.add(System.nanoTime());
+
 //                LOGGER.info("Serialization end && Send Response time [{}]",System.nanoTime());
                 g.flush();
 
