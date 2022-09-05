@@ -42,7 +42,7 @@ public class BasicController {
     @PostMapping(value = "/basic/travels")
     public HttpEntity queryForTravels(@RequestBody List<Travel> infos, @RequestHeader HttpHeaders headers) {
         // TravelResult
-        logger.info("[queryForTravels][Query for travels][accept request time: {}]",System.nanoTime());
+//        logger.info("[queryForTravels][Query for travels][accept request time: {}]",System.nanoTime());
         // logger.info("[queryForTravels][Query for travels][Travels: {}]", infos);
         return ok(service.queryForTravels(infos, headers));
     }

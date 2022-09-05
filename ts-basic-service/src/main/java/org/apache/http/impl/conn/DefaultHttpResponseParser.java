@@ -6,6 +6,8 @@
 package org.apache.http.impl.conn;
 
 import java.io.IOException;
+
+import fdse.microservice.logTime;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.http.HttpException;
@@ -65,8 +67,8 @@ public class DefaultHttpResponseParser extends AbstractMessageParser<HttpRespons
         while(true) {
             this.lineBuf.clear();
             int i = sessionBuffer.readLine(this.lineBuf);
-
-            LOGGER.info("Get response && Deserialization start time [{}]",System.nanoTime());
+            logTime.recvResponseime.add(System.nanoTime());
+//            LOGGER.info("Get response && Deserialization start time [{}]",System.nanoTime());
 
 
             if (i == -1 && count == 0) {

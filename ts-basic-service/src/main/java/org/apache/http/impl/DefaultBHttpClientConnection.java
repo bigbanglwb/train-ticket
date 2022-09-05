@@ -34,6 +34,7 @@ import java.net.SocketTimeoutException;
 import java.nio.charset.CharsetDecoder;
 import java.nio.charset.CharsetEncoder;
 
+import fdse.microservice.logTime;
 import org.apache.http.HttpClientConnection;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpEntityEnclosingRequest;
@@ -156,7 +157,9 @@ public class DefaultBHttpClientConnection extends BHttpConnectionBase
             return;
         }
         final OutputStream outStream = prepareOutput(request);
-        LOGGER.info("Serialization end && Send Request time [{}]",System.nanoTime());
+        System.out.println(request.getRequestLine().getUri());
+        logTime.sendRequestTime.add(System.nanoTime());
+//        LOGGER.info("Serialization end && Send Request time [{}]",System.nanoTime());
         entity.writeTo(outStream);
         outStream.close();
     }
