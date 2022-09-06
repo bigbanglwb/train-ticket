@@ -74,6 +74,8 @@ public class StationController {
 //        LOGGER.info("Deserialization end && Logic start time [{}]",System.nanoTime());
         Response re = stationService.queryForIdBatch(stationNameList, headers);
         logTime.logicEndTime.add(System.nanoTime());
+        logTime.serializationStartTime.clear();
+        logTime.sendResponseTime.clear();
 //        LOGGER.info("Logic end && Serialization start time[{}]",System.nanoTime());
         return ok(re);
     }
@@ -81,6 +83,8 @@ public class StationController {
     @GetMapping(value = "/printTime")
     public boolean printLogTime(@RequestHeader HttpHeaders headers)  {
         logTime.print();
+        System.out.println("****************************************");
+        logTime.print1();
         logTime.clear();
         return true;
     }

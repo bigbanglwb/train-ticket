@@ -49,4 +49,15 @@ public class logTime {
             System.out.println("sendResponseTime: "+time);
         }
     }
+    public static void print1()
+    {
+
+        System.out.println("recvRequestTime: "+recvRequestTime.get(0));
+        System.out.println("deserializationEndTime: "+deserializationEndTime.get(0));
+        System.out.println("logicStartTime: "+logicStartTime.get(0));
+        System.out.println("logicEndTime: "+logicEndTime.get(0));
+        System.out.println("serializationStartTime: "+serializationStartTime.get(0));
+        System.out.println("sendResponseTime: "+sendResponseTime.get(0));
+
+    }
 }
