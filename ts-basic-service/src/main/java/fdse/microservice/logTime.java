@@ -45,7 +45,7 @@ public class logTime {
         }
         for (long time :RPCEndTime)
         {
-            System.out.println("RPCEndTime: "+time);
+            System.out.println("RPCEndTime="+time);
         }
     }
 }
