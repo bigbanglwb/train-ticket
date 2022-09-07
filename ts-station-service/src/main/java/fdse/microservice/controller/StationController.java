@@ -13,6 +13,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
 
 import static org.springframework.http.ResponseEntity.ok;
@@ -82,8 +86,6 @@ public class StationController {
     @CrossOrigin(origins = "*")
     @GetMapping(value = "/printTime")
     public boolean printLogTime(@RequestHeader HttpHeaders headers)  {
-        logTime.print();
-        System.out.println("****************************************");
         logTime.print1();
         logTime.clear();
         return true;

@@ -25,23 +25,23 @@ public class logTime {
     {
         for (long time :RPCStartTime)
         {
-            System.out.println("RPCStartTime: "+time);
+            System.out.println("RPCStartTime="+time);
         }
         for (long time :serializationStartTime)
         {
-            System.out.println("serializationStartTime: "+time);
+            System.out.println("client_serializationStartTime="+time);
         }
         for (long time :sendRequestTime)
         {
-            System.out.println("sendRequestTime: "+time);
+            System.out.println("sendRequestTime="+time);
         }
         for (long time :recvResponseime)
         {
-            System.out.println("recvResponseime: "+time);
+            System.out.println("recvResponseime="+time);
         }
         for (long time :deserializationEndTime)
         {
-            System.out.println("deserializationEndTime: "+time);
+            System.out.println("client_deserializationEndTime="+time);
         }
         for (long time :RPCEndTime)
         {
