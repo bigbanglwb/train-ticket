@@ -54,7 +54,7 @@ public class logTime {
     }
     public static void print1()
     {
-
+        System.out.println("************************");
         System.out.println("recvRequestTime="+recvRequestTime.get(0));
         System.out.println("server_deserializationEndTime="+deserializationEndTime.get(0));
         System.out.println("logicStartTime="+logicStartTime.get(0));

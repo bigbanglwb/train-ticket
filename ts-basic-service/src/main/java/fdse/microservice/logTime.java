@@ -23,6 +23,7 @@ public class logTime {
 
     public static void print()
     {
+        System.out.println("************************");
         for (long time :RPCStartTime)
         {
             System.out.println("RPCStartTime="+time);
