@@ -11,3 +11,7 @@ spring:
 
 swagger:
   controllerPackage: fdse.microservice.controller
+
+logging:
+  level:
+    root: warning
