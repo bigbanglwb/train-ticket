@@ -20,3 +20,7 @@ server:
 
 swagger:
   controllerPackage: fdse.microservice
+
+logging:
+  level:
+    root: warn
