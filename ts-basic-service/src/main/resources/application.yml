@@ -14,4 +14,4 @@ swagger:
 
 logging:
   level:
-    root: warning
+    root: warn
