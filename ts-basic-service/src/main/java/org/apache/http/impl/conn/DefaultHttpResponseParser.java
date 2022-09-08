@@ -34,7 +34,7 @@ public class DefaultHttpResponseParser extends AbstractMessageParser<HttpRespons
     private final Log log;
     private final HttpResponseFactory responseFactory;
     private final CharArrayBuffer lineBuf;
-    private static final Logger LOGGER = LoggerFactory.getLogger(DefaultBHttpClientConnection.class);
+//    private static final Logger LOGGER = LoggerFactory.getLogger(DefaultBHttpClientConnection.class);
     /** @deprecated */
     @Deprecated
     public DefaultHttpResponseParser(SessionInputBuffer buffer, LineParser parser, HttpResponseFactory responseFactory, HttpParams params) {
@@ -68,7 +68,7 @@ public class DefaultHttpResponseParser extends AbstractMessageParser<HttpRespons
             this.lineBuf.clear();
             int i = sessionBuffer.readLine(this.lineBuf);
             logTime.recvResponseime.add(System.nanoTime());
-            LOGGER.info("Get response && Deserialization start time [{}]",System.nanoTime());
+//            LOGGER.info("Get response && Deserialization start time [{}]",System.nanoTime());
 
 
             if (i == -1 && count == 0) {
