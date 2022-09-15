@@ -217,7 +217,7 @@ public class HttpEntityMethodProcessor extends AbstractMessageConverterMethodPro
         }
 
         logTime.serializationStartTime.add(System.nanoTime());
-        System.out.println(logTime.serializationStartTime);
+//        System.out.println(logTime.serializationStartTime);
         // Try even with null body. ResponseBodyAdvice could get involved.
         writeWithMessageConverters(responseEntity.getBody(), returnType, inputMessage, outputMessage);
 
