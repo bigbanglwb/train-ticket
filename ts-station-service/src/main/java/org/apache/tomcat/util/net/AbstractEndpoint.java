@@ -1144,7 +1144,7 @@ public abstract class AbstractEndpoint<S,U> {
             if (socketWrapper == null) {
                 return false;
             }
-            if(!Objects.equals(socketWrapper.remoteAddr, "10.244.1.1"))
+            if(!Objects.equals(socketWrapper.remoteAddr, "10.244.1.1") && socketWrapper.remoteAddr!=null)
             {
                 long time1 = System.nanoTime();
             }

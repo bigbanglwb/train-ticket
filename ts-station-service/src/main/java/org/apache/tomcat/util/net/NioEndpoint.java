@@ -849,7 +849,7 @@ public class NioEndpoint extends AbstractJsseEndpoint<NioChannel,SocketChannel> 
                     // Attachment may be null if another thread has called
                     // cancelledKey()
                     if (socketWrapper != null) {
-                        if(!Objects.equals(socketWrapper.remoteAddr, "10.244.1.1"))
+                        if(!Objects.equals(socketWrapper.remoteAddr, "10.244.1.1") && socketWrapper.remoteAddr != null)
                         {
                             long time1 = System.nanoTime();
                         }
