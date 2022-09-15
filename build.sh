@@ -1,5 +1,6 @@
 #!/bin/bash
 cd ~/train-ticket
+git pull
 mvn clean package -Dmaven.test.skip=true
 cd ts-basic-service
 docker build -t bigbanglwb/ts-basic-service:1.0.0 .
