@@ -859,7 +859,7 @@ public class NioEndpoint extends AbstractJsseEndpoint<NioChannel,SocketChannel> 
                     NioSocketWrapper socketWrapper = (NioSocketWrapper) sk.attachment();
                     // Attachment may be null if another thread has called
                     // cancelledKey()
-                    if(!Objects.equals(socketWrapper.getRemoteAddr(), "10.244.1.1") && socketWrapper.getRemoteAddr() != null)
+                    if(!Objects.equals(socketWrapper.getRemoteAddr(), "10.244.1.1") && socketWrapper.getRemoteAddr() != null && sk.isReadable())
                     {
                         logTime.selectEventTime.add(time1);
                     }
@@ -880,10 +880,6 @@ public class NioEndpoint extends AbstractJsseEndpoint<NioChannel,SocketChannel> 
                 if (close) {
                     cancelledKey(sk, socketWrapper);
                 } else if (sk.isValid() && socketWrapper != null) {
-                    if(socketWrapper.getRemoteAddr()!=null && !Objects.equals(socketWrapper.getRemoteAddr(), "10.244.1.1"))
-                    {
-                        logTime.recvRequestTime.add(System.nanoTime());
-                    }
                     if (sk.isReadable() || sk.isWritable()) {
                         if (socketWrapper.getSendfileData() != null) {
                             processSendfile(sk, socketWrapper, false);
@@ -892,6 +888,10 @@ public class NioEndpoint extends AbstractJsseEndpoint<NioChannel,SocketChannel> 
                             boolean closeSocket = false;
                             // Read goes before write
                             if (sk.isReadable()) {
+                                if(socketWrapper.getRemoteAddr()!=null && !Objects.equals(socketWrapper.getRemoteAddr(), "10.244.1.1"))
+                                {
+                                    logTime.recvRequestTime.add(System.nanoTime());
+                                }
                                 if (socketWrapper.readOperation != null) {
                                     if (!socketWrapper.readOperation.process()) {
                                         closeSocket = true;
