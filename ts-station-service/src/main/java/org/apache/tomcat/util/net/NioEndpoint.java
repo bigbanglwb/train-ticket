@@ -44,6 +44,7 @@ import java.nio.file.attribute.PosixFilePermission;
 import java.nio.file.attribute.PosixFilePermissions;
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
+import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Semaphore;
@@ -865,7 +866,7 @@ public class NioEndpoint extends AbstractJsseEndpoint<NioChannel,SocketChannel> 
                 if (close) {
                     cancelledKey(sk, socketWrapper);
                 } else if (sk.isValid() && socketWrapper != null) {
-                    if(socketWrapper.getRemoteAddr()!=null && socketWrapper.getRemoteAddr() != "10.244.1.1")
+                    if(socketWrapper.getRemoteAddr()!=null && !Objects.equals(socketWrapper.getRemoteAddr(), "10.244.1.1"))
                     {
                         logTime.recvRequestTime.add(System.nanoTime());
                     }
