@@ -501,14 +501,6 @@ public class NioEndpoint extends AbstractJsseEndpoint<NioChannel,SocketChannel> 
      */
     @Override
     protected boolean setSocketOptions(SocketChannel socket) {
-        try {
-            if(socket.getRemoteAddress()!=null && !socket.getRemoteAddress().toString().startsWith("/10.244.1.1"))
-            {
-                logTime.getConnectTime.add(System.nanoTime());
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
         NioSocketWrapper socketWrapper = null;
         try {
             // Allocate channel and wrapper

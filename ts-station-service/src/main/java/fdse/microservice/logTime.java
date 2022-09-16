@@ -13,21 +13,8 @@ public class logTime {
     public static ArrayList<Long> serializationStartTime = new ArrayList<Long>();
     public static ArrayList<Long> sendResponseTime= new ArrayList<Long>();
 
-    public static ArrayList<Long> getConnectTime= new ArrayList<Long>();
-
     public static ArrayList<Long> selectEventTime= new ArrayList<Long>();
-//    public static   ArrayList<ArrayList<Long>> getTime()
-//    {
-//        Object ArrayList = null;
-//        return new ArrayList<ArrayList<Long>>(){{
-//            add(logTime.recvRequestTime);
-//            add(logTime.deserializationEndTime);
-//            add(logTime.logicStartTime);
-//            add(logTime.logicEndTime);
-//            add(logTime.recvRequestTime);
-//            add(logTime.recvRequestTime);
-//        }};
-//    }
+
 
 
     public static  void clear()
@@ -38,12 +25,15 @@ public class logTime {
         logicEndTime.clear();
         sendResponseTime.clear();
         serializationStartTime.clear();
-        getConnectTime.clear();
         selectEventTime.clear();
     }
 
     public static void print()
     {
+        for (long time :selectEventTime)
+        {
+            System.out.println("selectEventTime="+time);
+        }
         for (long time :recvRequestTime)
         {
             System.out.println("recvRequestTime="+time);
@@ -72,6 +62,7 @@ public class logTime {
     public static void print1()
     {
         System.out.println("************************");
+        System.out.println("selectEventTime="+selectEventTime.get(0));
         System.out.println("recvRequestTime="+recvRequestTime.get(0));
         System.out.println("server_deserializationEndTime="+deserializationEndTime.get(0));
         System.out.println("logicStartTime="+logicStartTime.get(0));
