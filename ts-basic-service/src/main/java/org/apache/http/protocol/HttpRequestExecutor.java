@@ -278,11 +278,9 @@ public class HttpRequestExecutor {
             }
             if (canResponseHaveBody(request, response)) {
                 conn.receiveResponseEntity(response);
-                logTime.deserializationEndTime.add(System.nanoTime());
             }
 
         } // while intermediate response
-        logTime.deserializationEndTime.add(System.nanoTime());
         return response;
     }
 

@@ -239,10 +239,9 @@ public class SessionInputBufferImpl implements SessionInputBuffer, BufferInfo {
      */
     @Override
     public int readLine(final CharArrayBuffer charbuffer) throws IOException {
-        logTime.recvResponseime.add(System.nanoTime());
         Args.notNull(charbuffer, "Char array buffer");
-        final int maxLineLen = this.constraints.getMaxLineLength();
         logTime.recvResponseime.add(System.nanoTime());
+        final int maxLineLen = this.constraints.getMaxLineLength();
         int noRead = 0;
         boolean retry = true;
         while (retry) {
@@ -290,7 +289,7 @@ public class SessionInputBufferImpl implements SessionInputBuffer, BufferInfo {
             // indicate the end of stream
             return -1;
         }
-        logTime.recvResponseime.add(System.nanoTime());
+
         return lineFromLineBuffer(charbuffer);
     }
 
