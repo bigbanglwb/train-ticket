@@ -854,6 +854,7 @@ public class NioEndpoint extends AbstractJsseEndpoint<NioChannel,SocketChannel> 
                     if(!Objects.equals(socketWrapper.getRemoteAddr(), "10.244.1.1") && socketWrapper.getRemoteAddr() != null && sk.isReadable())
                     {
                         logTime.selectEventTime.add(time1);
+                        log.warn("select read event");
                     }
                     if (socketWrapper != null) {
                         processKey(sk, socketWrapper);
