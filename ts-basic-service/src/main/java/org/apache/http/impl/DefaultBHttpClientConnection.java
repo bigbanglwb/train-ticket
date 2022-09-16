@@ -50,10 +50,8 @@ import org.apache.http.io.HttpMessageParser;
 import org.apache.http.io.HttpMessageParserFactory;
 import org.apache.http.io.HttpMessageWriter;
 import org.apache.http.io.HttpMessageWriterFactory;
-import org.apache.http.protocol.HttpRequestExecutor;
+
 import org.apache.http.util.Args;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Default implementation of {@link HttpClientConnection}.
@@ -62,7 +60,6 @@ import org.slf4j.LoggerFactory;
  */
 public class DefaultBHttpClientConnection extends BHttpConnectionBase
         implements HttpClientConnection {
-    private static final Logger LOGGER = LoggerFactory.getLogger(DefaultBHttpClientConnection.class);
     private final HttpMessageParser<HttpResponse> responseParser;
     private final HttpMessageWriter<HttpRequest> requestWriter;
 
