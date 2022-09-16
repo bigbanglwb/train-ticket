@@ -13,6 +13,20 @@ public class logTime {
     public static ArrayList<Long> serializationStartTime = new ArrayList<Long>();
     public static ArrayList<Long> sendResponseTime= new ArrayList<Long>();
 
+    public static ArrayList<Long> getConnectTime= new ArrayList<Long>();
+
+//    public static   ArrayList<ArrayList<Long>> getTime()
+//    {
+//        Object ArrayList = null;
+//        return new ArrayList<ArrayList<Long>>(){{
+//            add(logTime.recvRequestTime);
+//            add(logTime.deserializationEndTime);
+//            add(logTime.logicStartTime);
+//            add(logTime.logicEndTime);
+//            add(logTime.recvRequestTime);
+//            add(logTime.recvRequestTime);
+//        }};
+//    }
 
 
     public static  void clear()
