@@ -37,6 +37,7 @@ public class logTime {
         logicEndTime.clear();
         sendResponseTime.clear();
         serializationStartTime.clear();
+        getConnectTime.clear();
     }
 
     public static void print()
