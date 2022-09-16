@@ -117,10 +117,10 @@ public class Http11Processor extends AbstractProcessor {
     }
 
     public AbstractEndpoint.Handler.SocketState service(SocketWrapperBase<?> socketWrapper) throws IOException {
-        if(!Objects.equals(socketWrapper.getRemoteAddr(), "10.244.1.1"))
-        {
-            logTime.recvRequestTime.add(System.nanoTime());
-        }
+//        if(!Objects.equals(socketWrapper.getRemoteAddr(), "10.244.1.1"))
+//        {
+//            logTime.recvRequestTime.add(System.nanoTime());
+//        }
 //        LOGGER.info("Get request && Deserialization start time [{}] [{}]",socketWrapper.getRemoteAddr(),System.nanoTime());
         RequestInfo rp = this.request.getRequestProcessor();
         rp.setStage(1);

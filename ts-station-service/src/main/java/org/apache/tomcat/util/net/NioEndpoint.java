@@ -52,6 +52,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import javax.net.ssl.SSLEngine;
 
+import fdse.microservice.logTime;
 import org.apache.juli.logging.Log;
 import org.apache.juli.logging.LogFactory;
 import org.apache.tomcat.util.ExceptionUtils;
@@ -866,7 +867,7 @@ public class NioEndpoint extends AbstractJsseEndpoint<NioChannel,SocketChannel> 
                 } else if (sk.isValid() && socketWrapper != null) {
                     if(socketWrapper.getRemoteAddr()!=null && socketWrapper.getRemoteAddr() != "10.244.1.1")
                     {
-                        long time1 = System.nanoTime();
+                        logTime.recvRequestTime.add(System.nanoTime());
                     }
                     if (sk.isReadable() || sk.isWritable()) {
                         if (socketWrapper.getSendfileData() != null) {
