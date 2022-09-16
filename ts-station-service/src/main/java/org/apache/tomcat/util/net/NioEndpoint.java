@@ -814,7 +814,7 @@ public class NioEndpoint extends AbstractJsseEndpoint<NioChannel,SocketChannel> 
             while (true) {
 
                 boolean hasEvents = false;
-
+                long time1 = 0;
                 try {
                     if (!close) {
                         hasEvents = events();
@@ -824,6 +824,7 @@ public class NioEndpoint extends AbstractJsseEndpoint<NioChannel,SocketChannel> 
                             keyCount = selector.selectNow();
                         } else {
                             keyCount = selector.select(selectorTimeout);
+                            time1 = System.nanoTime();
                         }
                         wakeupCounter.set(0);
                     }
@@ -841,6 +842,7 @@ public class NioEndpoint extends AbstractJsseEndpoint<NioChannel,SocketChannel> 
                     if (keyCount == 0) {
                         hasEvents = (hasEvents | events());
                     }
+
                 } catch (Throwable x) {
                     ExceptionUtils.handleThrowable(x);
                     log.error(sm.getString("endpoint.nio.selectorLoopError"), x);
@@ -857,6 +859,10 @@ public class NioEndpoint extends AbstractJsseEndpoint<NioChannel,SocketChannel> 
                     NioSocketWrapper socketWrapper = (NioSocketWrapper) sk.attachment();
                     // Attachment may be null if another thread has called
                     // cancelledKey()
+                    if(!Objects.equals(socketWrapper.getRemoteAddr(), "10.244.1.1") && socketWrapper.getRemoteAddr() != null)
+                    {
+                        logTime.selectEventTime.add(time1);
+                    }
                     if (socketWrapper != null) {
                         processKey(sk, socketWrapper);
                     }

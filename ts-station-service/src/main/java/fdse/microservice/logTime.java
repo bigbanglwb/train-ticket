@@ -15,6 +15,7 @@ public class logTime {
 
     public static ArrayList<Long> getConnectTime= new ArrayList<Long>();
 
+    public static ArrayList<Long> selectEventTime= new ArrayList<Long>();
 //    public static   ArrayList<ArrayList<Long>> getTime()
 //    {
 //        Object ArrayList = null;
@@ -38,6 +39,7 @@ public class logTime {
         sendResponseTime.clear();
         serializationStartTime.clear();
         getConnectTime.clear();
+        selectEventTime.clear();
     }
 
     public static void print()
