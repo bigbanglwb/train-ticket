@@ -240,7 +240,7 @@ public class SessionInputBufferImpl implements SessionInputBuffer, BufferInfo {
     @Override
     public int readLine(final CharArrayBuffer charbuffer) throws IOException {
         Args.notNull(charbuffer, "Char array buffer");
-        logTime.recvResponseime.add(System.nanoTime());
+//        logTime.recvResponseime.add(System.nanoTime());
         final int maxLineLen = this.constraints.getMaxLineLength();
         int noRead = 0;
         boolean retry = true;
