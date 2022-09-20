@@ -122,6 +122,7 @@ public class Http11Processor extends AbstractProcessor {
 //            logTime.recvRequestTime.add(System.nanoTime());
 //        }
 //        LOGGER.info("Get request && Deserialization start time [{}] [{}]",socketWrapper.getRemoteAddr(),System.nanoTime());
+        log.warn(System.nanoTime());
         RequestInfo rp = this.request.getRequestProcessor();
         rp.setStage(1);
         this.setSocketWrapper(socketWrapper);

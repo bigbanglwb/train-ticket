@@ -1683,6 +1683,7 @@ public class NioEndpoint extends AbstractJsseEndpoint<NioChannel,SocketChannel> 
             }
 
             try {
+                log.warn(System.nanoTime());
                 int handshake = -1;
                 try {
                     if (socketWrapper.getSocket().isHandshakeComplete()) {
