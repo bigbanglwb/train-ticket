@@ -21,17 +21,11 @@ import java.io.InputStream;
 import java.io.PushbackInputStream;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.EnumSet;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
 
+import fdse.microservice.logTime;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -202,10 +196,14 @@ public abstract class AbstractMessageConverterMethodArgumentResolver implements 
                     if (message.hasBody()) {
                         HttpInputMessage msgToUse =
                                 getAdvice().beforeBodyRead(message, parameter, targetType, converterType);
-                        logger.warn(System.nanoTime());
+
+                            logTime.bodyStartTime.add(System.nanoTime());
+
                         body = (genericConverter != null ? genericConverter.read(targetType, contextClass, msgToUse) :
                                 ((HttpMessageConverter<T>) converter).read(targetClass, msgToUse));
-                        logger.warn(System.nanoTime());
+
+                            logTime.bodyEndTime.add(System.nanoTime());
+
                         body = getAdvice().afterBodyRead(body, msgToUse, parameter, targetType, converterType);
                     }
                     else {

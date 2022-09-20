@@ -15,7 +15,10 @@ public class logTime {
 
     public static ArrayList<Long> selectEventTime= new ArrayList<Long>();
 
-
+    public static ArrayList<Long> socketProcessTime= new ArrayList<Long>();
+    public static ArrayList<Long> HTTP11ProcessTime= new ArrayList<Long>();
+    public static ArrayList<Long> bodyStartTime= new ArrayList<Long>();
+    public static ArrayList<Long> bodyEndTime= new ArrayList<Long>();
 
     public static  void clear()
     {
@@ -26,6 +29,10 @@ public class logTime {
         sendResponseTime.clear();
         serializationStartTime.clear();
         selectEventTime.clear();
+        socketProcessTime.clear();
+        HTTP11ProcessTime.clear();
+        bodyEndTime.clear();
+        bodyStartTime.clear();
     }
 
     public static void print()
@@ -63,8 +70,13 @@ public class logTime {
     {
         System.out.println("************************");
         System.out.println("selectEventTime="+selectEventTime.get(0));
+
         System.out.println("recvRequestTime="+recvRequestTime.get(0));
+        System.out.println("socketProcessTime="+socketProcessTime.get(0));
+        System.out.println("HTTP11ProcessTime="+HTTP11ProcessTime.get(0));
         System.out.println("server_deserializationEndTime="+deserializationEndTime.get(0));
+        System.out.println("bodyStartTime="+bodyStartTime.get(0));
+        System.out.println("bodyEndTime="+bodyEndTime.get(0));
         System.out.println("logicStartTime="+logicStartTime.get(0));
         System.out.println("logicEndTime="+logicEndTime.get(0));
         System.out.println("server_serializationStartTime="+serializationStartTime.get(0));

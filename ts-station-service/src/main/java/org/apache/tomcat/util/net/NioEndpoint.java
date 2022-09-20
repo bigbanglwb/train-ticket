@@ -1683,7 +1683,10 @@ public class NioEndpoint extends AbstractJsseEndpoint<NioChannel,SocketChannel> 
             }
 
             try {
-                log.warn(System.nanoTime());
+                if(!Objects.equals(socketWrapper.getRemoteAddr(), "10.244.1.1"))
+                {
+                    logTime.socketProcessTime.add(System.nanoTime());
+                }
                 int handshake = -1;
                 try {
                     if (socketWrapper.getSocket().isHandshakeComplete()) {
