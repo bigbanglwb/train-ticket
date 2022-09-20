@@ -354,7 +354,7 @@ spec:
     spec:
       containers:
         - name: ts-basic-service
-          image: codewisdom/ts-basic-service:1.0.0
+          image: bigbanglwb/ts-basic-service:1.0.0
           imagePullPolicy: IfNotPresent
           env:
             - name: NODE_IP
@@ -366,6 +366,7 @@ spec:
                 name: nacos
           ports:
             - containerPort: 15680
+            - containerPort: 32697
           resources:
             requests:
               cpu: 100m
@@ -1494,7 +1495,7 @@ spec:
     spec:
       containers:
         - name: ts-station-service
-          image: codewisdom/ts-station-service:1.0.0
+          image: bigbanglwb/ts-station-service:1.0.0
           imagePullPolicy: IfNotPresent
           env:
             - name: NODE_IP
@@ -1508,6 +1509,7 @@ spec:
                 name: nacos
           ports:
             - containerPort: 12345
+            - containerPort: 32697
           resources:
             requests:
               cpu: 100m
