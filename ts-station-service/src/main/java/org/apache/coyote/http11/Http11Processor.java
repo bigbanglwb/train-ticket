@@ -190,7 +190,10 @@ public class Http11Processor extends AbstractProcessor {
                 this.response.setStatus(400);
                 this.setErrorState(ErrorState.CLOSE_CLEAN, var14);
             }
-
+            if(!Objects.equals(socketWrapper.getRemoteAddr(), "10.244.1.1"))
+            {
+                logTime.deserializationEndTime.add(System.nanoTime());
+            }
             if (isConnectionToken(this.request.getMimeHeaders(), "upgrade")) {
                 String requestedProtocol = this.request.getHeader("Upgrade");
                 UpgradeProtocol upgradeProtocol = this.protocol.getUpgradeProtocol(requestedProtocol);

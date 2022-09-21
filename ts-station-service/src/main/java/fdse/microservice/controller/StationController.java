@@ -80,7 +80,6 @@ public class StationController {
         logTime.logicEndTime.add(System.nanoTime());
         logTime.serializationStartTime.clear();
         logTime.sendResponseTime.clear();
-//        Thread.sleep(5000);
         return ok(re);
     }
     @CrossOrigin(origins = "*")

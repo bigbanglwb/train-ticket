@@ -74,7 +74,8 @@ public class logTime {
         System.out.println("recvRequestTime="+recvRequestTime.get(0));
         System.out.println("socketProcessTime="+socketProcessTime.get(0));
         System.out.println("HTTP11ProcessTime="+HTTP11ProcessTime.get(0));
-        System.out.println("server_deserializationEndTime="+deserializationEndTime.get(0));
+        System.out.println("parse_header_line_time="+deserializationEndTime.get(0));
+        System.out.println("server_deserializationEndTime="+deserializationEndTime.get(1));
         System.out.println("bodyStartTime="+bodyStartTime.get(0));
         System.out.println("bodyEndTime="+bodyEndTime.get(0));
         System.out.println("logicStartTime="+logicStartTime.get(0));
