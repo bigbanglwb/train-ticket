@@ -505,6 +505,7 @@ public class TravelServiceImpl implements TravelService {
             assert re != null;
             map.put(serviceName,re.getData());
         }
+        map.put("travel",logTime.getSpringTime());
         return new Response<>(1,"success",map );
     }
 
