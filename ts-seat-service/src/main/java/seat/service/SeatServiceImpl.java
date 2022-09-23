@@ -1,6 +1,7 @@
 package seat.service;
 
 import edu.fudan.common.util.Response;
+import edu.fudan.common.util.logTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -141,12 +142,17 @@ public class SeatServiceImpl implements SeatService {
             //Call the micro service to query all the station information for the trains
             HttpEntity requestEntity = new HttpEntity(seatRequest, null);
             String order_service_url=getServiceUrl("ts-order-service");
+
+
+            logTime.springExitStart.add(System.nanoTime());
             re3 = restTemplate.exchange(
                     order_service_url + "/api/v1/orderservice/order/tickets",
                     HttpMethod.POST,
                     requestEntity,
                     new ParameterizedTypeReference<Response<LeftTicketInfo>>() {
                     });
+            logTime.springExitEnd.add(System.nanoTime());
+
 
             SeatServiceImpl.LOGGER.info("[getLeftTicketOfInterval][Get Order tickets result][result is {}]", re3);
             leftTicketInfo = re3.getBody().getData();
@@ -157,12 +163,16 @@ public class SeatServiceImpl implements SeatService {
             //Call the micro service to query for residual Ticket information: the set of the Ticket sold for the specified seat type
             requestEntity = new HttpEntity(seatRequest, null);
             String order_other_service_url=getServiceUrl("ts-order-other-service");
+
+            logTime.springExitStart.add(System.nanoTime());
             re3 = restTemplate.exchange(
                     order_other_service_url + "/api/v1/orderOtherService/orderOther/tickets",
                     HttpMethod.POST,
                     requestEntity,
                     new ParameterizedTypeReference<Response<LeftTicketInfo>>() {
                     });
+
+            logTime.springExitEnd.add(System.nanoTime());
             SeatServiceImpl.LOGGER.info("[getLeftTicketOfInterval][Get Order tickets result][result is {}]", re3);
             leftTicketInfo = re3.getBody().getData();
         }
@@ -207,12 +217,14 @@ public class SeatServiceImpl implements SeatService {
         String configName = "DirectTicketAllocationProportion";
         HttpEntity requestEntity = new HttpEntity(null);
         String config_service_url = getServiceUrl("ts-config-service");
+        logTime.springExitStart.add(System.nanoTime());
         ResponseEntity<Response<Config>> re = restTemplate.exchange(
                 config_service_url + "/api/v1/configservice/configs/" + configName,
                 HttpMethod.GET,
                 requestEntity,
                 new ParameterizedTypeReference<Response<Config>>() {
                 });
+        logTime.springExitEnd.add(System.nanoTime());
         Response<Config> configValue = re.getBody();
         SeatServiceImpl.LOGGER.info("[getDirectProportion][Configs is : {}]", configValue.getData().toString());
         return Double.parseDouble(configValue.getData().getValue());

@@ -1,5 +1,7 @@
 package price.controller;
 
+import edu.fudan.common.util.Response;
+import edu.fudan.common.util.logTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,8 +45,12 @@ public class PriceController {
     @PostMapping(value = "/prices/byRouteIdsAndTrainTypes")
     public HttpEntity query(@RequestBody List<String> ridsAndTts,
                             @RequestHeader HttpHeaders headers) {
+        logTime.springEnrtyStart.add(System.nanoTime());
         PriceController.LOGGER.info("[findByRouteIdAndTrainType][Query price][routeId and Train Type: {}]", ridsAndTts);
-        return ok(service.findByRouteIdsAndTrainTypes(ridsAndTts, headers));
+
+        Response re = service.findByRouteIdsAndTrainTypes(ridsAndTts, headers);
+        logTime.springEnrtyEnd.add(System.nanoTime());
+        return ok(re );
     }
 
     @GetMapping(value = "/prices")
@@ -70,5 +76,10 @@ public class PriceController {
     public HttpEntity update(@RequestBody PriceConfig info, @RequestHeader HttpHeaders headers) {
         PriceController.LOGGER.info("[updatePriceConfig][Update price][PriceConfigId: {}]",info.getId());
         return ok(service.updatePriceConfig(info, headers));
+    }
+    @CrossOrigin(origins = "*")
+    @GetMapping(value = "/loggingTime")
+    public HttpEntity queryLoggingTime(@RequestHeader HttpHeaders headers) {
+        return ok(logTime.getSpringTime());
     }
 }

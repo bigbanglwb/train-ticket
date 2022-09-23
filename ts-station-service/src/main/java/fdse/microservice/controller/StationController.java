@@ -2,7 +2,7 @@ package fdse.microservice.controller;
 
 import edu.fudan.common.util.Response;
 import fdse.microservice.entity.*;
-import fdse.microservice.logTime;
+import fdse.microservice.stationLogTime;
 import fdse.microservice.service.StationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,10 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.List;
 
 import static org.springframework.http.ResponseEntity.ok;
@@ -74,19 +70,24 @@ public class StationController {
     @PostMapping(value = "/stations/idlist")
     public HttpEntity queryForIdBatch(@RequestBody List<String> stationNameList, @RequestHeader HttpHeaders headers) throws InterruptedException {
 
-        logTime.logicStartTime.add(System.nanoTime());
-
+        stationLogTime.logicStartTime.add(System.nanoTime());
+        stationLogTime.springEnrtyStart.add(System.nanoTime());
         Response re = stationService.queryForIdBatch(stationNameList, headers);
-        logTime.logicEndTime.add(System.nanoTime());
-        logTime.serializationStartTime.clear();
-        logTime.sendResponseTime.clear();
+        stationLogTime.logicEndTime.add(System.nanoTime());
+
+
+
+        stationLogTime.serializationStartTime.clear();
+        stationLogTime.sendResponseTime.clear();
+
+        stationLogTime.springEnrtyEnd.add(System.nanoTime());
         return ok(re);
     }
     @CrossOrigin(origins = "*")
     @GetMapping(value = "/printTime")
     public boolean printLogTime(@RequestHeader HttpHeaders headers)  {
-        logTime.print1();
-        logTime.clear();
+        stationLogTime.print1();
+        stationLogTime.clear();
         return true;
     }
 
@@ -107,5 +108,9 @@ public class StationController {
         StationController.LOGGER.info("[queryByIdBatch][Query stations for name batch][StationIdNumbers: {}]",stationIdList.size());
         return ok(stationService.queryByIdBatch(stationIdList, headers));
     }
-
+    @CrossOrigin(origins = "*")
+    @GetMapping(value = "/loggingTime")
+    public HttpEntity queryLoggingTime(@RequestHeader HttpHeaders headers) {
+        return ok(stationLogTime.getSpringTime());
+    }
 }

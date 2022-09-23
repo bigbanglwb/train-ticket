@@ -1,7 +1,9 @@
 package order.controller;
 
 import edu.fudan.common.entity.Seat;
+import edu.fudan.common.util.Response;
 import edu.fudan.common.util.StringUtils;
+import edu.fudan.common.util.logTime;
 import order.entity.*;
 import order.service.OrderService;
 import org.slf4j.Logger;
@@ -36,8 +38,11 @@ public class OrderController {
 
     @PostMapping(value = "/order/tickets")
     public HttpEntity getTicketListByDateAndTripId(@RequestBody Seat seatRequest, @RequestHeader HttpHeaders headers) {
+        logTime.springEnrtyStart.add(System.nanoTime());
         OrderController.LOGGER.info("[getSoldTickets][Get Sold Ticket][Travel Date: {}]", seatRequest.getTravelDate().toString());
-        return ok(orderService.getSoldTickets(seatRequest, headers));
+        Response re= orderService.getSoldTickets(seatRequest, headers);
+        logTime.springEnrtyEnd.add(System.nanoTime());
+        return ok(re);
     }
 
     @CrossOrigin(origins = "*")
@@ -154,6 +159,12 @@ public class OrderController {
         OrderController.LOGGER.info("[getAllOrders][Find All Order]");
         // ArrayList<Order>
         return ok(orderService.getAllOrders(headers));
+    }
+
+    @CrossOrigin(origins = "*")
+    @GetMapping(value = "/loggingTime")
+    public HttpEntity queryLoggingTime(@RequestHeader HttpHeaders headers) {
+        return ok(logTime.getSpringTime());
     }
 
 }

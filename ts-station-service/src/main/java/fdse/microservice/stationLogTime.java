@@ -1,10 +1,8 @@
 package fdse.microservice;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
-public class logTime {
+import edu.fudan.common.util.logTime;
+public class stationLogTime extends logTime {
 
     public static ArrayList<Long> recvRequestTime = new ArrayList<Long>();
     public static ArrayList<Long> deserializationEndTime = new ArrayList<Long>();
@@ -20,6 +18,7 @@ public class logTime {
     public static ArrayList<Long> bodyStartTime= new ArrayList<Long>();
     public static ArrayList<Long> bodyEndTime= new ArrayList<Long>();
 
+
     public static  void clear()
     {
         deserializationEndTime.clear();
@@ -33,6 +32,10 @@ public class logTime {
         HTTP11ProcessTime.clear();
         bodyEndTime.clear();
         bodyStartTime.clear();
+        springEnrtyStart.clear();
+        springExitStart.clear();
+        springExitEnd.clear();
+        springEnrtyEnd.clear();
     }
 
     public static void print()
@@ -84,4 +87,5 @@ public class logTime {
         System.out.println("sendResponseTime="+sendResponseTime.get(0));
 
     }
+
 }

@@ -1,6 +1,7 @@
 package train.controller;
 
 import edu.fudan.common.util.Response;
+import edu.fudan.common.util.logTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,13 +70,18 @@ public class TrainController {
     @CrossOrigin(origins = "*")
     @PostMapping(value = "/trains/byNames")
     public HttpEntity retrieveByName(@RequestBody List<String> names, @RequestHeader HttpHeaders headers) {
+        logTime.springEnrtyStart.add(System.nanoTime());
         TrainController.LOGGER.info("[retrieveByNames][Retrieve train][TrainTypeNames: {}]", names);
         List<TrainType> trainTypes = trainService.retrieveByNames(names, headers);
+        Response re;
         if (trainTypes == null) {
-            return ok(new Response(0, "here is no TrainTypes with the trainType names: " + names, null));
+            re = new Response(0, "here is no TrainTypes with the trainType names: " + names, null);
         } else {
-            return ok(new Response(1, "success", trainTypes));
+            re = new Response(1, "success", trainTypes);
+
         }
+        logTime.springEnrtyEnd.add(System.nanoTime());
+        return ok(re);
     }
 
     @CrossOrigin(origins = "*")
@@ -112,5 +118,11 @@ public class TrainController {
         } else {
             return ok(new Response(0, "no content", trainTypes));
         }
+    }
+
+    @CrossOrigin(origins = "*")
+    @GetMapping(value = "/loggingTime")
+    public HttpEntity queryLoggingTime(@RequestHeader HttpHeaders headers) {
+        return ok(logTime.getSpringTime());
     }
 }

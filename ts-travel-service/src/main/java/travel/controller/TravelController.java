@@ -4,6 +4,7 @@ import edu.fudan.common.entity.TravelInfo;
 import edu.fudan.common.entity.TripAllDetailInfo;
 import edu.fudan.common.entity.TripInfo;
 import edu.fudan.common.entity.TripResponse;
+import edu.fudan.common.util.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import edu.fudan.common.util.logTime;
 import edu.fudan.common.entity.TravelInfo;
 import travel.entity.*;
 import travel.service.TravelService;
@@ -112,6 +113,8 @@ public class TravelController {
     @CrossOrigin(origins = "*")
     @PostMapping(value = "/trips/left")
     public HttpEntity queryInfo(@RequestBody TripInfo info, @RequestHeader HttpHeaders headers) {
+        logTime.springEnrtyStart.add(System.nanoTime());
+
         if (info.getStartPlace() == null || info.getStartPlace().length() == 0 ||
                 info.getEndPlace() == null || info.getEndPlace().length() == 0 ||
                 info.getDepartureTime() == null) {
@@ -120,7 +123,10 @@ public class TravelController {
             return ok(errorList);
         }
         TravelController.LOGGER.info("[query][Query TripResponse]");
-        return ok(travelService.queryByBatch(info, headers));
+        Response re  = travelService.queryByBatch(info, headers);
+
+        logTime.springEnrtyEnd.add(System.nanoTime());
+        return ok(re);
     }
 
     /**
@@ -168,6 +174,12 @@ public class TravelController {
         return ok(travelService.queryAll(headers));
     }
 
+
+    @CrossOrigin(origins = "*")
+    @GetMapping(value = "/loggingTime")
+    public HttpEntity queryLoggingTime(@RequestHeader HttpHeaders headers) {
+        return ok(travelService.queryLoggingTime(headers));
+    }
     @CrossOrigin(origins = "*")
     @GetMapping(value = "/admin_trip")
     public HttpEntity adminQueryAll(@RequestHeader HttpHeaders headers) {

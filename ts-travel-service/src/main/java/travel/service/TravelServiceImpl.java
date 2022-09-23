@@ -6,6 +6,7 @@ import edu.fudan.common.entity.*;
 import edu.fudan.common.util.JsonUtils;
 import edu.fudan.common.util.Response;
 import edu.fudan.common.util.StringUtils;
+import edu.fudan.common.util.logTime;
 import org.apache.skywalking.apm.toolkit.trace.TraceCrossThread;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -344,11 +345,15 @@ public class TravelServiceImpl implements TravelService {
 
         HttpEntity requestEntity = new HttpEntity(infos, null);
         String basic_service_url = getServiceUrl("ts-basic-service");
+
+        logTime.springExitStart.add(System.nanoTime());
+
         ResponseEntity<Response> re = restTemplate.exchange(
                 basic_service_url + "/api/v1/basicservice/basic/travels",
                 HttpMethod.POST,
                 requestEntity,
                 Response.class);
+        logTime.springExitEnd.add(System.nanoTime());
 
         Response r = re.getBody();
         if(r.getStatus() == 0){
@@ -475,6 +480,34 @@ public class TravelServiceImpl implements TravelService {
         return new Response<>(0, noContent, null);
     }
 
+    public Response queryLoggingTime(HttpHeaders headers) {
+        List<String> serviceList = Arrays.asList(
+                "basic",
+                "station",
+                "train",
+                "route",
+                "price",
+                "seat",
+                "order",
+                "config"
+        );
+        Map<String,Object> map = null;
+        for(String serviceName :serviceList)
+        {
+            String serviceUrl = getServiceUrl("ts"+serviceName+"service");
+            HttpEntity requestEntity = new HttpEntity(null);
+            Response re = restTemplate.exchange(
+                    serviceUrl + "/api/v1/"+serviceName+"/loggingTime",
+                    HttpMethod.GET,
+                    requestEntity,
+                    Response.class
+            ).getBody();
+            assert re != null;
+            map.put(serviceName,re.getData());
+        }
+        return new Response<>(1,"success",map );
+    }
+
     private static boolean afterToday(String date) {
         Calendar calDateA = Calendar.getInstance();
         Date today = new Date();
@@ -549,12 +582,14 @@ public class TravelServiceImpl implements TravelService {
 
         HttpEntity requestEntity = new HttpEntity(seatRequest, null);
         String seat_service_url = getServiceUrl("ts-seat-service");
+        logTime.springExitStart.add(System.nanoTime());
         ResponseEntity<Response<Integer>> re = restTemplate.exchange(
                 seat_service_url + "/api/v1/seatservice/seats/left_tickets",
                 HttpMethod.POST,
                 requestEntity,
                 new ParameterizedTypeReference<Response<Integer>>() {
                 });
+        logTime.springExitEnd.add(System.nanoTime());
         TravelServiceImpl.LOGGER.info("[getRestTicketNumber][Get Rest tickets num][num is: {}]", re.getBody().toString());
 
         return re.getBody().getData();

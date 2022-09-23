@@ -1,6 +1,7 @@
 package route.controller;
 
 import edu.fudan.common.util.Response;
+import edu.fudan.common.util.logTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,8 +51,11 @@ public class RouteController {
 
     @PostMapping(path = "/routes/byIds")
     public HttpEntity queryByIds(@RequestBody List<String> routeIds, @RequestHeader HttpHeaders headers) {
+        logTime.springEnrtyStart.add(System.nanoTime());
         RouteController.LOGGER.info("[getRouteById][Query route by id][RouteId: {}]", routeIds);
-        return ok(routeService.getRouteByIds(routeIds, headers));
+        Response re = routeService.getRouteByIds(routeIds, headers);
+        logTime.springEnrtyEnd.add(System.nanoTime());
+        return ok(re);
     }
 
     @GetMapping(path = "/routes")
@@ -66,6 +70,12 @@ public class RouteController {
                                               @RequestHeader HttpHeaders headers) {
         RouteController.LOGGER.info("[getRouteByStartAndEnd][Query routes][start: {}, end: {}]", start, end);
         return ok(routeService.getRouteByStartAndEnd(start, end, headers));
+    }
+
+    @CrossOrigin(origins = "*")
+    @GetMapping(value = "/loggingTime")
+    public HttpEntity queryLoggingTime(@RequestHeader HttpHeaders headers) {
+        return ok(logTime.getSpringTime());
     }
 
 }

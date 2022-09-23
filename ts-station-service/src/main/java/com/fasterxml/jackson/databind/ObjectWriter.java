@@ -23,7 +23,6 @@ import com.fasterxml.jackson.databind.util.ClassUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import fdse.microservice.logTime;
 /**
  * Builder object that can be used for per-serialization configuration of
  * serialization parameters, such as JSON View and root type to use.

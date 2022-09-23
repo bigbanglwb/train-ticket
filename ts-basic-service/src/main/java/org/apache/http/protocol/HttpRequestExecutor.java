@@ -29,7 +29,6 @@ package org.apache.http.protocol;
 
 import java.io.IOException;
 
-import fdse.microservice.logTime;
 import org.apache.http.HttpClientConnection;
 import org.apache.http.HttpEntityEnclosingRequest;
 import org.apache.http.HttpException;

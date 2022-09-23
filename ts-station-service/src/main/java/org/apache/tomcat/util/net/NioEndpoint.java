@@ -53,7 +53,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import javax.net.ssl.SSLEngine;
 
-import fdse.microservice.logTime;
+import fdse.microservice.stationLogTime;
 import org.apache.juli.logging.Log;
 import org.apache.juli.logging.LogFactory;
 import org.apache.tomcat.util.ExceptionUtils;
@@ -853,7 +853,7 @@ public class NioEndpoint extends AbstractJsseEndpoint<NioChannel,SocketChannel> 
                     // cancelledKey()
                     if(!Objects.equals(socketWrapper.getRemoteAddr(), "10.244.1.1") && socketWrapper.getRemoteAddr() != null && sk.isReadable())
                     {
-                        logTime.selectEventTime.add(time1);
+                        stationLogTime.selectEventTime.add(time1);
 //                        log.warn("select read event");
                     }
                     if (socketWrapper != null) {
@@ -883,7 +883,7 @@ public class NioEndpoint extends AbstractJsseEndpoint<NioChannel,SocketChannel> 
                             if (sk.isReadable()) {
                                 if(socketWrapper.getRemoteAddr()!=null && !Objects.equals(socketWrapper.getRemoteAddr(), "10.244.1.1"))
                                 {
-                                    logTime.recvRequestTime.add(System.nanoTime());
+                                    stationLogTime.recvRequestTime.add(System.nanoTime());
                                 }
                                 if (socketWrapper.readOperation != null) {
                                     if (!socketWrapper.readOperation.process()) {
@@ -1685,7 +1685,7 @@ public class NioEndpoint extends AbstractJsseEndpoint<NioChannel,SocketChannel> 
             try {
                 if(!Objects.equals(socketWrapper.getRemoteAddr(), "10.244.1.1"))
                 {
-                    logTime.socketProcessTime.add(System.nanoTime());
+                    stationLogTime.socketProcessTime.add(System.nanoTime());
                 }
                 int handshake = -1;
                 try {

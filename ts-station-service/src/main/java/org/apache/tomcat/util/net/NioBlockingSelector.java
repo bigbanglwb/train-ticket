@@ -31,7 +31,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import fdse.microservice.logTime;
+import fdse.microservice.stationLogTime;
 import org.apache.juli.logging.Log;
 import org.apache.juli.logging.LogFactory;
 import org.apache.tomcat.util.ExceptionUtils;
@@ -119,7 +119,7 @@ public class NioBlockingSelector {
                 if (keycount > 0) { //only write if we were registered for a write
                     if(!Objects.equals(socket.getSocketWrapper().remoteAddr, "10.244.1.1"))
                     {
-                        logTime.sendResponseTime.add(System.nanoTime());
+                        stationLogTime.sendResponseTime.add(System.nanoTime());
                     }
                     int cnt = socket.write(buf); //write the data
                     if (cnt == -1) {

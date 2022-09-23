@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.fudan.common.entity.*;
 import edu.fudan.common.util.JsonUtils;
 import edu.fudan.common.util.Response;
-import fdse.microservice.logTime;
+import fdse.microservice.basicLogTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,16 +14,9 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.client.ClientHttpRequest;
-import org.springframework.http.client.ClientHttpResponse;
-import org.springframework.lang.Nullable;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-import org.springframework.util.Assert;
 import org.springframework.web.client.*;
 
-import java.io.IOException;
-import java.net.URI;
 import java.util.*;
 
 
@@ -192,6 +185,7 @@ public class BasicServiceImpl implements BasicService {
         // check if station exist to exclude invalid travel info
         send_request_time = System.nanoTime();
 //        BasicServiceImpl.LOGGER.info("[queryForTravels][checkStationsExists][send request time:{}]", System.nanoTime());
+
         Map<String, String> stationMap = checkStationsExists(new ArrayList<>(stationNames), headers);
 //        BasicServiceImpl.LOGGER.info("[queryForTravels][checkStationsExists][get response time:{}]", System.nanoTime());
         if(stationMap == null) {
@@ -355,20 +349,23 @@ public class BasicServiceImpl implements BasicService {
         HttpEntity<List<String>> requestEntity = new HttpEntity<>(stationNames, null);
         String station_service_url=getServiceUrl("ts-station-service");
 //        BasicServiceImpl.LOGGER.info("Serialization start time  [{}]", System.nanoTime());
-        logTime.RPCStartTime.add(System.nanoTime());
+        basicLogTime.RPCStartTime.add(System.nanoTime());
+        basicLogTime.springExitStart.add(System.nanoTime());
         ResponseEntity<Response> re = restTemplate.exchange(
                 station_service_url + "/api/v1/stationservice/stations/idlist",
                 HttpMethod.POST,
                 requestEntity,
                 Response.class);
-        logTime.RPCEndTime.add(System.nanoTime());
+        basicLogTime.springExitEnd.add(System.nanoTime());
+
+        basicLogTime.RPCEndTime.add(System.nanoTime());
 //        LOGGER.info("Deserialization end time [{}]",System.nanoTime());
 
 
 
-        logTime.print();
+//        logTime.print();
         
-        boolean result = Boolean.TRUE.equals(restTemplate.getForObject(station_service_url + "/api/v1/stationservice/printTime", Boolean.class));
+//        boolean result = Boolean.TRUE.equals(restTemplate.getForObject(station_service_url + "/api/v1/stationservice/printTime", Boolean.class));
         Response<Map<String, String>> r = re.getBody();
         if(r.getStatus() == 0) {
             return null;
@@ -395,11 +392,13 @@ public class BasicServiceImpl implements BasicService {
         BasicServiceImpl.LOGGER.info("[queryTrainTypeByNames][Query Train Type][Train Type names: {}]", trainTypeNames);
         HttpEntity<List<String>> requestEntity = new HttpEntity<>(trainTypeNames, null);
         String train_service_url=getServiceUrl("ts-train-service");
+        basicLogTime.springExitStart.add(System.nanoTime());
         ResponseEntity<Response> re = restTemplate.exchange(
                 train_service_url + "/api/v1/trainservice/trains/byNames",
                 HttpMethod.POST,
                 requestEntity,
                 Response.class);
+        basicLogTime.springExitEnd.add(System.nanoTime());
         Response<List<TrainType>>  response = re.getBody();
         if(response.getStatus() == 0){
             return null;
@@ -426,11 +425,13 @@ public class BasicServiceImpl implements BasicService {
         BasicServiceImpl.LOGGER.info("[getRoutesByRouteIds][Get Route By Ids][Route IDs：{}]", routeIds);
         HttpEntity<List<String>> requestEntity = new HttpEntity<>(routeIds, null);
         String route_service_url=getServiceUrl("ts-route-service");
+        basicLogTime.springExitStart.add(System.nanoTime());
         ResponseEntity<Response> re = restTemplate.exchange(
                 route_service_url + "/api/v1/routeservice/routes/byIds/",
                 HttpMethod.POST,
                 requestEntity,
                 Response.class);
+        basicLogTime.springExitEnd.add(System.nanoTime());
         Response<List<Route>> result = re.getBody();
         if ( result.getStatus() == 0) {
             BasicServiceImpl.LOGGER.warn("[getRoutesByRouteIds][Get Route By Ids Failed][Fail msg: {}]", result.getMsg());
@@ -480,11 +481,16 @@ public class BasicServiceImpl implements BasicService {
         BasicServiceImpl.LOGGER.info("[queryPriceConfigByRouteIdsAndTrainTypes][Query For Price Config][RouteId and TrainType: {}]", routeIdsTypes);
         HttpEntity<List<String>> requestEntity = new HttpEntity<>(routeIdsTypes, null);
         String price_service_url=getServiceUrl("ts-price-service");
+
+        basicLogTime.springExitStart.add(System.nanoTime());
+
         ResponseEntity<Response> re = restTemplate.exchange(
                 price_service_url + "/api/v1/priceservice/prices/byRouteIdsAndTrainTypes",
                 HttpMethod.POST,
                 requestEntity,
                 Response.class);
+        basicLogTime.springExitEnd.add(System.nanoTime());
+
         Response<Map<String, PriceConfig>> result = re.getBody();
 
         Map<String, PriceConfig> pcMap;

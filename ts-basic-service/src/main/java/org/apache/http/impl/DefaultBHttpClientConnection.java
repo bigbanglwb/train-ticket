@@ -34,7 +34,7 @@ import java.net.SocketTimeoutException;
 import java.nio.charset.CharsetDecoder;
 import java.nio.charset.CharsetEncoder;
 
-import fdse.microservice.logTime;
+import fdse.microservice.basicLogTime;
 import org.apache.http.HttpClientConnection;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpEntityEnclosingRequest;
@@ -139,7 +139,7 @@ public class DefaultBHttpClientConnection extends BHttpConnectionBase
             throws HttpException, IOException {
         Args.notNull(request, "HTTP request");
         ensureOpen();
-        logTime.serializationStartTime.add(System.nanoTime());
+        basicLogTime.serializationStartTime.add(System.nanoTime());
         this.requestWriter.write(request);
         onRequestSubmitted(request);
         incrementRequestCount();
@@ -183,7 +183,7 @@ public class DefaultBHttpClientConnection extends BHttpConnectionBase
         ensureOpen();
         final HttpEntity entity = prepareInput(response);
         response.setEntity(entity);
-        logTime.deserializationEndTime.add(System.nanoTime());
+        basicLogTime.deserializationEndTime.add(System.nanoTime());
 
     }
 

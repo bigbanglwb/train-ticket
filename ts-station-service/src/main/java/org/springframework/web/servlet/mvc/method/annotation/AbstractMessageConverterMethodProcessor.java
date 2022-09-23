@@ -30,7 +30,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import fdse.microservice.logTime;
+import fdse.microservice.stationLogTime;
 import org.springframework.core.GenericTypeResolver;
 import org.springframework.core.MethodParameter;
 import org.springframework.core.ParameterizedTypeReference;
@@ -275,7 +275,7 @@ public abstract class AbstractMessageConverterMethodProcessor extends AbstractMe
                                 "Writing [" + LogFormatUtils.formatValue(theBody, !traceOn) + "]");
                         addContentDispositionHeader(inputMessage, outputMessage);
                         if (genericConverter != null) {
-                            logTime.serializationStartTime.add(System.nanoTime());
+                            stationLogTime.serializationStartTime.add(System.nanoTime());
                             genericConverter.write(body, targetType, selectedMediaType, outputMessage);
                         }
                         else {

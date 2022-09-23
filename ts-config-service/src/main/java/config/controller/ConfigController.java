@@ -2,6 +2,8 @@ package config.controller;
 
 import config.entity.Config;
 import config.service.ConfigService;
+import edu.fudan.common.util.Response;
+import edu.fudan.common.util.logTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,10 +66,17 @@ public class ConfigController {
     @CrossOrigin(origins = "*")
     @GetMapping(value = "/configs/{configName}")
     public HttpEntity retrieve(@PathVariable String configName, @RequestHeader HttpHeaders headers) {
+        logTime.springEnrtyStart.add(System.nanoTime());
         logger.info("[retrieve][Retrieve config][configName: {}]", configName);
-        return ok(configService.query(configName, headers));
+        Response re = configService.query(configName, headers);
+        logTime.springEnrtyEnd.add(System.nanoTime());
+        return ok(re);
     }
-
+    @CrossOrigin(origins = "*")
+    @GetMapping(value = "/loggingTime")
+    public HttpEntity queryLoggingTime(@RequestHeader HttpHeaders headers) {
+        return ok(logTime.getSpringTime());
+    }
 
 
 }

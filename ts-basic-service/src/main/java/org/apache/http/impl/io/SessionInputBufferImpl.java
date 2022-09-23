@@ -34,7 +34,6 @@ import java.nio.CharBuffer;
 import java.nio.charset.CharsetDecoder;
 import java.nio.charset.CoderResult;
 
-import fdse.microservice.logTime;
 import org.apache.http.MessageConstraintException;
 import org.apache.http.config.MessageConstraints;
 import org.apache.http.io.BufferInfo;

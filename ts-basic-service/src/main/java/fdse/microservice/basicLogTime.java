@@ -1,15 +1,14 @@
 package fdse.microservice;
 
 import java.util.ArrayList;
-
-public class logTime {
+import edu.fudan.common.util.logTime;
+public class basicLogTime extends logTime {
     public static ArrayList<Long> RPCStartTime = new ArrayList<Long>();
     public static ArrayList<Long> serializationStartTime = new ArrayList<Long>();
     public static ArrayList<Long> sendRequestTime = new ArrayList<Long>();
     public static ArrayList<Long> recvResponseime = new ArrayList<Long>();
     public static ArrayList<Long> deserializationEndTime= new ArrayList<Long>();
     public static ArrayList<Long> RPCEndTime= new ArrayList<Long>();
-
 
     public static  void clear()
     {
@@ -19,6 +18,10 @@ public class logTime {
         recvResponseime.clear();
         deserializationEndTime.clear();
         RPCEndTime.clear();
+        springEnrtyStart.clear();
+        springExitStart.clear();
+        springExitEnd.clear();
+        springEnrtyEnd.clear();
     }
 
     public static void print()
@@ -49,4 +52,6 @@ public class logTime {
             System.out.println("RPCEndTime="+time);
         }
     }
+
+
 }

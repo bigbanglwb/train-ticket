@@ -11,7 +11,7 @@ import java.nio.ByteBuffer;
 import java.util.*;
 import java.util.regex.Pattern;
 
-import fdse.microservice.logTime;
+import fdse.microservice.stationLogTime;
 import org.apache.coyote.AbstractProcessor;
 import org.apache.coyote.ActionCode;
 import org.apache.coyote.Adapter;
@@ -50,8 +50,6 @@ import org.apache.tomcat.util.net.SendfileState;
 import org.apache.tomcat.util.net.SocketWrapperBase;
 import org.apache.tomcat.util.net.AbstractEndpoint.Handler.SocketState;
 import org.apache.tomcat.util.res.StringManager;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class Http11Processor extends AbstractProcessor {
     private static final Log log = LogFactory.getLog(Http11Processor.class);
@@ -124,7 +122,7 @@ public class Http11Processor extends AbstractProcessor {
 //        LOGGER.info("Get request && Deserialization start time [{}] [{}]",socketWrapper.getRemoteAddr(),System.nanoTime());
         if(!Objects.equals(socketWrapper.getRemoteAddr(), "10.244.1.1"))
         {
-            logTime.HTTP11ProcessTime.add(System.nanoTime());
+            stationLogTime.HTTP11ProcessTime.add(System.nanoTime());
         }
         RequestInfo rp = this.request.getRequestProcessor();
         rp.setStage(1);
@@ -192,7 +190,7 @@ public class Http11Processor extends AbstractProcessor {
             }
             if(!Objects.equals(socketWrapper.getRemoteAddr(), "10.244.1.1"))
             {
-                logTime.deserializationEndTime.add(System.nanoTime());
+                stationLogTime.deserializationEndTime.add(System.nanoTime());
             }
             if (isConnectionToken(this.request.getMimeHeaders(), "upgrade")) {
                 String requestedProtocol = this.request.getHeader("Upgrade");
@@ -238,7 +236,7 @@ public class Http11Processor extends AbstractProcessor {
                     rp.setStage(3);
                     if(!Objects.equals(socketWrapper.getRemoteAddr(), "10.244.1.1"))
                     {
-                        logTime.deserializationEndTime.add(System.nanoTime());
+                        stationLogTime.deserializationEndTime.add(System.nanoTime());
                     }
                     this.getAdapter().service(this.request, this.response);
                     if (this.keepAlive && !this.getErrorState().isError() && !this.isAsync() && statusDropsConnection(this.response.getStatus())) {

@@ -34,7 +34,7 @@ import java.nio.CharBuffer;
 import java.nio.charset.CharsetEncoder;
 import java.nio.charset.CoderResult;
 
-import fdse.microservice.logTime;
+import fdse.microservice.basicLogTime;
 import org.apache.http.io.BufferInfo;
 import org.apache.http.io.HttpTransportMetrics;
 import org.apache.http.io.SessionOutputBuffer;
@@ -122,7 +122,7 @@ public class SessionOutputBufferImpl implements SessionOutputBuffer, BufferInfo 
 
     private void streamWrite(final byte[] b, final int off, final int len) throws IOException {
         Asserts.notNull(outStream, "Output stream");
-        logTime.sendRequestTime.add(System.nanoTime());
+        basicLogTime.sendRequestTime.add(System.nanoTime());
         this.outStream.write(b, off, len);
     }
 

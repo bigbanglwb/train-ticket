@@ -1,5 +1,7 @@
 package seat.controller;
 
+import edu.fudan.common.util.Response;
+import edu.fudan.common.util.logTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,8 +56,16 @@ public class SeatController {
     @PostMapping(value = "/seats/left_tickets")
     public HttpEntity getLeftTicketOfInterval(@RequestBody Seat seatRequest, @RequestHeader HttpHeaders headers) {
         // int
+        logTime.springEnrtyStart.add(System.nanoTime());
         SeatController.LOGGER.info("[getLeftTicketOfInterval][Get left ticket of interval][TravelDate: {},TrainNumber: {},SeatType: {}]",seatRequest.getTravelDate(),seatRequest.getTrainNumber(),seatRequest.getSeatType());
+        Response re = seatService.getLeftTicketOfInterval(seatRequest, headers);
+        logTime.springEnrtyEnd.add(System.nanoTime());
         return ok(seatService.getLeftTicketOfInterval(seatRequest, headers));
     }
 
+    @CrossOrigin(origins = "*")
+    @GetMapping(value = "/loggingTime")
+    public HttpEntity queryLoggingTime(@RequestHeader HttpHeaders headers) {
+        return ok(logTime.getSpringTime());
+    }
 }
