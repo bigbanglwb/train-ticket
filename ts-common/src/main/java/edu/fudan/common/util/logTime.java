@@ -1,6 +1,7 @@
 package edu.fudan.common.util;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class logTime {
     public static ArrayList<Long> springEnrtyStart = new ArrayList<Long>();
@@ -17,14 +18,14 @@ public class logTime {
         springEnrtyEnd.clear();
     }
 
-    public static ArrayList<ArrayList<Long>>  getSpringTime()
+    public static HashMap<String,ArrayList<Long>>  getSpringTime()
     {
 
-        ArrayList<ArrayList<Long>> list = new ArrayList<ArrayList<Long>> ();
-        list.add(springEnrtyStart);
-        list.add(springEnrtyEnd);
-        list.add(springExitStart);
-        list.add(springExitEnd);
+        HashMap<String,ArrayList<Long>> list = new HashMap<> ();
+        list.put("springEntryStart",springEnrtyStart);
+        list.put("springEntryEnd",springEnrtyEnd);
+        list.put("springExitStart",springExitStart);
+        list.put("springExitEnd",springExitEnd);
         return  list;
     }
 

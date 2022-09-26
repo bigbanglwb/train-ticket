@@ -60,7 +60,7 @@ public class SeatController {
         SeatController.LOGGER.info("[getLeftTicketOfInterval][Get left ticket of interval][TravelDate: {},TrainNumber: {},SeatType: {}]",seatRequest.getTravelDate(),seatRequest.getTrainNumber(),seatRequest.getSeatType());
         Response re = seatService.getLeftTicketOfInterval(seatRequest, headers);
         logTime.springEnrtyEnd.add(System.nanoTime());
-        return ok(seatService.getLeftTicketOfInterval(seatRequest, headers));
+        return ok(re);
     }
 
     @CrossOrigin(origins = "*")
