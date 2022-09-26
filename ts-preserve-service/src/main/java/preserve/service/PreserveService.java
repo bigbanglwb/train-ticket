@@ -10,4 +10,5 @@ import edu.fudan.common.entity.OrderTicketsInfo;
 public interface PreserveService {
 
     Response preserve(OrderTicketsInfo oti, HttpHeaders headers);
+
 }

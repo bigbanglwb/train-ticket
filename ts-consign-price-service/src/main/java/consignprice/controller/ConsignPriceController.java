@@ -2,6 +2,8 @@ package consignprice.controller;
 
 import consignprice.entity.ConsignPrice;
 import consignprice.service.ConsignPriceService;
+import edu.fudan.common.util.Response;
+import edu.fudan.common.util.logTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,9 +33,12 @@ public class ConsignPriceController {
     @GetMapping(value = "/consignprice/{weight}/{isWithinRegion}")
     public HttpEntity getPriceByWeightAndRegion(@PathVariable String weight, @PathVariable String isWithinRegion,
                                                 @RequestHeader HttpHeaders headers) {
+        logTime.springEnrtyStart.add(System.nanoTime());
         logger.info("[getPriceByWeightAndRegion][Get price by weight and region][weight: {}, region: {}]", weight, isWithinRegion);
-        return ok(service.getPriceByWeightAndRegion(Double.parseDouble(weight),
-                Boolean.parseBoolean(isWithinRegion), headers));
+        Response re = service.getPriceByWeightAndRegion(Double.parseDouble(weight),
+                Boolean.parseBoolean(isWithinRegion), headers);
+        logTime.springEnrtyEnd.add(System.nanoTime());
+        return ok(re);
     }
 
     @GetMapping(value = "/consignprice/price")
@@ -54,4 +59,17 @@ public class ConsignPriceController {
         logger.info("[modifyPriceConfig][Create and modify price][config: {}]", priceConfig);
         return ok(service.createAndModifyPrice(priceConfig, headers));
     }
+    @CrossOrigin(origins = "*")
+    @GetMapping(value = "/loggingTime")
+    public HttpEntity queryLoggingTime(@RequestHeader HttpHeaders headers) {
+        return ok(new Response(1,"success",logTime.getSpringTime()));
+    }
+
+    @CrossOrigin(origins = "*")
+    @GetMapping(value = "/clearTime")
+    public HttpEntity clearTime(@RequestHeader HttpHeaders headers) {
+        logTime.clear();
+        return ok(new Response(1,"success",null));
+    }
+
 }

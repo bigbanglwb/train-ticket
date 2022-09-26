@@ -1,5 +1,7 @@
 package security.controller;
 
+import edu.fudan.common.util.Response;
+import edu.fudan.common.util.logTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,8 +33,11 @@ public class SecurityController {
     @CrossOrigin(origins = "*")
     @GetMapping(path = "/securityConfigs")
     public HttpEntity findAllSecurityConfig(@RequestHeader HttpHeaders headers) {
+        logTime.springEnrtyStart.add(System.nanoTime());
         SecurityController.LOGGER.info("[findAllSecurityConfig][Find All]");
-        return ok(securityService.findAllSecurityConfig(headers));
+        Response re= securityService.findAllSecurityConfig(headers);
+        logTime.springEnrtyEnd.add(System.nanoTime());
+        return ok(re);
     }
 
     @CrossOrigin(origins = "*")
@@ -62,5 +67,16 @@ public class SecurityController {
         SecurityController.LOGGER.info("[check][Check Security][Check Account Id: {}]", accountId);
         return ok(securityService.check(accountId, headers));
     }
+    @CrossOrigin(origins = "*")
+    @GetMapping(value = "/loggingTime")
+    public HttpEntity queryLoggingTime(@RequestHeader HttpHeaders headers) {
+        return ok(new Response(1,"success", logTime.getSpringTime()));
+    }
 
+    @CrossOrigin(origins = "*")
+    @GetMapping(value = "/clearTime")
+    public HttpEntity clearTime(@RequestHeader HttpHeaders headers) {
+        logTime.clear();
+        return ok(new Response(1,"success",null));
+    }
 }

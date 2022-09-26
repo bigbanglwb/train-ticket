@@ -38,8 +38,12 @@ public class BasicController {
     @PostMapping(value = "/basic/travel")
     public HttpEntity queryForTravel(@RequestBody Travel info, @RequestHeader HttpHeaders headers) {
         // TravelResult
+        basicLogTime.springEnrtyStart.add(System.nanoTime());
+        Response re = service.queryForTravel(info, headers);
         logger.info("[queryForTravel][Query for travel][Travel: {}]", info.toString());
-        return ok(service.queryForTravel(info, headers));
+        basicLogTime.springEnrtyEnd.add(System.nanoTime());
+
+        return ok(re);
     }
 
     @PostMapping(value = "/basic/travels")

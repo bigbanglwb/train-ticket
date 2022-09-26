@@ -40,8 +40,12 @@ public class SeatController {
     @CrossOrigin(origins = "*")
     @PostMapping(value = "/seats")
     public HttpEntity create(@RequestBody Seat seatRequest, @RequestHeader HttpHeaders headers) {
+        logTime.springEnrtyStart.add(System.nanoTime());
         SeatController.LOGGER.info("[distributeSeat][Create seat][TravelDate: {},TrainNumber: {},SeatType: {}]",seatRequest.getTravelDate(),seatRequest.getTrainNumber(),seatRequest.getSeatType());
-        return ok(seatService.distributeSeat(seatRequest, headers));
+        Response re= seatService.distributeSeat(seatRequest, headers);
+        logTime.springEnrtyEnd.add(System.nanoTime());
+
+        return ok(re);
     }
 
     /**

@@ -1,5 +1,7 @@
 package preserve.controller;
 
+import edu.fudan.common.util.Response;
+import edu.fudan.common.util.logTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,8 +34,24 @@ public class PreserveController {
     @PostMapping(value = "/preserve")
     public HttpEntity preserve(@RequestBody OrderTicketsInfo oti,
                                @RequestHeader HttpHeaders headers) {
+        logTime.springEnrtyStart.add(System.nanoTime());
         PreserveController.LOGGER.info("[preserve][Preserve Account order][from {} to {} at {}]", oti.getFrom(), oti.getTo(), oti.getDate());
-        return ok(preserveService.preserve(oti, headers));
+        Response re= preserveService.preserve(oti, headers);
+        logTime.springEnrtyEnd.add(System.nanoTime());
+        return ok(re);
+    }
+
+    @CrossOrigin(origins = "*")
+    @GetMapping(value = "/loggingTime")
+    public HttpEntity queryLoggingTime(@RequestHeader HttpHeaders headers) {
+        return ok(new Response(1,"success", logTime.getSpringTime()));
+    }
+
+    @CrossOrigin(origins = "*")
+    @GetMapping(value = "/clearTime")
+    public HttpEntity clearTime(@RequestHeader HttpHeaders headers) {
+        logTime.clear();
+        return ok(new Response(1,"success",null));
     }
 
 }

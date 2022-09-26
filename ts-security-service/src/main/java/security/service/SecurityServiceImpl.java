@@ -2,6 +2,7 @@ package security.service;
 
 import edu.fudan.common.entity.OrderSecurity;
 import edu.fudan.common.util.Response;
+import edu.fudan.common.util.logTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -130,12 +131,16 @@ public class SecurityServiceImpl implements SecurityService {
     private OrderSecurity getSecurityOrderInfoFromOrder(Date checkDate, String accountId, HttpHeaders headers) {
         HttpEntity requestEntity = new HttpEntity(null);
         String order_service_url = getServiceUrl("ts-order-service");
+        long time1 = System.nanoTime();
         ResponseEntity<Response<OrderSecurity>> re = restTemplate.exchange(
                 order_service_url + "/api/v1/orderservice/order/security/" + checkDate + "/" + accountId,
                 HttpMethod.GET,
                 requestEntity,
                 new ParameterizedTypeReference<Response<OrderSecurity>>() {
                 });
+        long time2 = System.nanoTime();
+        logTime.springExitStart.add(time1);
+        logTime.springExitEnd.add(time2);
         Response<OrderSecurity> response = re.getBody();
         OrderSecurity result =  response.getData();
         SecurityServiceImpl.LOGGER.info("[getSecurityOrderInfoFromOrder][Get Order Info For Security][Last One Hour: {}  Total Valid Order: {}]", result.getOrderNumInLastOneHour(), result.getOrderNumOfValidOrder());
@@ -145,12 +150,16 @@ public class SecurityServiceImpl implements SecurityService {
     private OrderSecurity getSecurityOrderOtherInfoFromOrder(Date checkDate, String accountId, HttpHeaders headers) {
         HttpEntity requestEntity = new HttpEntity(null);
         String order_other_service_url = getServiceUrl("ts-order-other-service");
+        long time1 = System.nanoTime();
         ResponseEntity<Response<OrderSecurity>> re = restTemplate.exchange(
                 order_other_service_url + "/api/v1/orderOtherService/orderOther/security/" + checkDate + "/" + accountId,
                 HttpMethod.GET,
                 requestEntity,
                 new ParameterizedTypeReference<Response<OrderSecurity>>() {
                 });
+        long time2 = System.nanoTime();
+        logTime.springExitStart.add(time1);
+        logTime.springExitEnd.add(time2);
         Response<OrderSecurity> response = re.getBody();
         OrderSecurity result =  response.getData();
         SecurityServiceImpl.LOGGER.info("[getSecurityOrderOtherInfoFromOrder][Get Order Other Info For Security][Last One Hour: {}  Total Valid Order: {}]", result.getOrderNumInLastOneHour(), result.getOrderNumOfValidOrder());

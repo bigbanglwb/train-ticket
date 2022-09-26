@@ -62,8 +62,11 @@ public class StationController {
     public HttpEntity queryForStationId(@PathVariable(value = "stationNameForId")
                                                 String stationName, @RequestHeader HttpHeaders headers) {
         // string
+        stationLogTime.springEnrtyStart.add(System.nanoTime());
         StationController.LOGGER.info("[queryForId][Query for station id][StationName: {}]",stationName);
-        return ok(stationService.queryForId(stationName, headers));
+        Response re =stationService.queryForId(stationName, headers);
+        stationLogTime.springEnrtyEnd.add(System.nanoTime());
+        return ok(re);
     }
 
     // according to station name list --->  query all station ids

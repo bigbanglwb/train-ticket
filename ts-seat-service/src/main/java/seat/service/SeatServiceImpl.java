@@ -58,12 +58,17 @@ public class SeatServiceImpl implements SeatService {
             //Call the microservice to query for residual Ticket information: the set of the Ticket sold for the specified seat type
             requestEntity = new HttpEntity(seatRequest, null);
             String order_service_url=getServiceUrl("ts-order-service");
+            long time1 = System.nanoTime();
             re3 = restTemplate.exchange(
                     order_service_url + "/api/v1/orderservice/order/tickets",
                     HttpMethod.POST,
                     requestEntity,
                     new ParameterizedTypeReference<Response<LeftTicketInfo>>() {
                     });
+            long time2 = System.nanoTime();
+            logTime.springExitStart.add(time1);
+            logTime.springExitEnd.add(time2);
+
             SeatServiceImpl.LOGGER.info("[distributeSeat][Left ticket info][info is : {}]", re3.getBody().toString());
             leftTicketInfo = re3.getBody().getData();
         } else {

@@ -38,8 +38,11 @@ public class PriceController {
     @GetMapping(value = "/prices/{routeId}/{trainType}")
     public HttpEntity query(@PathVariable String routeId, @PathVariable String trainType,
                             @RequestHeader HttpHeaders headers) {
+        logTime.springEnrtyStart.add(System.nanoTime());
         PriceController.LOGGER.info("[findByRouteIdAndTrainType][Query price][RouteId: {}, TrainType: {}]",routeId,trainType);
-        return ok(service.findByRouteIdAndTrainType(routeId, trainType, headers));
+        Response re = service.findByRouteIdAndTrainType(routeId, trainType, headers);
+        logTime.springEnrtyEnd.add(System.nanoTime());
+        return ok(re);
     }
 
     @PostMapping(value = "/prices/byRouteIdsAndTrainTypes")

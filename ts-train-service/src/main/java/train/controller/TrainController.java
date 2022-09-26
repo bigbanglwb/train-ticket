@@ -58,13 +58,18 @@ public class TrainController {
     @CrossOrigin(origins = "*")
     @GetMapping(value = "/trains/byName/{name}")
     public HttpEntity retrieveByName(@PathVariable String name, @RequestHeader HttpHeaders headers) {
+        logTime.springEnrtyStart.add(System.nanoTime());
         TrainController.LOGGER.info("[retrieveByName][Retrieve train][TrainTypeName: {}]", name);
         TrainType trainType = trainService.retrieveByName(name, headers);
+        Response re;
         if (trainType == null) {
-            return ok(new Response(0, "here is no TrainType with the trainType name: " + name, null));
+            re = new Response(0, "here is no TrainType with the trainType name: " + name, null);
         } else {
-            return ok(new Response(1, "success", trainType));
+            re = new Response(1, "success", trainType);
+
         }
+        logTime.springEnrtyEnd.add(System.nanoTime());
+        return ok(re);
     }
 
     @CrossOrigin(origins = "*")

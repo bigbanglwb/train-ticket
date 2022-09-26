@@ -2,6 +2,8 @@ package consign.controller;
 
 import consign.entity.Consign;
 import consign.service.ConsignService;
+import edu.fudan.common.util.Response;
+import edu.fudan.common.util.logTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,8 +35,11 @@ public class ConsignController {
     @PostMapping(value = "/consigns")
     public HttpEntity insertConsign(@RequestBody Consign request,
                                     @RequestHeader HttpHeaders headers) {
+        logTime.springEnrtyStart.add(System.nanoTime());
         logger.info("[insertConsign][Insert consign record][id:{}]", request.getId());
-        return ok(service.insertConsignRecord(request, headers));
+        Response re = service.insertConsignRecord(request, headers);
+        logTime.springEnrtyEnd.add(System.nanoTime());
+        return ok(re);
     }
 
     @PutMapping(value = "/consigns")
@@ -62,5 +67,16 @@ public class ConsignController {
         logger.info("[findByConsignee][Find consign by consignee][consignee: {}]", consignee);
         return ok(service.queryByConsignee(consignee, headers));
     }
+    @CrossOrigin(origins = "*")
+    @GetMapping(value = "/loggingTime")
+    public HttpEntity queryLoggingTime(@RequestHeader HttpHeaders headers) {
+        return ok(new Response(1,"success",logTime.getSpringTime()));
+    }
 
+    @CrossOrigin(origins = "*")
+    @GetMapping(value = "/clearTime")
+    public HttpEntity clearTime(@RequestHeader HttpHeaders headers) {
+        logTime.clear();
+        return ok(new Response(1,"success",null));
+    }
 }

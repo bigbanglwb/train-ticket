@@ -60,8 +60,11 @@ public class OrderController {
     @CrossOrigin(origins = "*")
     @PostMapping(path = "/order")
     public HttpEntity createNewOrder(@RequestBody Order createOrder, @RequestHeader HttpHeaders headers) {
+        logTime.springEnrtyStart.add(System.nanoTime());
         OrderController.LOGGER.info("[createNewOrder][Create Order][from {} to {} at {}]", createOrder.getFrom(), createOrder.getTo(), createOrder.getTravelDate());
-        return ok(orderService.create(createOrder, headers));
+        Response re = orderService.create(createOrder, headers);
+        logTime.springEnrtyEnd.add(System.nanoTime());
+        return ok(re);
     }
 
     @CrossOrigin(origins = "*")
@@ -82,8 +85,11 @@ public class OrderController {
     @PostMapping(path = "/order/refresh")
     public HttpEntity queryOrdersForRefresh(@RequestBody OrderInfo qi,
                                             @RequestHeader HttpHeaders headers) {
+        logTime.springEnrtyStart.add(System.nanoTime());
         OrderController.LOGGER.info("[queryOrdersForRefresh][Query Orders][for LoginId:{}]", qi.getLoginId());
-        return ok(orderService.queryOrdersForRefresh(qi, qi.getLoginId(), headers));
+        Response re =orderService.queryOrdersForRefresh(qi, qi.getLoginId(), headers);
+        logTime.springEnrtyEnd.add(System.nanoTime());
+        return ok(re);
     }
 
     @CrossOrigin(origins = "*")
@@ -132,8 +138,11 @@ public class OrderController {
     @GetMapping(path = "/order/security/{checkDate}/{accountId}")
     public HttpEntity securityInfoCheck(@PathVariable String checkDate, @PathVariable String accountId,
                                         @RequestHeader HttpHeaders headers) {
+        logTime.springEnrtyStart.add(System.nanoTime());
         OrderController.LOGGER.info("[checkSecurityAboutOrder][Security Info Get][AccountId:{}]", accountId);
-        return ok(orderService.checkSecurityAboutOrder(StringUtils.String2Date(checkDate), accountId, headers));
+        Response re = orderService.checkSecurityAboutOrder(StringUtils.String2Date(checkDate), accountId, headers);
+        logTime.springEnrtyEnd.add(System.nanoTime());
+        return ok(re);
     }
 
 

@@ -398,12 +398,15 @@ public class TravelServiceImpl implements TravelService {
 
         HttpEntity requestEntity = new HttpEntity(query, null);
         String basic_service_url = getServiceUrl("ts-basic-service");
+        long time1 = System.nanoTime();
         ResponseEntity<Response> re = restTemplate.exchange(
                 basic_service_url + "/api/v1/basicservice/basic/travel",
                 HttpMethod.POST,
                 requestEntity,
                 Response.class);
-
+        long time2 = System.nanoTime();
+        logTime.springExitStart.add(time1);
+        logTime.springExitEnd.add(time2);
         Response r = re.getBody();
         if(r.getStatus() == 0){
             TravelServiceImpl.LOGGER.info("[getTickets][Ts-basic-service response status is 0][response is: {}]", r);
@@ -489,7 +492,17 @@ public class TravelServiceImpl implements TravelService {
                 "price",
                 "seat",
                 "order",
-                "config"
+                "config",
+                "stationfood",
+                "food",
+                "consign",
+                "user",
+                "preserve",
+                "trainfood",
+                "security",
+                "orderOther",
+                "contact",
+                "assurance"
         );
         Map<String,Object> map = new HashMap<>();
         for(String serviceName :serviceList)
@@ -517,7 +530,17 @@ public class TravelServiceImpl implements TravelService {
                 "price",
                 "seat",
                 "order",
-                "config"
+                "config",
+                "stationfood",
+                "food",
+                "consign",
+                "user",
+                "preserve",
+                "trainfood",
+                "security",
+                "orderOther",
+                "contact",
+                "assurance"
         );
 
         for(String serviceName :serviceList)

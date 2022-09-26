@@ -4,6 +4,7 @@ import consign.entity.ConsignRecord;
 import consign.entity.Consign;
 import consign.repository.ConsignRepository;
 import edu.fudan.common.util.Response;
+import edu.fudan.common.util.logTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,12 +65,14 @@ public class ConsignServiceImpl implements ConsignService {
         //get the price
         HttpEntity requestEntity = new HttpEntity(null, headers);
         String consign_price_service_url = getServiceUrl("ts-consign-price-service");
+        logTime.springExitStart.add(System.nanoTime());
         ResponseEntity<Response<Double>> re = restTemplate.exchange(
                 consign_price_service_url + "/api/v1/consignpriceservice/consignprice/" + consignRequest.getWeight() + "/" + consignRequest.isWithin(),
                 HttpMethod.GET,
                 requestEntity,
                 new ParameterizedTypeReference<Response<Double>>() {
                 });
+        logTime.springExitEnd.add(System.nanoTime());
         consignRecord.setPrice(re.getBody().getData());
 
         LOGGER.info("[insertConsignRecord][SAVE consign info][consignRecord : {}]", consignRecord.toString());

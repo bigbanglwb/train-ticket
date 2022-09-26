@@ -2,6 +2,7 @@ package contacts.controller;
 
 import contacts.entity.*;
 import edu.fudan.common.util.Response;
+import edu.fudan.common.util.logTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,8 +35,11 @@ public class ContactsController {
     @CrossOrigin(origins = "*")
     @GetMapping(path = "/contacts")
     public HttpEntity getAllContacts(@RequestHeader HttpHeaders headers) {
+        logTime.springEnrtyStart.add(System.nanoTime());
         ContactsController.LOGGER.info("[getAllContacts][Get All Contacts]");
-        return ok(contactsService.getAllContacts(headers));
+        Response re = contactsService.getAllContacts(headers);
+        logTime.springEnrtyEnd.add(System.nanoTime());
+        return ok(re);
     }
 
     @CrossOrigin(origins = "*")
@@ -85,6 +89,17 @@ public class ContactsController {
         return ok(contactsService.findContactsById(id, headers));
     }
 
+    @CrossOrigin(origins = "*")
+    @GetMapping(value = "/loggingTime")
+    public HttpEntity queryLoggingTime(@RequestHeader HttpHeaders headers) {
+        return ok(new Response(1,"success", logTime.getSpringTime()));
+    }
 
+    @CrossOrigin(origins = "*")
+    @GetMapping(value = "/clearTime")
+    public HttpEntity clearTime(@RequestHeader HttpHeaders headers) {
+        logTime.clear();
+        return ok(new Response(1,"success",null));
+    }
 
 }

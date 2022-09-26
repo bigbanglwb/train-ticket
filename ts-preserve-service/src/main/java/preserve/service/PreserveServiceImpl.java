@@ -3,6 +3,7 @@ package preserve.service;
 import edu.fudan.common.util.JsonUtils;
 import edu.fudan.common.util.Response;
 import edu.fudan.common.util.StringUtils;
+import edu.fudan.common.util.logTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +20,7 @@ import org.springframework.web.client.RestTemplate;
 import edu.fudan.common.entity.*;
 import preserve.mq.RabbitSend;
 
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * @author fdse
@@ -126,12 +125,16 @@ public class PreserveServiceImpl implements PreserveService {
 
         HttpEntity requestEntity = new HttpEntity(query, headers);
         String basic_service_url = getServiceUrl("ts-basic-service");
+        long time1=System.nanoTime();
         ResponseEntity<Response<TravelResult>> re = restTemplate.exchange(
                 basic_service_url + "/api/v1/basicservice/basic/travel",
                 HttpMethod.POST,
                 requestEntity,
                 new ParameterizedTypeReference<Response<TravelResult>>() {
                 });
+        long time2=System.nanoTime();
+        logTime.springExitStart.add(time1);
+        logTime.springExitEnd.add(time2);
         if(re.getBody().getStatus() == 0){
             PreserveServiceImpl.LOGGER.info("[Preserve 3][Get basic travel response status is 0][response is: {}]", re.getBody());
             return new Response<>(0, re.getBody().getMsg(), null);
@@ -263,6 +266,8 @@ public class PreserveServiceImpl implements PreserveService {
         return returnResponse;
     }
 
+
+
     public Ticket dipatchSeat(String date, String tripId, String startStation, String endStataion, int seatType, int totalNum, List<String> stationList, HttpHeaders httpHeaders) {
         Seat seatRequest = new Seat();
         seatRequest.setTravelDate(date);
@@ -275,13 +280,16 @@ public class PreserveServiceImpl implements PreserveService {
 
         HttpEntity requestEntityTicket = new HttpEntity(seatRequest, httpHeaders);
         String seat_service_url = getServiceUrl("ts-seat-service");
+        long time1 = System.nanoTime();
         ResponseEntity<Response<Ticket>> reTicket = restTemplate.exchange(
                 seat_service_url + "/api/v1/seatservice/seats",
                 HttpMethod.POST,
                 requestEntityTicket,
                 new ParameterizedTypeReference<Response<Ticket>>() {
                 });
-
+        long time2 = System.nanoTime();
+        logTime.springExitStart.add(time1);
+        logTime.springExitEnd.add(time2);
         return reTicket.getBody().getData();
     }
 
@@ -303,12 +311,16 @@ public class PreserveServiceImpl implements PreserveService {
 
         HttpEntity requestEntitySendEmail = new HttpEntity(httpHeaders);
         String user_service_url = getServiceUrl("ts-user-service");
+        long time1 = System.nanoTime();
         ResponseEntity<Response<User>> getAccount = restTemplate.exchange(
                 user_service_url + "/api/v1/userservice/users/id/" + accountId,
                 HttpMethod.GET,
                 requestEntitySendEmail,
                 new ParameterizedTypeReference<Response<User>>() {
                 });
+        long time2 = System.nanoTime();
+        logTime.springExitStart.add(time1);
+        logTime.springExitEnd.add(time2);
         Response<User> result = getAccount.getBody();
         return result.getData();
     }
@@ -317,12 +329,15 @@ public class PreserveServiceImpl implements PreserveService {
         PreserveServiceImpl.LOGGER.info("[addAssuranceForOrder][Preserve Service][Add Assurance Type For Order]");
         HttpEntity requestAddAssuranceResult = new HttpEntity(httpHeaders);
         String assurance_service_url = getServiceUrl("ts-assurance-service");
+        long time1 = System.nanoTime();
         ResponseEntity<Response> reAddAssuranceResult = restTemplate.exchange(
                 assurance_service_url + "/api/v1/assuranceservice/assurances/" + assuranceType + "/" + orderId,
                 HttpMethod.GET,
                 requestAddAssuranceResult,
                 Response.class);
-
+        long time2 = System.nanoTime();
+        logTime.springExitStart.add(time1);
+        logTime.springExitEnd.add(time2);
         return reAddAssuranceResult.getBody();
     }
 
@@ -347,12 +362,13 @@ public class PreserveServiceImpl implements PreserveService {
 
         HttpEntity requestCheckResult = new HttpEntity(httpHeaders);
         String security_service_url = getServiceUrl("ts-security-service");
+        logTime.springExitStart.add(System.nanoTime());
         ResponseEntity<Response> reCheckResult = restTemplate.exchange(
                 security_service_url + "/api/v1/securityservice/securityConfigs/" + accountId,
                 HttpMethod.GET,
                 requestCheckResult,
                 Response.class);
-
+        logTime.springExitEnd.add(System.nanoTime());
         return reCheckResult.getBody();
     }
 
@@ -362,13 +378,16 @@ public class PreserveServiceImpl implements PreserveService {
 
         HttpEntity requestGetTripAllDetailResult = new HttpEntity(gtdi, httpHeaders);
         String travel_service_url = getServiceUrl("ts-travel-service");
+        long time1=System.nanoTime();
         ResponseEntity<Response<TripAllDetail>> reGetTripAllDetailResult = restTemplate.exchange(
                 travel_service_url + "/api/v1/travelservice/trip_detail",
                 HttpMethod.POST,
                 requestGetTripAllDetailResult,
                 new ParameterizedTypeReference<Response<TripAllDetail>>() {
                 });
-
+        long time2=System.nanoTime();
+        logTime.springExitStart.add(time1);
+        logTime.springExitEnd.add(time2);
         return reGetTripAllDetailResult.getBody();
     }
 
@@ -378,13 +397,16 @@ public class PreserveServiceImpl implements PreserveService {
 
         HttpEntity requestGetContactsResult = new HttpEntity(httpHeaders);
         String contacts_service_url = getServiceUrl("ts-contacts-service");
+        long time1 = System.nanoTime();
         ResponseEntity<Response<Contacts>> reGetContactsResult = restTemplate.exchange(
                 contacts_service_url + "/api/v1/contactservice/contacts/" + contactsId,
                 HttpMethod.GET,
                 requestGetContactsResult,
                 new ParameterizedTypeReference<Response<Contacts>>() {
                 });
-
+        long time2 = System.nanoTime();
+        logTime.springExitStart.add(time1);
+        logTime.springExitEnd.add(time2);
         return reGetContactsResult.getBody();
     }
 
@@ -393,13 +415,16 @@ public class PreserveServiceImpl implements PreserveService {
 
         HttpEntity requestEntityCreateOrderResult = new HttpEntity(coi, httpHeaders);
         String order_service_url = getServiceUrl("ts-order-service");
+        long time1 = System.nanoTime();
         ResponseEntity<Response<Order>> reCreateOrderResult = restTemplate.exchange(
                 order_service_url + "/api/v1/orderservice/order",
                 HttpMethod.POST,
                 requestEntityCreateOrderResult,
                 new ParameterizedTypeReference<Response<Order>>() {
                 });
-
+        long time2 = System.nanoTime();
+        logTime.springExitStart.add(time1);
+        logTime.springExitEnd.add(time2);
         return reCreateOrderResult.getBody();
     }
 
@@ -408,12 +433,15 @@ public class PreserveServiceImpl implements PreserveService {
 
         HttpEntity requestEntityAddFoodOrderResult = new HttpEntity(afi, httpHeaders);
         String food_service_url = getServiceUrl("ts-food-service");
+        long time1= System.nanoTime();
         ResponseEntity<Response> reAddFoodOrderResult = restTemplate.exchange(
                 food_service_url + "/api/v1/foodservice/orders",
                 HttpMethod.POST,
                 requestEntityAddFoodOrderResult,
                 Response.class);
-
+        long time2 = System.nanoTime();
+        logTime.springExitStart.add(time1);
+        logTime.springExitEnd.add(time2);
         return reAddFoodOrderResult.getBody();
     }
 
@@ -422,11 +450,15 @@ public class PreserveServiceImpl implements PreserveService {
 
         HttpEntity requestEntityResultForTravel = new HttpEntity(cr, httpHeaders);
         String consign_service_url = getServiceUrl("ts-consign-service");
+        long time1 = System.nanoTime();
         ResponseEntity<Response> reResultForTravel = restTemplate.exchange(
                 consign_service_url + "/api/v1/consignservice/consigns",
                 HttpMethod.POST,
                 requestEntityResultForTravel,
                 Response.class);
+        long time2 = System.nanoTime();
+        logTime.springExitStart.add(time1);
+        logTime.springExitEnd.add(time2);
         return reResultForTravel.getBody();
     }
 
