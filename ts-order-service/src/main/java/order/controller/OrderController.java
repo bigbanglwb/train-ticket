@@ -164,7 +164,14 @@ public class OrderController {
     @CrossOrigin(origins = "*")
     @GetMapping(value = "/loggingTime")
     public HttpEntity queryLoggingTime(@RequestHeader HttpHeaders headers) {
-        return ok(logTime.getSpringTime());
+        return ok(new Response(1,"success",logTime.getSpringTime()));
+    }
+
+    @CrossOrigin(origins = "*")
+    @GetMapping(value = "/clearTime")
+    public HttpEntity clearTime(@RequestHeader HttpHeaders headers) {
+        logTime.clear();
+        return ok(new Response(1,"success",null));
     }
 
 }

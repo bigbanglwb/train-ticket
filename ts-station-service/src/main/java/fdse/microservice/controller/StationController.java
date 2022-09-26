@@ -1,6 +1,7 @@
 package fdse.microservice.controller;
 
 import edu.fudan.common.util.Response;
+import edu.fudan.common.util.logTime;
 import fdse.microservice.entity.*;
 import fdse.microservice.stationLogTime;
 import fdse.microservice.service.StationService;
@@ -111,6 +112,13 @@ public class StationController {
     @CrossOrigin(origins = "*")
     @GetMapping(value = "/loggingTime")
     public HttpEntity queryLoggingTime(@RequestHeader HttpHeaders headers) {
-        return ok(stationLogTime.getSpringTime());
+        return ok(new Response(1,"success", stationLogTime.getSpringTime()));
+    }
+
+    @CrossOrigin(origins = "*")
+    @GetMapping(value = "/clearTime")
+    public HttpEntity clearTime(@RequestHeader HttpHeaders headers) {
+        stationLogTime.clear();
+        return ok(new Response(1,"success",null));
     }
 }

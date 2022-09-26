@@ -2,6 +2,7 @@ package fdse.microservice.controller;
 
 import edu.fudan.common.entity.Travel;
 import edu.fudan.common.util.Response;
+import edu.fudan.common.util.logTime;
 import fdse.microservice.basicLogTime;
 import fdse.microservice.service.BasicService;
 import org.slf4j.Logger;
@@ -59,7 +60,14 @@ public class BasicController {
     @CrossOrigin(origins = "*")
     @GetMapping(value = "/loggingTime")
     public HttpEntity queryLoggingTime(@RequestHeader HttpHeaders headers) {
-        return ok(basicLogTime.getSpringTime());
+        return ok(new Response(1,"success", basicLogTime.getSpringTime()));
+    }
+
+    @CrossOrigin(origins = "*")
+    @GetMapping(value = "/clearTime")
+    public HttpEntity clearTime(@RequestHeader HttpHeaders headers) {
+        basicLogTime.clear();
+        return ok(new Response(1,"success",null));
     }
 
 }
