@@ -508,6 +508,35 @@ public class TravelServiceImpl implements TravelService {
         return new Response<>(1,"success",map );
     }
 
+    public Response clearTime(HttpHeaders headers) {
+        List<String> serviceList = Arrays.asList(
+                "basic",
+                "station",
+                "train",
+                "route",
+                "price",
+                "seat",
+                "order",
+                "config"
+        );
+
+        for(String serviceName :serviceList)
+        {
+            String serviceUrl = getServiceUrl("ts-"+serviceName+"-service");
+            HttpEntity requestEntity = new HttpEntity(null);
+            ResponseEntity<Response> re = restTemplate.exchange(
+                    serviceUrl + "/api/v1/"+serviceName+"service"+"/clearTime",
+                    HttpMethod.GET,
+                    requestEntity,
+                    Response.class
+            );
+
+        }
+
+        logTime.clear();
+        return new Response<>(1,"success",null );
+    }
+
     private static boolean afterToday(String date) {
         Calendar calDateA = Calendar.getInstance();
         Date today = new Date();

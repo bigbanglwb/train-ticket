@@ -45,6 +45,18 @@ public class OrderController {
         return ok(re);
     }
 
+    @GetMapping(value = "/loggingTime")
+    public HttpEntity queryLoggingTime(@RequestHeader HttpHeaders headers) {
+        return ok(new Response(1,"success",logTime.getSpringTime()));
+    }
+
+
+    @GetMapping(value = "/clearTime")
+    public HttpEntity clearTime(@RequestHeader HttpHeaders headers) {
+        logTime.clear();
+        return ok(new Response(1,"success",null));
+    }
+
     @CrossOrigin(origins = "*")
     @PostMapping(path = "/order")
     public HttpEntity createNewOrder(@RequestBody Order createOrder, @RequestHeader HttpHeaders headers) {
@@ -161,17 +173,6 @@ public class OrderController {
         return ok(orderService.getAllOrders(headers));
     }
 
-    @CrossOrigin(origins = "*")
-    @GetMapping(value = "/loggingTime")
-    public HttpEntity queryLoggingTime(@RequestHeader HttpHeaders headers) {
-        return ok(new Response(1,"success",logTime.getSpringTime()));
-    }
 
-    @CrossOrigin(origins = "*")
-    @GetMapping(value = "/clearTime")
-    public HttpEntity clearTime(@RequestHeader HttpHeaders headers) {
-        logTime.clear();
-        return ok(new Response(1,"success",null));
-    }
 
 }

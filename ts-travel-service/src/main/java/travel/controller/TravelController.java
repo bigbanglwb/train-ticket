@@ -188,4 +188,10 @@ public class TravelController {
         return ok(travelService.adminQueryAll(headers));
     }
 
+    @CrossOrigin(origins = "*")
+    @GetMapping(value = "/clearTime")
+    public HttpEntity clearTime(@RequestHeader HttpHeaders headers) {
+        return ok(travelService.clearTime(headers));
+    }
+
 }
