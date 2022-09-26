@@ -494,10 +494,10 @@ public class TravelServiceImpl implements TravelService {
         Map<String,Object> map = null;
         for(String serviceName :serviceList)
         {
-            String serviceUrl = getServiceUrl("ts"+serviceName+"service");
+            String serviceUrl = getServiceUrl("ts-"+serviceName+"-service");
             HttpEntity requestEntity = new HttpEntity(null);
             Response re = restTemplate.exchange(
-                    serviceUrl + "/api/v1/"+serviceName+"/loggingTime",
+                    serviceUrl + "/api/v1/"+serviceName+"service"+"/loggingTime",
                     HttpMethod.GET,
                     requestEntity,
                     Response.class
