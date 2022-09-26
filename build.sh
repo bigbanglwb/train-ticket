@@ -4,20 +4,20 @@ git pull
 mvn clean package -Dmaven.test.skip=true
 
 
-#svc_list=("travel" "basic" "station" "train" "route" "price" "seat" "order" "config")
-## shellcheck disable=SC2068
-#for svc in ${svc_list[@]}
-#do
-#        # kubectl delete deployment ts-${svc}-service
-#        # kubectl delete svc ts-${svc}-service
-#        cd ~/train-ticket/ts-${svc}-service || exit
-#        docker build -t bigbanglwb/ts-${svc}-service:1.0.0 .
-#        # shellcheck disable=SC2046
-#        kubectl delete pod `kubectl get pods |grep ts-${svc}-service | awk '{print $1}'`
-#done
-#
-## kubectl apply -f /home/liwenbo/train-ticket/deployment/kubernetes-manifests/quickstart-k8s/yamls/deploy.yaml
-## kubectl apply -f /home/liwenbo/train-ticket/deployment/kubernetes-manifests/quickstart-k8s/yamls/svc.yaml
+svc_list=("travel" "basic" "station" "train" "route" "price" "seat" "order" "config")
+# shellcheck disable=SC2068
+for svc in ${svc_list[@]}
+do
+        # kubectl delete deployment ts-${svc}-service
+        # kubectl delete svc ts-${svc}-service
+        cd ~/train-ticket/ts-${svc}-service || exit
+        docker build -t bigbanglwb/ts-${svc}-service:1.0.0 .
+        # shellcheck disable=SC2046
+        kubectl delete pod `kubectl get pods |grep ts-${svc}-service | awk '{print $1}'`
+done
+
+# kubectl apply -f /home/liwenbo/train-ticket/deployment/kubernetes-manifests/quickstart-k8s/yamls/deploy.yaml
+# kubectl apply -f /home/liwenbo/train-ticket/deployment/kubernetes-manifests/quickstart-k8s/yamls/svc.yaml
 
 
 #svc_list=("travel" "basic" "station")
@@ -36,17 +36,3 @@ mvn clean package -Dmaven.test.skip=true
 # kubectl apply -f /home/liwenbo/train-ticket/deployment/kubernetes-manifests/quickstart-k8s/yamls/svc.yaml
 
 
-svc_list=("travel")
-# shellcheck disable=SC2068
-for svc in ${svc_list[@]}
-do
-        # kubectl delete deployment ts-${svc}-service
-        # kubectl delete svc ts-${svc}-service
-        cd ~/train-ticket/ts-${svc}-service || exit
-        docker build -t bigbanglwb/ts-${svc}-service:1.0.0 .
-        # shellcheck disable=SC2046
-        kubectl delete pod `kubectl get pods |grep ts-${svc}-service | awk '{print $1}'`
-done
-
-# kubectl apply -f /home/liwenbo/train-ticket/deployment/kubernetes-manifests/quickstart-k8s/yamls/deploy.yaml
-# kubectl apply -f /home/liwenbo/train-ticket/deployment/kubernetes-manifests/quickstart-k8s/yamls/svc.yaml
