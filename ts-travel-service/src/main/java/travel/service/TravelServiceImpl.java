@@ -491,7 +491,7 @@ public class TravelServiceImpl implements TravelService {
                 "order",
                 "config"
         );
-        Map<String,Object> map = null;
+        Map<String,ArrayList<ArrayList<Long>>> map = null;
         for(String serviceName :serviceList)
         {
             String serviceUrl = getServiceUrl("ts-"+serviceName+"-service");
@@ -502,7 +502,8 @@ public class TravelServiceImpl implements TravelService {
                     requestEntity,
                     Response.class
             );
-            map.put(serviceName,re.getBody().getData());
+            ArrayList<ArrayList<Long>> l = (ArrayList<ArrayList<Long>>) re.getBody().getData();
+            map.put(serviceName,l);
         }
         map.put("travel",logTime.getSpringTime());
         return new Response<>(1,"success",map );
