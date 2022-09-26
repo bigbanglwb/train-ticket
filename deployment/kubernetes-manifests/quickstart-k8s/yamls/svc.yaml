@@ -431,8 +431,8 @@ kind: Service
 metadata:
   name: ts-travel-service
 spec:
+  type : NodePort
   ports:
-    - type: NodePort
     - name: http
       port: 12346
     - name: debug
