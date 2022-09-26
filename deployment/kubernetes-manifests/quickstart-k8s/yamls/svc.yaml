@@ -378,7 +378,7 @@ spec:
       port: 12345
     - name: debug
       port: 32697
-      nodePort: 32697
+      nodePort: 32667
   selector:
     app: ts-station-service
 ---
@@ -432,8 +432,12 @@ metadata:
   name: ts-travel-service
 spec:
   ports:
+    - type: NodePort
     - name: http
       port: 12346
+    - name: debug
+      port: 32697
+      nodePort: 32697
   selector:
     app: ts-travel-service
 ---
