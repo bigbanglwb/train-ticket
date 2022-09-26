@@ -496,14 +496,13 @@ public class TravelServiceImpl implements TravelService {
         {
             String serviceUrl = getServiceUrl("ts-"+serviceName+"-service");
             HttpEntity requestEntity = new HttpEntity(null);
-            Response re = restTemplate.exchange(
+            ResponseEntity<Response> re = restTemplate.exchange(
                     serviceUrl + "/api/v1/"+serviceName+"service"+"/loggingTime",
                     HttpMethod.GET,
                     requestEntity,
                     Response.class
-            ).getBody();
-            assert re != null;
-            map.put(serviceName,re.getData());
+            );
+            map.put(serviceName,re.getBody().getData());
         }
         map.put("travel",logTime.getSpringTime());
         return new Response<>(1,"success",map );
