@@ -4,8 +4,8 @@ git pull
 mvn clean package -Dmaven.test.skip=true
 
 
-#svc_list=("stationfood")
-svc_list=("travel" "basic" "station" "train" "route" "price" "seat" "order" "config" "station-food" "food" "consign" "user" "preserve" "train-food" "security" "orderOther" "contacts" "assurance")
+svc_list=("order-other" "contacts" "assurance")
+#svc_list=("travel" "basic" "station" "train" "route" "price" "seat" "order" "config" "station-food" "food" "consign" "user" "preserve" "train-food" "security" )
 # shellcheck disable=SC2068
 for svc in ${svc_list[@]}
 do
@@ -13,12 +13,11 @@ do
         # kubectl delete svc ts-${svc}-service
         cd ~/train-ticket/ts-${svc}-service || exit
         docker build -t codewisdom/ts-${svc}-service:1.0.0 .
-        # shellcheck disable=SC2046
-        kubectl delete pod `kubectl get pods |grep ts-${svc}-service | awk '{print $1}'`
+#        kubectl delete pod `kubectl get pods |grep ts-${svc}-service | awk '{print $1}'`
 done
 
-# kubectl apply -f /home/liwenbo/train-ticket/deployment/kubernetes-manifests/quickstart-k8s/yamls/deploy.yaml
-# kubectl apply -f /home/liwenbo/train-ticket/deployment/kubernetes-manifests/quickstart-k8s/yamls/svc.yaml
+kubectl apply -f /home/liwenbo/train-ticket/deployment/kubernetes-manifests/quickstart-k8s/yamls/deploy.yaml
+kubectl apply -f /home/liwenbo/train-ticket/deployment/kubernetes-manifests/quickstart-k8s/yamls/svc.yaml
 
 
 #svc_list=("travel" "basic" "station")
