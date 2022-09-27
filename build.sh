@@ -4,8 +4,8 @@ git pull
 mvn clean package -Dmaven.test.skip=true
 
 
-#svc_list=("travel" "basic" "station" "train" "route" "price" "seat" "order" "config")
-svc_list=("basic" "station" "train" "route" "price" "seat" "order" "config" "stationfood" "food" "consign" "user" "preserve" "trainfood" "security" "orderOther" "contact" "assurance")
+#svc_list=("stationfood")
+svc_list=("travel" "basic" "station" "train" "route" "price" "seat" "order" "config" "stationfood" "food" "consign" "user" "preserve" "trainfood" "security" "orderOther" "contacts" "assurance")
 # shellcheck disable=SC2068
 for svc in ${svc_list[@]}
 do

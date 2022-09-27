@@ -1,6 +1,8 @@
 package assurance.controller;
 
 import assurance.service.AssuranceService;
+import edu.fudan.common.util.Response;
+import edu.fudan.common.util.logTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,8 +41,11 @@ public class AssuranceController {
     @CrossOrigin(origins = "*")
     @GetMapping(path = "/assurances/types")
     public HttpEntity getAllAssuranceType(@RequestHeader HttpHeaders headers) {
+        logTime.springEnrtyStart.add(System.nanoTime());
         AssuranceController.LOGGER.info("[getAllAssuranceType][Get Assurance Type]");
-        return ok(assuranceService.getAllAssuranceTypes(headers));
+        Response re = assuranceService.getAllAssuranceTypes(headers);
+        logTime.springEnrtyStart.add(System.nanoTime());
+        return ok(re);
     }
 
     @CrossOrigin(origins = "*")
@@ -72,8 +77,11 @@ public class AssuranceController {
     @GetMapping(path = "/assurances/{typeIndex}/{orderId}")
     public HttpEntity createNewAssurance(@PathVariable int typeIndex, @PathVariable String orderId, @RequestHeader HttpHeaders headers) {
         //Assurance
+        logTime.springEnrtyStart.add(System.nanoTime());
         AssuranceController.LOGGER.info("[createNewAssurance][Create new assurance][typeIndex: {}, orderId: {}]", typeIndex, orderId);
-        return ok(assuranceService.create(typeIndex, orderId, headers));
+        Response  re = assuranceService.create(typeIndex, orderId, headers);
+        logTime.springEnrtyEnd.add(System.nanoTime());
+        return ok(re);
     }
 
     @CrossOrigin(origins = "*")
@@ -88,6 +96,18 @@ public class AssuranceController {
     public HttpEntity findAssuranceByOrderId(@PathVariable String orderId, @RequestHeader HttpHeaders headers) {
         AssuranceController.LOGGER.info("[findAssuranceByOrderId][Find assurance by orderId][orderId: {}]", orderId);
         return ok(assuranceService.findAssuranceByOrderId(UUID.fromString(orderId), headers));
+    }
+    @CrossOrigin(origins = "*")
+    @GetMapping(value = "/loggingTime")
+    public HttpEntity queryLoggingTime(@RequestHeader HttpHeaders headers) {
+        return ok(new Response(1,"success", logTime.getSpringTime()));
+    }
+
+    @CrossOrigin(origins = "*")
+    @GetMapping(value = "/clearTime")
+    public HttpEntity clearTime(@RequestHeader HttpHeaders headers) {
+        logTime.clear();
+        return ok(new Response(1,"success",null));
     }
 
 }

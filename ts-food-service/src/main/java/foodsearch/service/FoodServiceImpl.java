@@ -6,6 +6,7 @@ import edu.fudan.common.entity.TrainFood;
 import edu.fudan.common.util.JsonUtils;
 import edu.fudan.common.util.Response;
 import edu.fudan.common.entity.Route;
+import edu.fudan.common.util.logTime;
 import foodsearch.entity.*;
 import foodsearch.mq.RabbitSend;
 import foodsearch.repository.FoodOrderRepository;
@@ -226,6 +227,7 @@ public class FoodServiceImpl implements FoodService {
         /**--------------------------------------------------------------------------------------*/
         HttpEntity requestEntityGetTrainFoodListResult = new HttpEntity(null);
         String train_food_service_url = getServiceUrl("ts-train-food-service");
+        logTime.springExitStart.add(System.nanoTime());
         ResponseEntity<Response<List<Food>>> reGetTrainFoodListResult = restTemplate.exchange(
                 train_food_service_url + "/api/v1/trainfoodservice/trainfoods/" + tripId,
                 HttpMethod.GET,
@@ -234,7 +236,7 @@ public class FoodServiceImpl implements FoodService {
                 });
 
 
-
+        logTime.springExitEnd.add(System.nanoTime());
         List<Food> trainFoodListResult = reGetTrainFoodListResult.getBody().getData();
 
         if (trainFoodListResult != null) {
@@ -283,12 +285,14 @@ public class FoodServiceImpl implements FoodService {
 
             HttpEntity requestEntityFoodStoresListResult = new HttpEntity(stations, null);
             String station_food_service_url = getServiceUrl("ts-station-food-service");
+            logTime.springExitStart.add(System.nanoTime());
             ResponseEntity<Response<List<StationFoodStore>>> reFoodStoresListResult = restTemplate.exchange(
                      station_food_service_url + "/api/v1/stationfoodservice/stationfoodstores",
                     HttpMethod.POST,
                     requestEntityFoodStoresListResult,
                     new ParameterizedTypeReference<Response<List<StationFoodStore>>>() {
                     });
+            logTime.springExitEnd.add(System.nanoTime());
             List<StationFoodStore> stationFoodStoresListResult = reFoodStoresListResult.getBody().getData();
             if (stationFoodStoresListResult != null && !stationFoodStoresListResult.isEmpty()) {
                 for (String station : stations) {

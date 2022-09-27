@@ -1,6 +1,8 @@
 package foodsearch.controller;
 
 import edu.fudan.common.util.JsonUtils;
+import edu.fudan.common.util.Response;
+import edu.fudan.common.util.logTime;
 import foodsearch.entity.*;
 import foodsearch.mq.RabbitSend;
 import foodsearch.service.FoodService;
@@ -90,8 +92,24 @@ public class FoodController {
     public HttpEntity getAllFood(@PathVariable String date, @PathVariable String startStation,
                                  @PathVariable String endStation, @PathVariable String tripId,
                                  @RequestHeader HttpHeaders headers) {
+        logTime.springEnrtyStart.add(System.nanoTime());
         FoodController.LOGGER.info("[getAllFood][Get Food Request!]");
-        return ok(foodService.getAllFood(date, startStation, endStation, tripId, headers));
+        Response re = foodService.getAllFood(date, startStation, endStation, tripId, headers);
+        logTime.springEnrtyEnd.add(System.nanoTime());
+        return ok(re);
+    }
+
+    @CrossOrigin(origins = "*")
+    @GetMapping(value = "/loggingTime")
+    public HttpEntity queryLoggingTime(@RequestHeader HttpHeaders headers) {
+        return ok(new Response(1,"success", logTime.getSpringTime()));
+    }
+
+    @CrossOrigin(origins = "*")
+    @GetMapping(value = "/clearTime")
+    public HttpEntity clearTime(@RequestHeader HttpHeaders headers) {
+        logTime.clear();
+        return ok(new Response(1,"success",null));
     }
 
 }

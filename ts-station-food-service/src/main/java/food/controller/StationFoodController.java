@@ -1,5 +1,7 @@
 package food.controller;
 
+import edu.fudan.common.util.Response;
+import edu.fudan.common.util.logTime;
 import food.service.StationFoodService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,12 +45,28 @@ public class StationFoodController {
     @CrossOrigin(origins = "*")
     @PostMapping("/stationfoodstores")
     public HttpEntity getFoodStoresByStationNames(@RequestBody List<String> stationNameList) {
+        logTime.springEnrtyStart.add(System.nanoTime());
         StationFoodController.LOGGER.info("[Food Map Service][Get FoodStores By StationNames]");
-        return ok(stationFoodService.getFoodStoresByStationNames(stationNameList));
+        Response re = stationFoodService.getFoodStoresByStationNames(stationNameList);
+        logTime.springEnrtyStart.add(System.nanoTime());
+        return ok(re);
     }
     @GetMapping("/stationfoodstores/bystoreid/{stationFoodStoreId}")
     public HttpEntity getFoodListByStationFoodStoreId(@PathVariable String stationFoodStoreId, @RequestHeader HttpHeaders headers) {
         StationFoodController.LOGGER.info("[Food Map Service][Get Foodlist By stationFoodStoreId]");
         return ok(stationFoodService.getStaionFoodStoreById(stationFoodStoreId));
+    }
+
+    @CrossOrigin(origins = "*")
+    @GetMapping(value = "/loggingTime")
+    public HttpEntity queryLoggingTime(@RequestHeader HttpHeaders headers) {
+        return ok(new Response(1,"success", logTime.getSpringTime()));
+    }
+
+    @CrossOrigin(origins = "*")
+    @GetMapping(value = "/clearTime")
+    public HttpEntity clearTime(@RequestHeader HttpHeaders headers) {
+        logTime.clear();
+        return ok(new Response(1,"success",null));
     }
 }

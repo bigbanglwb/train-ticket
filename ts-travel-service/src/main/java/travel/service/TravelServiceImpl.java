@@ -501,7 +501,7 @@ public class TravelServiceImpl implements TravelService {
                 "trainfood",
                 "security",
                 "orderOther",
-                "contact",
+                "contacts",
                 "assurance"
         );
         Map<String,Object> map = new HashMap<>();
@@ -539,7 +539,7 @@ public class TravelServiceImpl implements TravelService {
                 "trainfood",
                 "security",
                 "orderOther",
-                "contact",
+                "contacts",
                 "assurance"
         );
 
