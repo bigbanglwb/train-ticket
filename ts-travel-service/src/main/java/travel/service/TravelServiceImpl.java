@@ -500,7 +500,7 @@ public class TravelServiceImpl implements TravelService {
                 "preserve",
                 "trainfood",
                 "security",
-                "orderother",
+                "orderOther",
                 "contacts",
                 "assurance"
         );
@@ -516,7 +516,7 @@ public class TravelServiceImpl implements TravelService {
             {
                 serviceUrl= getServiceUrl("ts-train-food-service");
             }
-            else if(serviceName =="orderother")
+            else if(serviceName =="orderOther")
             {
                 serviceUrl= getServiceUrl("ts-order-other-service");
             }
@@ -554,7 +554,7 @@ public class TravelServiceImpl implements TravelService {
                 "preserve",
                 "trainfood",
                 "security",
-                "orderother",
+                "orderOther",
                 "contacts",
                 "assurance"
         );
