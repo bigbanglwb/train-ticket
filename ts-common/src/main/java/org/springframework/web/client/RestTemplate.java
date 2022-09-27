@@ -576,7 +576,7 @@ public class RestTemplate extends InterceptingHttpAccessor implements RestOperat
                                           @Nullable HttpEntity<?> requestEntity, Class<T> responseType, Map<String, ?> uriVariables)
             throws RestClientException {
         logTime.springExitStart.add(System.nanoTime());
-        System.out.println("this is my restTemplate");
+
         RequestCallback requestCallback = httpEntityCallback(requestEntity, responseType);
         ResponseExtractor<ResponseEntity<T>> responseExtractor = responseEntityExtractor(responseType);
         ResponseEntity<T> re= nonNull(execute(url, method, requestCallback, responseExtractor, uriVariables));
@@ -730,7 +730,7 @@ public class RestTemplate extends InterceptingHttpAccessor implements RestOperat
     @Nullable
     protected <T> T doExecute(URI url, @Nullable HttpMethod method, @Nullable RequestCallback requestCallback,
                               @Nullable ResponseExtractor<T> responseExtractor) throws RestClientException {
-
+        System.out.println("this is my restTemplate");
         Assert.notNull(url, "URI is required");
         Assert.notNull(method, "HttpMethod is required");
         ClientHttpResponse response = null;
