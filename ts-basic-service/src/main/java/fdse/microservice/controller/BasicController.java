@@ -38,19 +38,19 @@ public class BasicController {
     @PostMapping(value = "/basic/travel")
     public HttpEntity queryForTravel(@RequestBody Travel info, @RequestHeader HttpHeaders headers) {
         // TravelResult
-        basicLogTime.springEnrtyStart.add(System.nanoTime());
+        //basicLogTime.springEnrtyStart.add(System.nanoTime());
         Response re = service.queryForTravel(info, headers);
         logger.info("[queryForTravel][Query for travel][Travel: {}]", info.toString());
-        basicLogTime.springEnrtyEnd.add(System.nanoTime());
+        //basicLogTime.springEnrtyEnd.add(System.nanoTime());
 
         return ok(re);
     }
 
     @PostMapping(value = "/basic/travels")
     public HttpEntity queryForTravels(@RequestBody List<Travel> infos, @RequestHeader HttpHeaders headers) {
-        basicLogTime.springEnrtyStart.add(System.nanoTime());
+        //basicLogTime.springEnrtyStart.add(System.nanoTime());
         Response re = service.queryForTravels(infos, headers);
-        basicLogTime.springEnrtyEnd.add(System.nanoTime());
+        //basicLogTime.springEnrtyEnd.add(System.nanoTime());
         return ok(re);
     }
 

@@ -139,7 +139,7 @@ public class DefaultBHttpClientConnection extends BHttpConnectionBase
             throws HttpException, IOException {
         Args.notNull(request, "HTTP request");
         ensureOpen();
-        basicLogTime.serializationStartTime.add(System.nanoTime());
+        //basicLogTime.serializationStartTime.add(System.nanoTime());
         this.requestWriter.write(request);
         onRequestSubmitted(request);
         incrementRequestCount();

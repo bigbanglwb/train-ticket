@@ -41,7 +41,5 @@ public interface TravelService {
 
     Response adminQueryAll(HttpHeaders headers);
 
-    Response queryLoggingTime(HttpHeaders headers);
 
-    Response clearTime(HttpHeaders headers);
 }

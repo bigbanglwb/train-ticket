@@ -122,7 +122,7 @@ public class SessionOutputBufferImpl implements SessionOutputBuffer, BufferInfo 
 
     private void streamWrite(final byte[] b, final int off, final int len) throws IOException {
         Asserts.notNull(outStream, "Output stream");
-        basicLogTime.sendRequestTime.add(System.nanoTime());
+        //basicLogTime.sendRequestTime.add(System.nanoTime());
         this.outStream.write(b, off, len);
     }
 
