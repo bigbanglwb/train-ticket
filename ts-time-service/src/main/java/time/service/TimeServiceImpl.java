@@ -137,26 +137,26 @@ public class TimeServiceImpl implements TimeService {
             if (serviceName =="stationfood")
             {
                 serviceUrl= getServiceUrl("ts-station-food-service");
-                parameter = "/api/v1/"+serviceName+"service"+"/loggingTime";
+                parameter = "/api/v1/"+serviceName+"service"+"/clearTime";
             }
             else if(serviceName =="trainfood")
             {
                 serviceUrl= getServiceUrl("ts-train-food-service");
-                parameter = "/api/v1/"+serviceName+"service"+"/loggingTime";
+                parameter = "/api/v1/"+serviceName+"service"+"/clearTime";
             }
             else if(serviceName =="orderOther")
             {
                 serviceUrl= getServiceUrl("ts-order-other-service");
-                parameter = "/api/v1/"+serviceName+"Service"+"/loggingTime";
+                parameter = "/api/v1/"+serviceName+"Service"+"/clearTime";
             }
             else if(serviceName =="contacts")
             {
                 serviceUrl= getServiceUrl("ts-contacts-service");
-                parameter = "/api/v1/contactservice/loggingTime";
+                parameter = "/api/v1/contactservice/clearTime";
             }
             else {
                 serviceUrl = getServiceUrl("ts-"+serviceName+"-service");
-                parameter = "/api/v1/"+serviceName+"service"+"/loggingTime";
+                parameter = "/api/v1/"+serviceName+"service"+"/clearTime";
             }
             HttpEntity requestEntity = new HttpEntity(null);
             ResponseEntity<Response> re = restTemplate.exchange(
