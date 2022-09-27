@@ -241,7 +241,6 @@ public class ResponseEntity<T> extends HttpEntity<T> {
      * @since 4.1
      */
     public static <T> ResponseEntity<T> ok(@Nullable T body) {
-        System.out.println("this is my ok");
         logTime.springEnrtyEnd.add(System.nanoTime());
         return ok().body(body);
     }

@@ -730,7 +730,6 @@ public class RestTemplate extends InterceptingHttpAccessor implements RestOperat
     @Nullable
     protected <T> T doExecute(URI url, @Nullable HttpMethod method, @Nullable RequestCallback requestCallback,
                               @Nullable ResponseExtractor<T> responseExtractor) throws RestClientException {
-        System.out.println("this is my restTemplate");
         Assert.notNull(url, "URI is required");
         Assert.notNull(method, "HttpMethod is required");
         ClientHttpResponse response = null;

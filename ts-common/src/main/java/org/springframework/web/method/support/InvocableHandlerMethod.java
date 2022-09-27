@@ -188,7 +188,6 @@ public class InvocableHandlerMethod extends HandlerMethod {
     protected Object doInvoke(Object... args) throws Exception {
         ReflectionUtils.makeAccessible(getBridgedMethod());
         try {
-            System.out.println("this is my invoke");
             logTime.springEnrtyStart.add(System.nanoTime());
             return getBridgedMethod().invoke(getBean(), args);
         }
