@@ -5,14 +5,14 @@ mvn clean package -Dmaven.test.skip=true
 
 
 #svc_list=("stationfood")
-svc_list=("travel" "basic" "station" "train" "route" "price" "seat" "order" "config" "stationfood" "food" "consign" "user" "preserve" "trainfood" "security" "orderOther" "contacts" "assurance")
+svc_list=("travel" "basic" "station" "train" "route" "price" "seat" "order" "config" "station-food" "food" "consign" "user" "preserve" "train-food" "security" "orderOther" "contacts" "assurance")
 # shellcheck disable=SC2068
 for svc in ${svc_list[@]}
 do
         # kubectl delete deployment ts-${svc}-service
         # kubectl delete svc ts-${svc}-service
         cd ~/train-ticket/ts-${svc}-service || exit
-        docker build -t bigbanglwb/ts-${svc}-service:1.0.0 .
+        docker build -t codewisdom/ts-${svc}-service:1.0.0 .
         # shellcheck disable=SC2046
         kubectl delete pod `kubectl get pods |grep ts-${svc}-service | awk '{print $1}'`
 done

@@ -354,7 +354,7 @@ spec:
     spec:
       containers:
         - name: ts-basic-service
-          image: bigbanglwb/ts-basic-service:1.0.0
+          image: codewisdom/ts-basic-service:1.0.0
           imagePullPolicy: IfNotPresent
           env:
             - name: NODE_IP
@@ -1495,7 +1495,7 @@ spec:
     spec:
       containers:
         - name: ts-station-service
-          image: bigbanglwb/ts-station-service:1.0.0
+          image: codewisdom/ts-station-service:1.0.0
           imagePullPolicy: IfNotPresent
           env:
             - name: NODE_IP
