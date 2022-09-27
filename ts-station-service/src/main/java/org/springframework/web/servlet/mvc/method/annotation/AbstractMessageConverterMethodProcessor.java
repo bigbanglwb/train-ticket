@@ -275,7 +275,7 @@ public abstract class AbstractMessageConverterMethodProcessor extends AbstractMe
                                 "Writing [" + LogFormatUtils.formatValue(theBody, !traceOn) + "]");
                         addContentDispositionHeader(inputMessage, outputMessage);
                         if (genericConverter != null) {
-                            //stationLogTime.serializationStartTime.add(System.nanoTime());
+                            stationLogTime.serializationStartTime.add(System.nanoTime());
                             genericConverter.write(body, targetType, selectedMediaType, outputMessage);
                         }
                         else {

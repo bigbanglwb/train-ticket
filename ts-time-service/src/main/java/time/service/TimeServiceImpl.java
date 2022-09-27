@@ -103,7 +103,7 @@ public class TimeServiceImpl implements TimeService {
             );
             map.put(serviceName,re.getBody().getData());
         }
-        map.put("travel",logTime.getSpringTime());
+
         return new Response<>(1,"loggingTime",map );
     }
 

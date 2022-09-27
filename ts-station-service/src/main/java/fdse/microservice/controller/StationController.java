@@ -62,10 +62,10 @@ public class StationController {
     public HttpEntity queryForStationId(@PathVariable(value = "stationNameForId")
                                                 String stationName, @RequestHeader HttpHeaders headers) {
         // string
-        //stationLogTime.springEnrtyStart.add(System.nanoTime());
+        //stationLogTIme.springEnrtyStart.add(System.nanoTime());
         StationController.LOGGER.info("[queryForId][Query for station id][StationName: {}]",stationName);
         Response re =stationService.queryForId(stationName, headers);
-        //stationLogTime.springEnrtyEnd.add(System.nanoTime());
+        //stationLogTIme.springEnrtyEnd.add(System.nanoTime());
         return ok(re);
     }
 
@@ -75,16 +75,16 @@ public class StationController {
     public HttpEntity queryForIdBatch(@RequestBody List<String> stationNameList, @RequestHeader HttpHeaders headers) throws InterruptedException {
 
         stationLogTime.logicStartTime.add(System.nanoTime());
-        //stationLogTime.springEnrtyStart.add(System.nanoTime());
+        //stationLogTIme.springEnrtyStart.add(System.nanoTime());
         Response re = stationService.queryForIdBatch(stationNameList, headers);
         stationLogTime.logicEndTime.add(System.nanoTime());
 
 
 
-        //stationLogTime.serializationStartTime.clear();
-        //stationLogTime.sendResponseTime.clear();
+        stationLogTime.serializationStartTime.clear();
+        stationLogTime.sendResponseTime.clear();
 
-        //stationLogTime.springEnrtyEnd.add(System.nanoTime());
+        //stationLogTIme.springEnrtyEnd.add(System.nanoTime());
         return ok(re);
     }
     @CrossOrigin(origins = "*")

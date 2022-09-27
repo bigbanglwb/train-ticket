@@ -241,7 +241,7 @@ public class ResponseEntity<T> extends HttpEntity<T> {
     public static <T> ResponseEntity<T> ok(@Nullable T body) {
         long time1 = System.nanoTime();
         Response re = (Response) body;
-        if(!Objects.equals(re.getMsg(), "clearTime") || !Objects.equals(re.getMsg(), "loggingTime"))
+        if(!Objects.equals(re.getMsg(), "clearTime") && !Objects.equals(re.getMsg(), "loggingTime"))
         {
             logTime.springEnrtyEnd.add(time1);
         }

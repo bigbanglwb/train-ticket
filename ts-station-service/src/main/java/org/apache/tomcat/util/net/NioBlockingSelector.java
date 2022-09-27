@@ -119,7 +119,7 @@ public class NioBlockingSelector {
                 if (keycount > 0) { //only write if we were registered for a write
                     if(!Objects.equals(socket.getSocketWrapper().remoteAddr, "10.244.1.1"))
                     {
-                        //stationLogTime.sendResponseTime.add(System.nanoTime());
+                        stationLogTime.sendResponseTime.add(System.nanoTime());
                     }
                     int cnt = socket.write(buf); //write the data
                     if (cnt == -1) {
