@@ -180,24 +180,17 @@ public class TravelController {
         return ok(travelService.queryAll(headers));
     }
 
-
     @CrossOrigin(origins = "*")
     @GetMapping(value = "/loggingTime")
     public HttpEntity queryLoggingTime(@RequestHeader HttpHeaders headers) {
-        return ok(travelService.queryLoggingTime(headers));
-    }
-    @CrossOrigin(origins = "*")
-    @GetMapping(value = "/admin_trip")
-    public HttpEntity adminQueryAll(@RequestHeader HttpHeaders headers) {
-        // ArrayList<AdminTrip>
-        TravelController.LOGGER.info("[adminQueryAll][Admin query all trips]");
-        return ok(travelService.adminQueryAll(headers));
+        return ok(new Response(1,"success",logTime.getSpringTime()));
     }
 
     @CrossOrigin(origins = "*")
     @GetMapping(value = "/clearTime")
     public HttpEntity clearTime(@RequestHeader HttpHeaders headers) {
-        return ok(travelService.clearTime(headers));
+        logTime.clear();
+        return ok(new Response(1,"success",null));
     }
 
 }
