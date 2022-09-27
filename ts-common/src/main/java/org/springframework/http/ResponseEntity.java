@@ -19,12 +19,10 @@ package org.springframework.http;
 import java.net.URI;
 import java.time.Instant;
 import java.time.ZonedDateTime;
-import java.util.Arrays;
-import java.util.LinkedHashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Consumer;
 
+import edu.fudan.common.util.Response;
 import edu.fudan.common.util.logTime;
 import org.apache.commons.logging.Log;
 import org.springframework.lang.Nullable;
@@ -241,7 +239,12 @@ public class ResponseEntity<T> extends HttpEntity<T> {
      * @since 4.1
      */
     public static <T> ResponseEntity<T> ok(@Nullable T body) {
-        logTime.springEnrtyEnd.add(System.nanoTime());
+        long time1 = System.nanoTime();
+        Response re = (Response) body;
+        if(!Objects.equals(re.getMsg(), "clearTime") || !Objects.equals(re.getMsg(), "loggingTime"))
+        {
+            logTime.springEnrtyEnd.add(time1);
+        }
         return ok().body(body);
     }
 

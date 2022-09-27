@@ -104,7 +104,7 @@ public class TimeServiceImpl implements TimeService {
             map.put(serviceName,re.getBody().getData());
         }
         map.put("travel",logTime.getSpringTime());
-        return new Response<>(1,"success",map );
+        return new Response<>(1,"loggingTime",map );
     }
 
     public Response clearTime(HttpHeaders headers) {
@@ -169,7 +169,7 @@ public class TimeServiceImpl implements TimeService {
         }
 
         logTime.clear();
-        return new Response<>(1,"success",null );
+        return new Response<>(1,"clearTime",null );
     }
 
     

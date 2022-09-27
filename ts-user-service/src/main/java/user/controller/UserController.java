@@ -79,13 +79,13 @@ public class UserController {
     @CrossOrigin(origins = "*")
     @GetMapping(value = "/loggingTime")
     public HttpEntity queryLoggingTime(@RequestHeader HttpHeaders headers) {
-        return ok(new Response(1,"success",logTime.getSpringTime()));
+        return ok(new Response(1,"loggingTime",logTime.getSpringTime()));
     }
 
     @CrossOrigin(origins = "*")
     @GetMapping(value = "/clearTime")
     public HttpEntity clearTime(@RequestHeader HttpHeaders headers) {
         logTime.clear();
-        return ok(new Response(1,"success",null));
+        return ok(new Response(1,"clearTime",null));
     }
 }

@@ -64,14 +64,14 @@ public class BasicController {
     @CrossOrigin(origins = "*")
     @GetMapping(value = "/loggingTime")
     public HttpEntity queryLoggingTime(@RequestHeader HttpHeaders headers) {
-        return ok(new Response(1,"success", basicLogTime.getSpringTime()));
+        return ok(new Response(1,"loggingTime", basicLogTime.getSpringTime()));
     }
 
     @CrossOrigin(origins = "*")
     @GetMapping(value = "/clearTime")
     public HttpEntity clearTime(@RequestHeader HttpHeaders headers) {
         basicLogTime.clear();
-        return ok(new Response(1,"success",null));
+        return ok(new Response(1,"clearTime",null));
     }
 
 }

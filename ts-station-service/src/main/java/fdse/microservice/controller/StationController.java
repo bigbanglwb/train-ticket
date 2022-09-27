@@ -115,13 +115,13 @@ public class StationController {
     @CrossOrigin(origins = "*")
     @GetMapping(value = "/loggingTime")
     public HttpEntity queryLoggingTime(@RequestHeader HttpHeaders headers) {
-        return ok(new Response(1,"success", stationLogTime.getSpringTime()));
+        return ok(new Response(1,"loggingTime", stationLogTime.getSpringTime()));
     }
 
     @CrossOrigin(origins = "*")
     @GetMapping(value = "/clearTime")
     public HttpEntity clearTime(@RequestHeader HttpHeaders headers) {
         stationLogTime.clear();
-        return ok(new Response(1,"success",null));
+        return ok(new Response(1,"clearTime",null));
     }
 }
