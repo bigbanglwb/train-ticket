@@ -346,14 +346,14 @@ public class TravelServiceImpl implements TravelService {
         HttpEntity requestEntity = new HttpEntity(infos, null);
         String basic_service_url = getServiceUrl("ts-basic-service");
 
-        logTime.springExitStart.add(System.nanoTime());
+        //logTime.springExitStart.add(System.nanoTime());
 
         ResponseEntity<Response> re = restTemplate.exchange(
                 basic_service_url + "/api/v1/basicservice/basic/travels",
                 HttpMethod.POST,
                 requestEntity,
                 Response.class);
-        logTime.springExitEnd.add(System.nanoTime());
+        //logTime.springExitEnd.add(System.nanoTime());
 
         Response r = re.getBody();
         if(r.getStatus() == 0){
@@ -405,8 +405,8 @@ public class TravelServiceImpl implements TravelService {
                 requestEntity,
                 Response.class);
         long time2 = System.nanoTime();
-        logTime.springExitStart.add(time1);
-        logTime.springExitEnd.add(time2);
+        //logTime.springExitStart.add(time1);
+        //logTime.springExitEnd.add(time2);
         Response r = re.getBody();
         if(r.getStatus() == 0){
             TravelServiceImpl.LOGGER.info("[getTickets][Ts-basic-service response status is 0][response is: {}]", r);
@@ -634,14 +634,14 @@ public class TravelServiceImpl implements TravelService {
 
         HttpEntity requestEntity = new HttpEntity(seatRequest, null);
         String seat_service_url = getServiceUrl("ts-seat-service");
-        logTime.springExitStart.add(System.nanoTime());
+        //logTime.springExitStart.add(System.nanoTime());
         ResponseEntity<Response<Integer>> re = restTemplate.exchange(
                 seat_service_url + "/api/v1/seatservice/seats/left_tickets",
                 HttpMethod.POST,
                 requestEntity,
                 new ParameterizedTypeReference<Response<Integer>>() {
                 });
-        logTime.springExitEnd.add(System.nanoTime());
+        //logTime.springExitEnd.add(System.nanoTime());
         TravelServiceImpl.LOGGER.info("[getRestTicketNumber][Get Rest tickets num][num is: {}]", re.getBody().toString());
 
         return re.getBody().getData();

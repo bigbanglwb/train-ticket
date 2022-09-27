@@ -92,10 +92,10 @@ public class FoodController {
     public HttpEntity getAllFood(@PathVariable String date, @PathVariable String startStation,
                                  @PathVariable String endStation, @PathVariable String tripId,
                                  @RequestHeader HttpHeaders headers) {
-        logTime.springEnrtyStart.add(System.nanoTime());
+        //logTime.springEnrtyStart.add(System.nanoTime());
         FoodController.LOGGER.info("[getAllFood][Get Food Request!]");
         Response re = foodService.getAllFood(date, startStation, endStation, tripId, headers);
-        logTime.springEnrtyEnd.add(System.nanoTime());
+        //logTime.springEnrtyEnd.add(System.nanoTime());
         return ok(re);
     }
 

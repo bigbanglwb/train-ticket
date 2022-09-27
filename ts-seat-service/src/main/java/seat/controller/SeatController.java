@@ -40,10 +40,10 @@ public class SeatController {
     @CrossOrigin(origins = "*")
     @PostMapping(value = "/seats")
     public HttpEntity create(@RequestBody Seat seatRequest, @RequestHeader HttpHeaders headers) {
-        logTime.springEnrtyStart.add(System.nanoTime());
+        //logTime.springEnrtyStart.add(System.nanoTime());
         SeatController.LOGGER.info("[distributeSeat][Create seat][TravelDate: {},TrainNumber: {},SeatType: {}]",seatRequest.getTravelDate(),seatRequest.getTrainNumber(),seatRequest.getSeatType());
         Response re= seatService.distributeSeat(seatRequest, headers);
-        logTime.springEnrtyEnd.add(System.nanoTime());
+        //logTime.springEnrtyEnd.add(System.nanoTime());
 
         return ok(re);
     }
@@ -60,10 +60,10 @@ public class SeatController {
     @PostMapping(value = "/seats/left_tickets")
     public HttpEntity getLeftTicketOfInterval(@RequestBody Seat seatRequest, @RequestHeader HttpHeaders headers) {
         // int
-        logTime.springEnrtyStart.add(System.nanoTime());
+        //logTime.springEnrtyStart.add(System.nanoTime());
         SeatController.LOGGER.info("[getLeftTicketOfInterval][Get left ticket of interval][TravelDate: {},TrainNumber: {},SeatType: {}]",seatRequest.getTravelDate(),seatRequest.getTrainNumber(),seatRequest.getSeatType());
         Response re = seatService.getLeftTicketOfInterval(seatRequest, headers);
-        logTime.springEnrtyEnd.add(System.nanoTime());
+        //logTime.springEnrtyEnd.add(System.nanoTime());
         return ok(re);
     }
 

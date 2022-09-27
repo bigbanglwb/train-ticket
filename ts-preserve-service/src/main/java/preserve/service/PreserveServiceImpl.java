@@ -133,8 +133,8 @@ public class PreserveServiceImpl implements PreserveService {
                 new ParameterizedTypeReference<Response<TravelResult>>() {
                 });
         long time2=System.nanoTime();
-        logTime.springExitStart.add(time1);
-        logTime.springExitEnd.add(time2);
+        //logTime.springExitStart.add(time1);
+        //logTime.springExitEnd.add(time2);
         if(re.getBody().getStatus() == 0){
             PreserveServiceImpl.LOGGER.info("[Preserve 3][Get basic travel response status is 0][response is: {}]", re.getBody());
             return new Response<>(0, re.getBody().getMsg(), null);
@@ -288,8 +288,8 @@ public class PreserveServiceImpl implements PreserveService {
                 new ParameterizedTypeReference<Response<Ticket>>() {
                 });
         long time2 = System.nanoTime();
-        logTime.springExitStart.add(time1);
-        logTime.springExitEnd.add(time2);
+        //logTime.springExitStart.add(time1);
+        //logTime.springExitEnd.add(time2);
         return reTicket.getBody().getData();
     }
 
@@ -319,8 +319,8 @@ public class PreserveServiceImpl implements PreserveService {
                 new ParameterizedTypeReference<Response<User>>() {
                 });
         long time2 = System.nanoTime();
-        logTime.springExitStart.add(time1);
-        logTime.springExitEnd.add(time2);
+        //logTime.springExitStart.add(time1);
+        //logTime.springExitEnd.add(time2);
         Response<User> result = getAccount.getBody();
         return result.getData();
     }
@@ -336,8 +336,8 @@ public class PreserveServiceImpl implements PreserveService {
                 requestAddAssuranceResult,
                 Response.class);
         long time2 = System.nanoTime();
-        logTime.springExitStart.add(time1);
-        logTime.springExitEnd.add(time2);
+        //logTime.springExitStart.add(time1);
+        //logTime.springExitEnd.add(time2);
         return reAddAssuranceResult.getBody();
     }
 
@@ -362,13 +362,13 @@ public class PreserveServiceImpl implements PreserveService {
 
         HttpEntity requestCheckResult = new HttpEntity(httpHeaders);
         String security_service_url = getServiceUrl("ts-security-service");
-        logTime.springExitStart.add(System.nanoTime());
+        //logTime.springExitStart.add(System.nanoTime());
         ResponseEntity<Response> reCheckResult = restTemplate.exchange(
                 security_service_url + "/api/v1/securityservice/securityConfigs/" + accountId,
                 HttpMethod.GET,
                 requestCheckResult,
                 Response.class);
-        logTime.springExitEnd.add(System.nanoTime());
+        //logTime.springExitEnd.add(System.nanoTime());
         return reCheckResult.getBody();
     }
 
@@ -386,8 +386,8 @@ public class PreserveServiceImpl implements PreserveService {
                 new ParameterizedTypeReference<Response<TripAllDetail>>() {
                 });
         long time2=System.nanoTime();
-        logTime.springExitStart.add(time1);
-        logTime.springExitEnd.add(time2);
+        //logTime.springExitStart.add(time1);
+        //logTime.springExitEnd.add(time2);
         return reGetTripAllDetailResult.getBody();
     }
 
@@ -405,8 +405,8 @@ public class PreserveServiceImpl implements PreserveService {
                 new ParameterizedTypeReference<Response<Contacts>>() {
                 });
         long time2 = System.nanoTime();
-        logTime.springExitStart.add(time1);
-        logTime.springExitEnd.add(time2);
+        //logTime.springExitStart.add(time1);
+        //logTime.springExitEnd.add(time2);
         return reGetContactsResult.getBody();
     }
 
@@ -423,8 +423,8 @@ public class PreserveServiceImpl implements PreserveService {
                 new ParameterizedTypeReference<Response<Order>>() {
                 });
         long time2 = System.nanoTime();
-        logTime.springExitStart.add(time1);
-        logTime.springExitEnd.add(time2);
+        //logTime.springExitStart.add(time1);
+        //logTime.springExitEnd.add(time2);
         return reCreateOrderResult.getBody();
     }
 
@@ -440,8 +440,8 @@ public class PreserveServiceImpl implements PreserveService {
                 requestEntityAddFoodOrderResult,
                 Response.class);
         long time2 = System.nanoTime();
-        logTime.springExitStart.add(time1);
-        logTime.springExitEnd.add(time2);
+        //logTime.springExitStart.add(time1);
+        //logTime.springExitEnd.add(time2);
         return reAddFoodOrderResult.getBody();
     }
 
@@ -457,8 +457,8 @@ public class PreserveServiceImpl implements PreserveService {
                 requestEntityResultForTravel,
                 Response.class);
         long time2 = System.nanoTime();
-        logTime.springExitStart.add(time1);
-        logTime.springExitEnd.add(time2);
+        //logTime.springExitStart.add(time1);
+        //logTime.springExitEnd.add(time2);
         return reResultForTravel.getBody();
     }
 

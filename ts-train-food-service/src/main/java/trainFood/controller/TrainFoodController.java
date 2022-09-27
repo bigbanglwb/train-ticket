@@ -36,10 +36,10 @@ public class TrainFoodController {
     @CrossOrigin(origins = "*")
     @GetMapping("/trainfoods/{tripId}")
     public HttpEntity getTrainFoodOfTrip(@PathVariable String tripId, @RequestHeader HttpHeaders headers) {
-        logTime.springEnrtyStart.add(System.nanoTime());
+        //logTime.springEnrtyStart.add(System.nanoTime());
         TrainFoodController.LOGGER.info("[Food Map Service][Get TrainFoods By TripId]");
         Response re = trainFoodService.listTrainFoodByTripId(tripId, headers);
-        logTime.springEnrtyEnd.add(System.nanoTime());
+        //logTime.springEnrtyEnd.add(System.nanoTime());
         return ok(re);
     }
 

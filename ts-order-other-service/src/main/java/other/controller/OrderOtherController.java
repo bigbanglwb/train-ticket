@@ -72,10 +72,10 @@ public class OrderOtherController {
     @PostMapping(path = "/orderOther/refresh")
     public HttpEntity queryOrdersForRefresh(@RequestBody QueryInfo qi,
                                             @RequestHeader HttpHeaders headers) {
-        logTime.springEnrtyStart.add(System.nanoTime());
+        //logTime.springEnrtyStart.add(System.nanoTime());
         OrderOtherController.LOGGER.info("[queryOrdersForRefresh][Query Orders][for LoginId:{}]", qi.getLoginId());
         Response re = orderService.queryOrdersForRefresh(qi, qi.getLoginId(), headers);
-        logTime.springEnrtyEnd.add(System.nanoTime());
+        //logTime.springEnrtyEnd.add(System.nanoTime());
         return ok(re);
     }
 
@@ -120,11 +120,11 @@ public class OrderOtherController {
     @GetMapping(path = "/orderOther/security/{checkDate}/{accountId}")
     public HttpEntity securityInfoCheck(@PathVariable String checkDate, @PathVariable String accountId,
                                         @RequestHeader HttpHeaders headers) {
-        logTime.springEnrtyStart.add(System.nanoTime());
+        //logTime.springEnrtyStart.add(System.nanoTime());
 
         OrderOtherController.LOGGER.info("[checkSecurityAboutOrder][Security Info Get][CheckDate:{} , AccountId:{}]",checkDate,accountId);
         Response re = orderService.checkSecurityAboutOrder(StringUtils.String2Date(checkDate), accountId, headers);
-        logTime.springEnrtyEnd.add(System.nanoTime());
+        //logTime.springEnrtyEnd.add(System.nanoTime());
         return ok(re);
     }
 

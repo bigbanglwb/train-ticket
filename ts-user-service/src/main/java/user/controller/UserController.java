@@ -47,10 +47,10 @@ public class UserController {
     }
     @GetMapping("/users/id/{userId}")
     public ResponseEntity<Response> getUserByUserId(@PathVariable String userId, @RequestHeader HttpHeaders headers) {
-        logTime.springEnrtyStart.add(System.nanoTime());
+        //logTime.springEnrtyStart.add(System.nanoTime());
         UserController.LOGGER.info("[getUserByUserId][Get user by user id][UserId: {}]",userId);
         Response re = userService.findByUserId(userId, headers);
-        logTime.springEnrtyEnd.add(System.nanoTime());
+        //logTime.springEnrtyEnd.add(System.nanoTime());
         return ok(re);
     }
 

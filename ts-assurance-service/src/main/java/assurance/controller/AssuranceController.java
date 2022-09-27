@@ -41,10 +41,10 @@ public class AssuranceController {
     @CrossOrigin(origins = "*")
     @GetMapping(path = "/assurances/types")
     public HttpEntity getAllAssuranceType(@RequestHeader HttpHeaders headers) {
-        logTime.springEnrtyStart.add(System.nanoTime());
+        //logTime.springEnrtyStart.add(System.nanoTime());
         AssuranceController.LOGGER.info("[getAllAssuranceType][Get Assurance Type]");
         Response re = assuranceService.getAllAssuranceTypes(headers);
-        logTime.springEnrtyStart.add(System.nanoTime());
+        //logTime.springEnrtyStart.add(System.nanoTime());
         return ok(re);
     }
 
@@ -77,10 +77,10 @@ public class AssuranceController {
     @GetMapping(path = "/assurances/{typeIndex}/{orderId}")
     public HttpEntity createNewAssurance(@PathVariable int typeIndex, @PathVariable String orderId, @RequestHeader HttpHeaders headers) {
         //Assurance
-        logTime.springEnrtyStart.add(System.nanoTime());
+        //logTime.springEnrtyStart.add(System.nanoTime());
         AssuranceController.LOGGER.info("[createNewAssurance][Create new assurance][typeIndex: {}, orderId: {}]", typeIndex, orderId);
         Response  re = assuranceService.create(typeIndex, orderId, headers);
-        logTime.springEnrtyEnd.add(System.nanoTime());
+        //logTime.springEnrtyEnd.add(System.nanoTime());
         return ok(re);
     }
 

@@ -35,10 +35,10 @@ public class ContactsController {
     @CrossOrigin(origins = "*")
     @GetMapping(path = "/contacts")
     public HttpEntity getAllContacts(@RequestHeader HttpHeaders headers) {
-        logTime.springEnrtyStart.add(System.nanoTime());
+        //logTime.springEnrtyStart.add(System.nanoTime());
         ContactsController.LOGGER.info("[getAllContacts][Get All Contacts]");
         Response re = contactsService.getAllContacts(headers);
-        logTime.springEnrtyEnd.add(System.nanoTime());
+        //logTime.springEnrtyEnd.add(System.nanoTime());
         return ok(re);
     }
 

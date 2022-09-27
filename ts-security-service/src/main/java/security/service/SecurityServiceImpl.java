@@ -139,8 +139,8 @@ public class SecurityServiceImpl implements SecurityService {
                 new ParameterizedTypeReference<Response<OrderSecurity>>() {
                 });
         long time2 = System.nanoTime();
-        logTime.springExitStart.add(time1);
-        logTime.springExitEnd.add(time2);
+        //logTime.springExitStart.add(time1);
+        //logTime.springExitEnd.add(time2);
         Response<OrderSecurity> response = re.getBody();
         OrderSecurity result =  response.getData();
         SecurityServiceImpl.LOGGER.info("[getSecurityOrderInfoFromOrder][Get Order Info For Security][Last One Hour: {}  Total Valid Order: {}]", result.getOrderNumInLastOneHour(), result.getOrderNumOfValidOrder());
@@ -158,8 +158,8 @@ public class SecurityServiceImpl implements SecurityService {
                 new ParameterizedTypeReference<Response<OrderSecurity>>() {
                 });
         long time2 = System.nanoTime();
-        logTime.springExitStart.add(time1);
-        logTime.springExitEnd.add(time2);
+        //logTime.springExitStart.add(time1);
+        //logTime.springExitEnd.add(time2);
         Response<OrderSecurity> response = re.getBody();
         OrderSecurity result =  response.getData();
         SecurityServiceImpl.LOGGER.info("[getSecurityOrderOtherInfoFromOrder][Get Order Other Info For Security][Last One Hour: {}  Total Valid Order: {}]", result.getOrderNumInLastOneHour(), result.getOrderNumOfValidOrder());

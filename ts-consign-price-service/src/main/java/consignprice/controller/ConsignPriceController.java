@@ -33,11 +33,11 @@ public class ConsignPriceController {
     @GetMapping(value = "/consignprice/{weight}/{isWithinRegion}")
     public HttpEntity getPriceByWeightAndRegion(@PathVariable String weight, @PathVariable String isWithinRegion,
                                                 @RequestHeader HttpHeaders headers) {
-        logTime.springEnrtyStart.add(System.nanoTime());
+        //logTime.springEnrtyStart.add(System.nanoTime());
         logger.info("[getPriceByWeightAndRegion][Get price by weight and region][weight: {}, region: {}]", weight, isWithinRegion);
         Response re = service.getPriceByWeightAndRegion(Double.parseDouble(weight),
                 Boolean.parseBoolean(isWithinRegion), headers);
-        logTime.springEnrtyEnd.add(System.nanoTime());
+        //logTime.springEnrtyEnd.add(System.nanoTime());
         return ok(re);
     }
 

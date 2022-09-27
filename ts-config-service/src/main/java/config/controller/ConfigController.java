@@ -66,10 +66,10 @@ public class ConfigController {
     @CrossOrigin(origins = "*")
     @GetMapping(value = "/configs/{configName}")
     public HttpEntity retrieve(@PathVariable String configName, @RequestHeader HttpHeaders headers) {
-        logTime.springEnrtyStart.add(System.nanoTime());
+        //logTime.springEnrtyStart.add(System.nanoTime());
         logger.info("[retrieve][Retrieve config][configName: {}]", configName);
         Response re = configService.query(configName, headers);
-        logTime.springEnrtyEnd.add(System.nanoTime());
+        //logTime.springEnrtyEnd.add(System.nanoTime());
         return ok(re);
     }
     @CrossOrigin(origins = "*")

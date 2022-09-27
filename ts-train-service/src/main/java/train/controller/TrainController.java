@@ -58,7 +58,7 @@ public class TrainController {
     @CrossOrigin(origins = "*")
     @GetMapping(value = "/trains/byName/{name}")
     public HttpEntity retrieveByName(@PathVariable String name, @RequestHeader HttpHeaders headers) {
-        logTime.springEnrtyStart.add(System.nanoTime());
+        //logTime.springEnrtyStart.add(System.nanoTime());
         TrainController.LOGGER.info("[retrieveByName][Retrieve train][TrainTypeName: {}]", name);
         TrainType trainType = trainService.retrieveByName(name, headers);
         Response re;
@@ -68,14 +68,14 @@ public class TrainController {
             re = new Response(1, "success", trainType);
 
         }
-        logTime.springEnrtyEnd.add(System.nanoTime());
+        //logTime.springEnrtyEnd.add(System.nanoTime());
         return ok(re);
     }
 
     @CrossOrigin(origins = "*")
     @PostMapping(value = "/trains/byNames")
     public HttpEntity retrieveByName(@RequestBody List<String> names, @RequestHeader HttpHeaders headers) {
-        logTime.springEnrtyStart.add(System.nanoTime());
+        //logTime.springEnrtyStart.add(System.nanoTime());
         TrainController.LOGGER.info("[retrieveByNames][Retrieve train][TrainTypeNames: {}]", names);
         List<TrainType> trainTypes = trainService.retrieveByNames(names, headers);
         Response re;
@@ -85,7 +85,7 @@ public class TrainController {
             re = new Response(1, "success", trainTypes);
 
         }
-        logTime.springEnrtyEnd.add(System.nanoTime());
+        //logTime.springEnrtyEnd.add(System.nanoTime());
         return ok(re);
     }
 

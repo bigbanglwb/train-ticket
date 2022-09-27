@@ -45,10 +45,10 @@ public class StationFoodController {
     @CrossOrigin(origins = "*")
     @PostMapping("/stationfoodstores")
     public HttpEntity getFoodStoresByStationNames(@RequestBody List<String> stationNameList) {
-        logTime.springEnrtyStart.add(System.nanoTime());
+        //logTime.springEnrtyStart.add(System.nanoTime());
         StationFoodController.LOGGER.info("[Food Map Service][Get FoodStores By StationNames]");
         Response re = stationFoodService.getFoodStoresByStationNames(stationNameList);
-        logTime.springEnrtyStart.add(System.nanoTime());
+        //logTime.springEnrtyStart.add(System.nanoTime());
         return ok(re);
     }
     @GetMapping("/stationfoodstores/bystoreid/{stationFoodStoreId}")

@@ -35,10 +35,10 @@ public class ConsignController {
     @PostMapping(value = "/consigns")
     public HttpEntity insertConsign(@RequestBody Consign request,
                                     @RequestHeader HttpHeaders headers) {
-        logTime.springEnrtyStart.add(System.nanoTime());
+        //logTime.springEnrtyStart.add(System.nanoTime());
         logger.info("[insertConsign][Insert consign record][id:{}]", request.getId());
         Response re = service.insertConsignRecord(request, headers);
-        logTime.springEnrtyEnd.add(System.nanoTime());
+        //logTime.springEnrtyEnd.add(System.nanoTime());
         return ok(re);
     }
 

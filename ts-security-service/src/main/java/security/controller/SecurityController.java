@@ -33,10 +33,10 @@ public class SecurityController {
     @CrossOrigin(origins = "*")
     @GetMapping(path = "/securityConfigs")
     public HttpEntity findAllSecurityConfig(@RequestHeader HttpHeaders headers) {
-        logTime.springEnrtyStart.add(System.nanoTime());
+        //logTime.springEnrtyStart.add(System.nanoTime());
         SecurityController.LOGGER.info("[findAllSecurityConfig][Find All]");
         Response re= securityService.findAllSecurityConfig(headers);
-        logTime.springEnrtyEnd.add(System.nanoTime());
+        //logTime.springEnrtyEnd.add(System.nanoTime());
         return ok(re);
     }
 

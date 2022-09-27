@@ -51,10 +51,10 @@ public class RouteController {
 
     @PostMapping(path = "/routes/byIds")
     public HttpEntity queryByIds(@RequestBody List<String> routeIds, @RequestHeader HttpHeaders headers) {
-        logTime.springEnrtyStart.add(System.nanoTime());
+        //logTime.springEnrtyStart.add(System.nanoTime());
         RouteController.LOGGER.info("[getRouteById][Query route by id][RouteId: {}]", routeIds);
         Response re = routeService.getRouteByIds(routeIds, headers);
-        logTime.springEnrtyEnd.add(System.nanoTime());
+        //logTime.springEnrtyEnd.add(System.nanoTime());
         return ok(re);
     }
 
