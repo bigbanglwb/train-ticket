@@ -508,25 +508,30 @@ public class TravelServiceImpl implements TravelService {
         for(String serviceName :serviceList)
         {
             String serviceUrl;
+            String parameter;
             if (serviceName =="stationfood")
             {
                 serviceUrl= getServiceUrl("ts-station-food-service");
+                parameter = "/api/v1/"+serviceName+"service"+"/loggingTime";
             }
             else if(serviceName =="trainfood")
             {
                 serviceUrl= getServiceUrl("ts-train-food-service");
+                parameter = "/api/v1/"+serviceName+"service"+"/loggingTime";
             }
             else if(serviceName =="orderOther")
             {
                 serviceUrl= getServiceUrl("ts-order-other-service");
+                parameter = "/api/v1/"+serviceName+"Service"+"/loggingTime";
             }
             else {
                 serviceUrl = getServiceUrl("ts-"+serviceName+"-service");
+                parameter = "/api/v1/"+serviceName+"service"+"/loggingTime";
             }
 
             HttpEntity requestEntity = new HttpEntity(null);
             ResponseEntity<Response> re = restTemplate.exchange(
-                    serviceUrl + "/api/v1/"+serviceName+"service"+"/loggingTime",
+                    serviceUrl + parameter,
                     HttpMethod.GET,
                     requestEntity,
                     Response.class
@@ -562,24 +567,29 @@ public class TravelServiceImpl implements TravelService {
         for(String serviceName :serviceList)
         {
             String serviceUrl;
+            String parameter;
             if (serviceName =="stationfood")
             {
                 serviceUrl= getServiceUrl("ts-station-food-service");
+                parameter = "/api/v1/"+serviceName+"service"+"/loggingTime";
             }
             else if(serviceName =="trainfood")
             {
                 serviceUrl= getServiceUrl("ts-train-food-service");
+                parameter = "/api/v1/"+serviceName+"service"+"/loggingTime";
             }
-            else if(serviceName =="orderother")
+            else if(serviceName =="orderOther")
             {
                 serviceUrl= getServiceUrl("ts-order-other-service");
+                parameter = "/api/v1/"+serviceName+"Service"+"/loggingTime";
             }
             else {
                 serviceUrl = getServiceUrl("ts-"+serviceName+"-service");
+                parameter = "/api/v1/"+serviceName+"service"+"/loggingTime";
             }
             HttpEntity requestEntity = new HttpEntity(null);
             ResponseEntity<Response> re = restTemplate.exchange(
-                    serviceUrl + "/api/v1/"+serviceName+"service"+"/clearTime",
+                    serviceUrl + parameter,
                     HttpMethod.GET,
                     requestEntity,
                     Response.class
