@@ -500,14 +500,30 @@ public class TravelServiceImpl implements TravelService {
                 "preserve",
                 "trainfood",
                 "security",
-                "orderOther",
+                "orderother",
                 "contacts",
                 "assurance"
         );
         Map<String,Object> map = new HashMap<>();
         for(String serviceName :serviceList)
         {
-            String serviceUrl = getServiceUrl("ts-"+serviceName+"-service");
+            String serviceUrl;
+            if (serviceName =="stationfood")
+            {
+                serviceUrl= getServiceUrl("ts-station-food-service");
+            }
+            else if(serviceName =="trainfood")
+            {
+                serviceUrl= getServiceUrl("ts-train-food-service");
+            }
+            else if(serviceName =="orderother")
+            {
+                serviceUrl= getServiceUrl("ts-order-other-service");
+            }
+            else {
+                serviceUrl = getServiceUrl("ts-"+serviceName+"-service");
+            }
+
             HttpEntity requestEntity = new HttpEntity(null);
             ResponseEntity<Response> re = restTemplate.exchange(
                     serviceUrl + "/api/v1/"+serviceName+"service"+"/loggingTime",
@@ -538,14 +554,29 @@ public class TravelServiceImpl implements TravelService {
                 "preserve",
                 "trainfood",
                 "security",
-                "orderOther",
+                "orderother",
                 "contacts",
                 "assurance"
         );
 
         for(String serviceName :serviceList)
         {
-            String serviceUrl = getServiceUrl("ts-"+serviceName+"-service");
+            String serviceUrl;
+            if (serviceName =="stationfood")
+            {
+                serviceUrl= getServiceUrl("ts-station-food-service");
+            }
+            else if(serviceName =="trainfood")
+            {
+                serviceUrl= getServiceUrl("ts-train-food-service");
+            }
+            else if(serviceName =="orderother")
+            {
+                serviceUrl= getServiceUrl("ts-order-other-service");
+            }
+            else {
+                serviceUrl = getServiceUrl("ts-"+serviceName+"-service");
+            }
             HttpEntity requestEntity = new HttpEntity(null);
             ResponseEntity<Response> re = restTemplate.exchange(
                     serviceUrl + "/api/v1/"+serviceName+"service"+"/clearTime",
