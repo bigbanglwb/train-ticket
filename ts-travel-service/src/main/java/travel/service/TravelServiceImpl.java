@@ -524,6 +524,11 @@ public class TravelServiceImpl implements TravelService {
                 serviceUrl= getServiceUrl("ts-order-other-service");
                 parameter = "/api/v1/"+serviceName+"Service"+"/loggingTime";
             }
+            else if(serviceName =="contacts")
+            {
+                serviceUrl= getServiceUrl("ts-contacts-service");
+                parameter = "/api/v1/contactservice/loggingTime";
+            }
             else {
                 serviceUrl = getServiceUrl("ts-"+serviceName+"-service");
                 parameter = "/api/v1/"+serviceName+"service"+"/loggingTime";
