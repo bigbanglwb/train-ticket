@@ -62,7 +62,8 @@ public class TimeServiceImpl implements TimeService {
                 "orderOther",
                 "contacts",
                 "assurance",
-                "travel"
+                "travel",
+                "consignprice"
         );
         Map<String,Object> map = new HashMap<>();
         for(String serviceName :serviceList)
@@ -77,6 +78,11 @@ public class TimeServiceImpl implements TimeService {
             else if(serviceName =="trainfood")
             {
                 serviceUrl= getServiceUrl("ts-train-food-service");
+                parameter = "/api/v1/"+serviceName+"service"+"/loggingTime";
+            }
+            else if(serviceName =="consignpirce")
+            {
+                serviceUrl= getServiceUrl("ts-consign-price-service");
                 parameter = "/api/v1/"+serviceName+"service"+"/loggingTime";
             }
             else if(serviceName =="orderOther")
@@ -127,7 +133,8 @@ public class TimeServiceImpl implements TimeService {
                 "orderOther",
                 "contacts",
                 "assurance",
-                "travel"
+                "travel",
+                "consignprice"
         );
 
         for(String serviceName :serviceList)
@@ -142,6 +149,11 @@ public class TimeServiceImpl implements TimeService {
             else if(serviceName =="trainfood")
             {
                 serviceUrl= getServiceUrl("ts-train-food-service");
+                parameter = "/api/v1/"+serviceName+"service"+"/clearTime";
+            }
+            else if(serviceName =="consignpirce")
+            {
+                serviceUrl= getServiceUrl("ts-consign-price-service");
                 parameter = "/api/v1/"+serviceName+"service"+"/clearTime";
             }
             else if(serviceName =="orderOther")
