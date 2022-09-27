@@ -19,6 +19,7 @@ package org.springframework.web.method.support;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
+import java.util.Objects;
 
 import edu.fudan.common.util.logTime;
 import org.springframework.core.DefaultParameterNameDiscoverer;
@@ -31,6 +32,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
+import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.method.HandlerMethod;
 
 /**
@@ -136,6 +138,11 @@ public class InvocableHandlerMethod extends HandlerMethod {
         if (logger.isTraceEnabled()) {
             logger.trace("Arguments: " + Arrays.toString(args));
         }
+        long time1=System.nanoTime();
+        if(!Objects.equals(((ServletWebRequest) request).getRequest().getRemoteAddr(), "10.244.1.112"))
+        {
+            logTime.springEnrtyStart.add(time1);
+        }
         return doInvoke(args);
     }
 
@@ -188,7 +195,6 @@ public class InvocableHandlerMethod extends HandlerMethod {
     protected Object doInvoke(Object... args) throws Exception {
         ReflectionUtils.makeAccessible(getBridgedMethod());
         try {
-            logTime.springEnrtyStart.add(System.nanoTime());
             return getBridgedMethod().invoke(getBean(), args);
         }
         catch (IllegalArgumentException ex) {
