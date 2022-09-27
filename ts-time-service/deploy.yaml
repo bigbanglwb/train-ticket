@@ -37,7 +37,7 @@ spec:
           readinessProbe:
             tcpSocket:
               port: 12346
-            initialDelaySeconds: 60
+            initialDelaySeconds: 300
             periodSeconds: 10
             timeoutSeconds: 5
 ---
