@@ -30,20 +30,15 @@ def init_docker_build_paths():
                 build_paths.append(build_path)
 
 
-# def docker_login():
-#     username = os.getenv("DOCKER_USERNAME")
-#     docker_hub_address = os.getenv("DOCKER_HUB_ADDRESS") or "registry.cn-hangzhou.aliyuncs.com"
-#     print(f"[DOCKER HUB LOGIN] login username:{username} address:{docker_hub_address}")
-#     print(f"[DOCKER HUB LOGIN] You should input your root password first and then dockerhub password")
-#     docker_login = os.system(f"sudo docker login --username={username} {docker_hub_address}")
-#     if not docker_login:
-#         print("docker login failed")
+
 
 
 def docker_build_and_push():
+    name_list ["ts-ui-dashboard","ts-gateway-service","ts-avatar-service","ts-delivery-service","ts-news-service","ts-ticket-office-service","ts-voucher-service"]
     for build_path in build_paths:
         image_name = build_path.split("/")[-1]
-
+        if image_name in name_list:
+            continue
         os.chdir(build_path)
         files = os.listdir(build_path)
         if "Dockerfile" in files:
