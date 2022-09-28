@@ -11,7 +11,7 @@
 
 cd ~/train-ticket
 mvn  clean package -Dmaven.test.skip=true -pl ts-inside-payment-service -am
-cd ~/train-ticket/ts-time-service || exit
+cd ~/train-ticket/ts-inside-payment-service || exit
 docker build -t codewisdom/ts-inside-payment-service:1.0.0 .
 # shellcheck disable=SC2046
 kubectl delete pod `kubectl get pods |grep ts-inside-payment-service | awk '{print $1}'`
