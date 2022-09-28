@@ -41,143 +41,77 @@ public class TimeServiceImpl implements TimeService {
         return "http://" + serviceName;
     }
 
-
+    static  HashMap<String,String> serviceUrlName = new HashMap<String,String>(){{
+        put("ts-admin-basic-info-service","adminbasicservice");
+        put("ts-admin-order-service","adminorderservice");
+        put("ts-admin-route-service","adminrouteservice");
+        put("ts-admin-travel-service","admintravelservice");
+        put("ts-admin-user-service","adminuserservice/users");
+        put("ts-assurance-service","assuranceservice");
+        put("ts-auth-service","auth");
+        put("ts-basic-service","basicservice");
+        put("ts-cancel-service","cancelservice");
+        put("ts-config-service","configservice");
+        put("ts-consign-price-service","consignpriceservice");
+        put("ts-consign-service","consignservice");
+        put("ts-contacts-service","contactservice");
+        put("ts-execute-service","excuteservice");
+        put("ts-food-delivery-service","fooddeliveryservice");
+        put("ts-food-service","foodservice");
+        put("ts-inside-payment-service","inside_pay_service");
+        put("ts-notification-service","notifyservice");
+        put("ts-order-other-service","orderOtherService");
+        put("ts-order-service","orderservice");
+        put("ts-payment-service","paymentservice");
+        put("ts-preserve-other-service","preserveotherservice");
+        put("ts-preserve-service","preserveservice");
+        put("ts-price-service","priceservice");
+        put("ts-rebook-service","rebookservice");
+        put("ts-route-plan-service","routeplanservice");
+        put("ts-route-service","routeservice");
+        put("ts-seat-service","seatservice");
+        put("ts-security-service","securityservice");
+        put("ts-station-food-service","stationfoodservice");
+        put("ts-station-service","stationservice");
+        put("ts-train-food-service","trainfoodservice");
+        put("ts-train-service","trainservice");
+        put("ts-travel-plan-service","travelplanservice");
+        put("ts-travel-service","travelservice");
+        put("ts-travel2-service","travel2service");
+        put("ts-user-service","userservice");
+        put("ts-verification-code-service","verifycode");
+    }};
     public Response queryLoggingTime(HttpHeaders headers) {
-        List<String> serviceList = Arrays.asList(
-                "basic",
-                "station",
-                "train",
-                "route",
-                "price",
-                "seat",
-                "order",
-                "config",
-                "stationfood",
-                "food",
-                "consign",
-                "user",
-                "preserve",
-                "trainfood",
-                "security",
-                "orderOther",
-                "contacts",
-                "assurance",
-                "travel",
-                "consignprice"
-        );
         Map<String,Object> map = new HashMap<>();
-        for(String serviceName :serviceList)
+        for(Map.Entry<String,String> entry : serviceUrlName.entrySet())
         {
-            String serviceUrl;
-            String parameter;
-            if (serviceName =="stationfood")
-            {
-                serviceUrl= getServiceUrl("ts-station-food-service");
-                parameter = "/api/v1/"+serviceName+"service"+"/loggingTime";
-            }
-            else if(serviceName =="trainfood")
-            {
-                serviceUrl= getServiceUrl("ts-train-food-service");
-                parameter = "/api/v1/"+serviceName+"service"+"/loggingTime";
-            }
-            else if(serviceName =="consignpirce")
-            {
-                serviceUrl= getServiceUrl("ts-consign-price-service");
-                parameter = "/api/v1/"+serviceName+"service"+"/loggingTime";
-            }
-            else if(serviceName =="orderOther")
-            {
-                serviceUrl= getServiceUrl("ts-order-other-service");
-                parameter = "/api/v1/"+serviceName+"Service"+"/loggingTime";
-            }
-            else if(serviceName =="contacts")
-            {
-                serviceUrl= getServiceUrl("ts-contacts-service");
-                parameter = "/api/v1/contactservice/loggingTime";
-            }
-            else {
-                serviceUrl = getServiceUrl("ts-"+serviceName+"-service");
-                parameter = "/api/v1/"+serviceName+"service"+"/loggingTime";
-            }
 
+            String serviceUrl = getServiceUrl(entry.getKey());
             HttpEntity requestEntity = new HttpEntity(null);
             ResponseEntity<Response> re = restTemplate.exchange(
-                    serviceUrl + parameter,
+                    serviceUrl +"/api/v1" +entry.getValue()+"loggingTime",
                     HttpMethod.GET,
                     requestEntity,
                     Response.class
             );
-            map.put(serviceName,re.getBody().getData());
+            map.put(entry.getKey(),re.getBody().getData());
         }
 
         return new Response<>(1,"loggingTime",map );
     }
 
     public Response clearTime(HttpHeaders headers) {
-        List<String> serviceList = Arrays.asList(
-                "basic",
-                "station",
-                "train",
-                "route",
-                "price",
-                "seat",
-                "order",
-                "config",
-                "stationfood",
-                "food",
-                "consign",
-                "user",
-                "preserve",
-                "trainfood",
-                "security",
-                "orderOther",
-                "contacts",
-                "assurance",
-                "travel",
-                "consignprice"
-        );
-
-        for(String serviceName :serviceList)
+        for(Map.Entry<String,String> entry : serviceUrlName.entrySet())
         {
-            String serviceUrl;
-            String parameter;
-            if (serviceName =="stationfood")
-            {
-                serviceUrl= getServiceUrl("ts-station-food-service");
-                parameter = "/api/v1/"+serviceName+"service"+"/clearTime";
-            }
-            else if(serviceName =="trainfood")
-            {
-                serviceUrl= getServiceUrl("ts-train-food-service");
-                parameter = "/api/v1/"+serviceName+"service"+"/clearTime";
-            }
-            else if(serviceName =="consignpirce")
-            {
-                serviceUrl= getServiceUrl("ts-consign-price-service");
-                parameter = "/api/v1/"+serviceName+"service"+"/clearTime";
-            }
-            else if(serviceName =="orderOther")
-            {
-                serviceUrl= getServiceUrl("ts-order-other-service");
-                parameter = "/api/v1/"+serviceName+"Service"+"/clearTime";
-            }
-            else if(serviceName =="contacts")
-            {
-                serviceUrl= getServiceUrl("ts-contacts-service");
-                parameter = "/api/v1/contactservice/clearTime";
-            }
-            else {
-                serviceUrl = getServiceUrl("ts-"+serviceName+"-service");
-                parameter = "/api/v1/"+serviceName+"service"+"/clearTime";
-            }
+
+            String serviceUrl = getServiceUrl(entry.getKey());
             HttpEntity requestEntity = new HttpEntity(null);
             ResponseEntity<Response> re = restTemplate.exchange(
-                    serviceUrl + parameter,
+                    serviceUrl +"/api/v1" +entry.getValue()+"clearTime",
                     HttpMethod.GET,
                     requestEntity,
                     Response.class
             );
-
         }
 
         logTime.clear();
