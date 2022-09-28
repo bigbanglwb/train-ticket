@@ -89,7 +89,7 @@ public class TimeServiceImpl implements TimeService {
             String serviceUrl = getServiceUrl(entry.getKey());
             HttpEntity requestEntity = new HttpEntity(null);
             ResponseEntity<Response> re = restTemplate.exchange(
-                    serviceUrl +"/api/v1" +entry.getValue()+"loggingTime",
+                    serviceUrl +"/api/v1/" +entry.getValue()+"/loggingTime",
                     HttpMethod.GET,
                     requestEntity,
                     Response.class
@@ -107,7 +107,7 @@ public class TimeServiceImpl implements TimeService {
             String serviceUrl = getServiceUrl(entry.getKey());
             HttpEntity requestEntity = new HttpEntity(null);
             ResponseEntity<Response> re = restTemplate.exchange(
-                    serviceUrl +"/api/v1" +entry.getValue()+"clearTime",
+                    serviceUrl +"/api/v1/" +entry.getValue()+"/clearTime",
                     HttpMethod.GET,
                     requestEntity,
                     Response.class
