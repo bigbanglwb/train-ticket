@@ -55,7 +55,7 @@ public class TimeServiceImpl implements TimeService {
         put("ts-consign-price-service","consignpriceservice");
         put("ts-consign-service","consignservice");
         put("ts-contacts-service","contactservice");
-        put("ts-execute-service","excuteservice");
+        put("ts-execute-service","executeservice");
         put("ts-food-delivery-service","fooddeliveryservice");
         put("ts-food-service","foodservice");
         put("ts-inside-payment-service","inside_pay_service");
