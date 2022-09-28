@@ -8,9 +8,9 @@ build_paths = []
 
 
 def main():
-    if not mvn_build():
-        print("mvn build failed")
-        exit()
+#     if not mvn_build():
+#         print("mvn build failed")
+#         exit()
     init_docker_build_paths()
     # docker_login()
     docker_build_and_push()
