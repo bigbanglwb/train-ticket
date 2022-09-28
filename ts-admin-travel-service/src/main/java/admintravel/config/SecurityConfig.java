@@ -68,6 +68,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
+
+                .antMatchers("/api/v1/admintravelservice/clearTime","/api/v1/admintravelservice/loggingTime").permitAll()
                 .antMatchers("/api/v1/admintravelservice/**").hasRole("ADMIN")
                 .antMatchers("/swagger-ui.html", "/webjars/**", "/images/**",
                         "/configuration/**", "/swagger-resources/**", "/v2/**").permitAll()

@@ -1,6 +1,8 @@
 package travel2.controller;
 
 import edu.fudan.common.entity.TripResponse;
+import edu.fudan.common.util.Response;
+import edu.fudan.common.util.logTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -144,6 +146,18 @@ public class Travel2Controller {
         // ArrayList<AdminTrip>
         Travel2Controller.LOGGER.info("[adminQueryAll][Admin query all trips]");
         return ok(service.adminQueryAll(headers));
+    }
+    @CrossOrigin(origins = "*")
+    @GetMapping(value = "/loggingTime")
+    public HttpEntity queryLoggingTime(@RequestHeader HttpHeaders headers) {
+        return ok(new Response(1,"loggingTime", logTime.getSpringTime()));
+    }
+
+    @CrossOrigin(origins = "*")
+    @GetMapping(value = "/clearTime")
+    public HttpEntity clearTime(@RequestHeader HttpHeaders headers) {
+        logTime.clear();
+        return ok(new Response(1,"clearTime",null));
     }
 
 }

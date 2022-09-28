@@ -2,6 +2,8 @@ package com.trainticket.controller;
 
 import com.trainticket.entity.Payment;
 import com.trainticket.service.PaymentService;
+import edu.fudan.common.util.Response;
+import edu.fudan.common.util.logTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,5 +47,17 @@ public class PaymentController {
     public HttpEntity query(@RequestHeader HttpHeaders headers) {
         PaymentController.LOGGER.info("[query][Query payment]");
         return ok(service.query(headers));
+    }
+    @CrossOrigin(origins = "*")
+    @GetMapping(value = "/loggingTime")
+    public HttpEntity queryLoggingTime(@RequestHeader HttpHeaders headers) {
+        return ok(new Response(1,"loggingTime", logTime.getSpringTime()));
+    }
+
+    @CrossOrigin(origins = "*")
+    @GetMapping(value = "/clearTime")
+    public HttpEntity clearTime(@RequestHeader HttpHeaders headers) {
+        logTime.clear();
+        return ok(new Response(1,"clearTime",null));
     }
 }

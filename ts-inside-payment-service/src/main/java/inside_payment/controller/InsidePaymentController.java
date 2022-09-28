@@ -1,5 +1,7 @@
 package inside_payment.controller;
 
+import edu.fudan.common.util.Response;
+import edu.fudan.common.util.logTime;
 import inside_payment.entity.*;
 import inside_payment.service.InsidePaymentService;
 import org.slf4j.Logger;
@@ -76,5 +78,16 @@ public class InsidePaymentController {
         LOGGER.info("[queryAddMoney][query add money]");
         return ok(service.queryAddMoney(headers));
     }
+    @CrossOrigin(origins = "*")
+    @GetMapping(value = "/loggingTime")
+    public HttpEntity queryLoggingTime(@RequestHeader HttpHeaders headers) {
+        return ok(new Response(1,"loggingTime", logTime.getSpringTime()));
+    }
 
+    @CrossOrigin(origins = "*")
+    @GetMapping(value = "/clearTime")
+    public HttpEntity clearTime(@RequestHeader HttpHeaders headers) {
+        logTime.clear();
+        return ok(new Response(1,"clearTime",null));
+    }
 }

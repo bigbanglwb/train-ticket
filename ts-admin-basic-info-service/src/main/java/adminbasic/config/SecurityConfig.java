@@ -74,6 +74,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/api/v1/adminbasicservice/adminbasic/prices").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/v1/adminbasicservice/adminbasic/configs").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/v1/adminbasicservice/adminbasic/contacts").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/v1/adminbasicservice/loggingTime").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/v1/adminbasicservice/clearTime").permitAll()
                 .antMatchers("/api/v1/adminbasicservice/**").hasRole("ADMIN")
                 .antMatchers("/swagger-ui.html", "/webjars/**", "/images/**",
                         "/configuration/**", "/swagger-resources/**", "/v2/**").permitAll()

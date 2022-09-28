@@ -23,7 +23,7 @@ import static org.springframework.web.cors.CorsConfiguration.ALL;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+public class    SecurityConfig extends WebSecurityConfigurerAdapter {
 
     /**
      * load password encoder
@@ -68,6 +68,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
+                .antMatchers("/api/v1/adminrouteservice/clearTime","/api/v1/adminrouteservice/loggingTime").permitAll()
                 .antMatchers("/api/v1/adminrouteservice/**").hasRole("ADMIN")
                 .antMatchers("/swagger-ui.html", "/webjars/**", "/images/**",
                         "/configuration/**", "/swagger-resources/**", "/v2/**").permitAll()

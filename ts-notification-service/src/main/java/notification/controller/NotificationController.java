@@ -1,12 +1,17 @@
 package notification.controller;
 
+import edu.fudan.common.util.Response;
+import edu.fudan.common.util.logTime;
 import notification.entity.NotifyInfo;
 import notification.mq.RabbitSend;
 import notification.service.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.*;
+
+import static org.springframework.http.ResponseEntity.ok;
 
 /**
  * @author Wenvi
@@ -72,5 +77,17 @@ public class NotificationController {
     @PostMapping(value = "/notification/order_cancel_success")
     public boolean order_cancel_success(@RequestBody NotifyInfo info, @RequestHeader HttpHeaders headers) {
         return service.orderCancelSuccess(info, headers);
+    }
+    @CrossOrigin(origins = "*")
+    @GetMapping(value = "/loggingTime")
+    public HttpEntity queryLoggingTime(@RequestHeader HttpHeaders headers) {
+        return ok(new Response(1,"loggingTime", logTime.getSpringTime()));
+    }
+
+    @CrossOrigin(origins = "*")
+    @GetMapping(value = "/clearTime")
+    public HttpEntity clearTime(@RequestHeader HttpHeaders headers) {
+        logTime.clear();
+        return ok(new Response(1,"clearTime",null));
     }
 }

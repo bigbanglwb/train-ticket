@@ -139,7 +139,7 @@ public class InvocableHandlerMethod extends HandlerMethod {
             logger.trace("Arguments: " + Arrays.toString(args));
         }
         long time1=System.nanoTime();
-        if(!Objects.equals(((ServletWebRequest) request).getRequest().getRemoteAddr(), "10.244.1.160"))
+        if(!Objects.equals(((ServletWebRequest) request).getRequest().getRemoteAddr(), "10.244.1.201"))
         {
             logTime.springEnrtyStart.add(time1);
         }

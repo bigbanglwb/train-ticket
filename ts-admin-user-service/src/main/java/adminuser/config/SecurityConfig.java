@@ -70,7 +70,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/swagger-ui.html", "/webjars/**", "/images/**",
                         "/configuration/**", "/swagger-resources/**", "/v2/**").permitAll()
+                .antMatchers("/api/v1/adminuserservice/users/loggingTime").permitAll()
+                .antMatchers("/api/v1/adminuserservice/users/clearTime").permitAll()
                 .antMatchers("/api/v1/adminuserservice/users/**").hasRole("ADMIN")
+
                 .anyRequest().authenticated()
                 .and()
                 .addFilterBefore(new JWTFilter(), UsernamePasswordAuthenticationFilter.class);

@@ -1,5 +1,7 @@
 package execute.controller;
 
+import edu.fudan.common.util.Response;
+import edu.fudan.common.util.logTime;
 import execute.serivce.ExecuteService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,5 +44,16 @@ public class ExecuteControlller {
         // null
         return ok(executeService.ticketCollect(orderId, headers));
     }
+    @CrossOrigin(origins = "*")
+    @GetMapping(value = "/loggingTime")
+    public HttpEntity queryLoggingTime(@RequestHeader HttpHeaders headers) {
+        return ok(new Response(1,"loggingTime", logTime.getSpringTime()));
+    }
 
+    @CrossOrigin(origins = "*")
+    @GetMapping(value = "/clearTime")
+    public HttpEntity clearTime(@RequestHeader HttpHeaders headers) {
+        logTime.clear();
+        return ok(new Response(1,"clearTime",null));
+    }
 }

@@ -170,6 +170,17 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
+  name: ts-food-delivery-service
+spec:
+  ports:
+    - name: http
+      port: 18957
+  selector:
+    app: ts-food-delivery-service
+---
+apiVersion: v1
+kind: Service
+metadata:
   name: ts-execute-service
 spec:
   ports:
