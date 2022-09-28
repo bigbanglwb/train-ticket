@@ -74,17 +74,8 @@ public class StationController {
     @PostMapping(value = "/stations/idlist")
     public HttpEntity queryForIdBatch(@RequestBody List<String> stationNameList, @RequestHeader HttpHeaders headers) throws InterruptedException {
 
-        stationLogTime.logicStartTime.add(System.nanoTime());
-        //stationLogTIme.springEnrtyStart.add(System.nanoTime());
         Response re = stationService.queryForIdBatch(stationNameList, headers);
-        stationLogTime.logicEndTime.add(System.nanoTime());
 
-
-
-        stationLogTime.serializationStartTime.clear();
-        stationLogTime.sendResponseTime.clear();
-
-        //stationLogTIme.springEnrtyEnd.add(System.nanoTime());
         return ok(re);
     }
 
