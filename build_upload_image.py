@@ -34,7 +34,7 @@ def init_docker_build_paths():
 
 
 def docker_build_and_push():
-    name_list ["ts-ui-dashboard","ts-gateway-service","ts-avatar-service","ts-delivery-service","ts-news-service","ts-ticket-office-service","ts-voucher-service"]
+    name_list = ["ts-ui-dashboard","ts-gateway-service","ts-avatar-service","ts-delivery-service","ts-news-service","ts-ticket-office-service","ts-voucher-service"]
     for build_path in build_paths:
         image_name = build_path.split("/")[-1]
         if image_name in name_list:
