@@ -87,13 +87,7 @@ public class StationController {
         //stationLogTIme.springEnrtyEnd.add(System.nanoTime());
         return ok(re);
     }
-    @CrossOrigin(origins = "*")
-    @GetMapping(value = "/printTime")
-    public boolean printLogTime(@RequestHeader HttpHeaders headers)  {
-        stationLogTime.print1();
-        stationLogTime.clear();
-        return true;
-    }
+
 
 
     // according to station id ---> query station name
