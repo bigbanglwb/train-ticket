@@ -10,13 +10,14 @@ build_paths = []
 def main():
     if not mvn_build():
         print("mvn build failed")
+        exit()
     init_docker_build_paths()
     # docker_login()
     docker_build_and_push()
 
 
 def mvn_build():
-    mvn_status = os.system("mvn clean package -DskipTests")
+    mvn_status = os.system("mvn clean package -Dmaven.test.skip=true")
     return mvn_status == 0
 
 
