@@ -30,6 +30,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import edu.fudan.common.util.Response;
 import edu.fudan.common.util.logTime;
 import org.springframework.core.GenericTypeResolver;
 import org.springframework.core.MethodParameter;
@@ -275,8 +276,12 @@ public abstract class AbstractMessageConverterMethodProcessor extends AbstractMe
                                 "Writing [" + LogFormatUtils.formatValue(theBody, !traceOn) + "]");
                         addContentDispositionHeader(inputMessage, outputMessage);
                         if (genericConverter != null) {
-                            logTime.serverSerializationStartTime.add(System.nanoTime());
+                            long time1 = System.nanoTime();
                             genericConverter.write(body, targetType, selectedMediaType, outputMessage);
+                            Boolean CAN_TRACE  = valueType == Response.class?((Response)body).getMsg()!="clearTime"&& ((Response)body).getMsg()!="loggingTime":false;
+                            if(CAN_TRACE){
+                                logTime.serverSerializationStartTime.add(System.nanoTime());
+                            }
                         }
                         else {
                             ((HttpMessageConverter) converter).write(body, selectedMediaType, outputMessage);

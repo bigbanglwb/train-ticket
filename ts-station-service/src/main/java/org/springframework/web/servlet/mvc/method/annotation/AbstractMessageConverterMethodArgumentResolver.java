@@ -197,12 +197,24 @@ public abstract class AbstractMessageConverterMethodArgumentResolver implements 
                         HttpInputMessage msgToUse =
                                 getAdvice().beforeBodyRead(message, parameter, targetType, converterType);
 
-                            logTime.serverBodyStartTime.add(System.nanoTime());
+
+                            long time1 = System.nanoTime();
+
 
                         body = (genericConverter != null ? genericConverter.read(targetType, contextClass, msgToUse) :
                                 ((HttpMessageConverter<T>) converter).read(targetClass, msgToUse));
+                            long time2 = System.nanoTime();
 
-                            logTime.serverBodyEndTime.add(System.nanoTime());
+
+
+                            String method_name = parameter.getMethod().getName();
+                            boolean CAN_TRACE = method_name!="loggingTime" && !method_name.equals("clearTime");
+                            if(CAN_TRACE)
+                            {
+                                logTime.serverBodyStartTime.add(time1);
+                                logTime.serverBodyStartTime.add(time2);
+                            }
+
 
                         body = getAdvice().afterBodyRead(body, msgToUse, parameter, targetType, converterType);
                     }

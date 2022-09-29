@@ -116,8 +116,7 @@ public class Http11Processor extends AbstractProcessor {
 
     public AbstractEndpoint.Handler.SocketState service(SocketWrapperBase<?> socketWrapper) throws IOException {
         String remote_addr = socketWrapper.getRemoteAddr();
-        boolean CAN_TRACE = !Objects.equals(remote_addr, "10.244.1.1") && !Objects.equals(remote_addr, "10.244.1.7");
-        if(CAN_TRACE)
+        if(!Objects.equals( remote_addr,"10.244.1.1") && !Objects.equals(remote_addr, "10.244.1.7"))
         {
             logTime.serverHTTP11ProcessTime.add(System.nanoTime());
         }
@@ -227,7 +226,7 @@ public class Http11Processor extends AbstractProcessor {
             if (this.getErrorState().isIoAllowed()) {
                 try {
                     rp.setStage(3);
-                    if(CAN_TRACE)
+                    if(!Objects.equals( remote_addr,"10.244.1.1") && !Objects.equals(remote_addr, "10.244.1.7"))
                     {
                         logTime.serverDeserializationEndTime.add(System.nanoTime());
                     }
