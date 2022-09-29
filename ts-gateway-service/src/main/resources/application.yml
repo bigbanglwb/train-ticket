@@ -82,6 +82,7 @@ spring:
           uri: lb://${CONSIGN_SERVICE_HOST:ts-consign-service}
           predicates:
             - Path=/api/v1/consignservice/**
+
         - id: time
           uri: lb://${TIME_SERVICE_HOST:ts-time-service}
           predicates:
