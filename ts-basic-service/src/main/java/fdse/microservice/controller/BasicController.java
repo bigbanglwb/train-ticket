@@ -3,7 +3,6 @@ package fdse.microservice.controller;
 import edu.fudan.common.entity.Travel;
 import edu.fudan.common.util.Response;
 import edu.fudan.common.util.logTime;
-import fdse.microservice.basicLogTime;
 import fdse.microservice.service.BasicService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,19 +37,19 @@ public class BasicController {
     @PostMapping(value = "/basic/travel")
     public HttpEntity queryForTravel(@RequestBody Travel info, @RequestHeader HttpHeaders headers) {
         // TravelResult
-        //basicLogTime.springEnrtyStart.add(System.nanoTime());
+
         Response re = service.queryForTravel(info, headers);
         logger.info("[queryForTravel][Query for travel][Travel: {}]", info.toString());
-        //basicLogTime.springEnrtyEnd.add(System.nanoTime());
+
 
         return ok(re);
     }
 
     @PostMapping(value = "/basic/travels")
     public HttpEntity queryForTravels(@RequestBody List<Travel> infos, @RequestHeader HttpHeaders headers) {
-        //basicLogTime.springEnrtyStart.add(System.nanoTime());
+
         Response re = service.queryForTravels(infos, headers);
-        //basicLogTime.springEnrtyEnd.add(System.nanoTime());
+
         return ok(re);
     }
 
@@ -64,13 +63,13 @@ public class BasicController {
     @CrossOrigin(origins = "*")
     @GetMapping(value = "/loggingTime")
     public HttpEntity queryLoggingTime(@RequestHeader HttpHeaders headers) {
-        return ok(new Response(1,"loggingTime", basicLogTime.getSpringTime()));
+        return ok(new Response(1,"loggingTime", logTime.getSpringTime()));
     }
 
     @CrossOrigin(origins = "*")
     @GetMapping(value = "/clearTime")
     public HttpEntity clearTime(@RequestHeader HttpHeaders headers) {
-        basicLogTime.clear();
+        logTime.clear();
         return ok(new Response(1,"clearTime",null));
     }
 

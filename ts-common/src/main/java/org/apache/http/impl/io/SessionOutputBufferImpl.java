@@ -27,14 +27,7 @@
 
 package org.apache.http.impl.io;
 
-import java.io.IOException;
-import java.io.OutputStream;
-import java.nio.ByteBuffer;
-import java.nio.CharBuffer;
-import java.nio.charset.CharsetEncoder;
-import java.nio.charset.CoderResult;
-
-import fdse.microservice.basicLogTime;
+import edu.fudan.common.util.logTime;
 import org.apache.http.io.BufferInfo;
 import org.apache.http.io.HttpTransportMetrics;
 import org.apache.http.io.SessionOutputBuffer;
@@ -43,6 +36,13 @@ import org.apache.http.util.Args;
 import org.apache.http.util.Asserts;
 import org.apache.http.util.ByteArrayBuffer;
 import org.apache.http.util.CharArrayBuffer;
+
+import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.ByteBuffer;
+import java.nio.CharBuffer;
+import java.nio.charset.CharsetEncoder;
+import java.nio.charset.CoderResult;
 
 /**
  * Abstract base class for session output buffers that stream data to
@@ -122,7 +122,7 @@ public class SessionOutputBufferImpl implements SessionOutputBuffer, BufferInfo 
 
     private void streamWrite(final byte[] b, final int off, final int len) throws IOException {
         Asserts.notNull(outStream, "Output stream");
-        //basicLogTime.sendRequestTime.add(System.nanoTime());
+        logTime.sendRequestTime.add(System.nanoTime());
         this.outStream.write(b, off, len);
     }
 

@@ -8,9 +8,9 @@ build_paths = []
 
 
 def main():
-#     if not mvn_build():
-#         print("mvn build failed")
-#         exit()
+    if not mvn_build():
+        print("mvn build failed")
+        exit()
     init_docker_build_paths()
     # docker_login()
     docker_build_and_push()
@@ -43,6 +43,7 @@ def docker_build_and_push():
         files = os.listdir(build_path)
         if "Dockerfile" in files:
             docker_build = os.system(f"sudo docker build . -t {PREFIX}/{image_name}:{VERSION}")
+
             if docker_build != 0:
                 print("[FAIL]" + image_name + " build failed.")
             else:

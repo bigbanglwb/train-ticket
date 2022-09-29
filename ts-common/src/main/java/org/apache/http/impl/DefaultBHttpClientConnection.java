@@ -27,21 +27,8 @@
 
 package org.apache.http.impl;
 
-import java.io.IOException;
-import java.io.OutputStream;
-import java.net.Socket;
-import java.net.SocketTimeoutException;
-import java.nio.charset.CharsetDecoder;
-import java.nio.charset.CharsetEncoder;
-
-import fdse.microservice.basicLogTime;
-import org.apache.http.HttpClientConnection;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpEntityEnclosingRequest;
-import org.apache.http.HttpException;
-import org.apache.http.HttpRequest;
-import org.apache.http.HttpResponse;
-import org.apache.http.HttpStatus;
+import edu.fudan.common.util.logTime;
+import org.apache.http.*;
 import org.apache.http.config.MessageConstraints;
 import org.apache.http.entity.ContentLengthStrategy;
 import org.apache.http.impl.io.DefaultHttpRequestWriterFactory;
@@ -50,8 +37,14 @@ import org.apache.http.io.HttpMessageParser;
 import org.apache.http.io.HttpMessageParserFactory;
 import org.apache.http.io.HttpMessageWriter;
 import org.apache.http.io.HttpMessageWriterFactory;
-
 import org.apache.http.util.Args;
+
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.Socket;
+import java.net.SocketTimeoutException;
+import java.nio.charset.CharsetDecoder;
+import java.nio.charset.CharsetEncoder;
 
 /**
  * Default implementation of {@link HttpClientConnection}.
@@ -139,7 +132,7 @@ public class DefaultBHttpClientConnection extends BHttpConnectionBase
             throws HttpException, IOException {
         Args.notNull(request, "HTTP request");
         ensureOpen();
-        //basicLogTime.serializationStartTime.add(System.nanoTime());
+        logTime.serializationStartTime.add(System.nanoTime());
         this.requestWriter.write(request);
         onRequestSubmitted(request);
         incrementRequestCount();
@@ -183,7 +176,7 @@ public class DefaultBHttpClientConnection extends BHttpConnectionBase
         ensureOpen();
         final HttpEntity entity = prepareInput(response);
         response.setEntity(entity);
-        basicLogTime.deserializationEndTime.add(System.nanoTime());
+        logTime.deserializationEndTime.add(System.nanoTime());
 
     }
 
