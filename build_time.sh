@@ -9,19 +9,19 @@
 
 
 
-#cd ~/train-ticket
-#mvn  clean package -Dmaven.test.skip=true -pl ts-basic-service -am
-#cd ~/train-ticket/ts-basic-service || exit
-#docker build -t codewisdom/ts-basic-service:1.0.0 .
-## shellcheck disable=SC2046
-#kubectl delete pod `kubectl get pods |grep ts-basic-service | awk '{print $1}'`
-#
 cd ~/train-ticket
-mvn  clean package -Dmaven.test.skip=true -pl ts-station-service -am
-cd ~/train-ticket/ts-station-service || exit
-docker build -t codewisdom/ts-station-service:1.0.0 .
+mvn  clean package -Dmaven.test.skip=true -pl ts-basic-service -am
+cd ~/train-ticket/ts-basic-service || exit
+docker build -t codewisdom/ts-basic-service:1.0.0 .
 # shellcheck disable=SC2046
-kubectl delete pod `kubectl get pods |grep ts-station-service | awk '{print $1}'`
+kubectl delete pod `kubectl get pods |grep ts-basic-service | awk '{print $1}'`
+
+#cd ~/train-ticket
+#mvn  clean package -Dmaven.test.skip=true -pl ts-station-service -am
+#cd ~/train-ticket/ts-station-service || exit
+#docker build -t codewisdom/ts-station-service:1.0.0 .
+## shellcheck disable=SC2046
+#kubectl delete pod `kubectl get pods |grep ts-station-service | awk '{print $1}'`
 
 #kubectl delete deployment  ts-travel-service
 #kubectl delete deployment  ts-station-service
