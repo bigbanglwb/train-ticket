@@ -132,7 +132,7 @@ public class DefaultBHttpClientConnection extends BHttpConnectionBase
             throws HttpException, IOException {
         Args.notNull(request, "HTTP request");
         ensureOpen();
-        logTime.serializationStartTime.add(System.nanoTime());
+        logTime.clientSerializationStartTime.add(System.nanoTime());
         this.requestWriter.write(request);
         onRequestSubmitted(request);
         incrementRequestCount();
@@ -176,7 +176,7 @@ public class DefaultBHttpClientConnection extends BHttpConnectionBase
         ensureOpen();
         final HttpEntity entity = prepareInput(response);
         response.setEntity(entity);
-        logTime.deserializationEndTime.add(System.nanoTime());
+        logTime.clientDeserializationEndTime.add(System.nanoTime());
 
     }
 

@@ -11,7 +11,7 @@ import java.nio.ByteBuffer;
 import java.util.*;
 import java.util.regex.Pattern;
 
-import fdse.microservice.stationLogTime;
+import edu.fudan.common.util.logTime;
 import org.apache.coyote.AbstractProcessor;
 import org.apache.coyote.ActionCode;
 import org.apache.coyote.Adapter;
@@ -115,14 +115,11 @@ public class Http11Processor extends AbstractProcessor {
     }
 
     public AbstractEndpoint.Handler.SocketState service(SocketWrapperBase<?> socketWrapper) throws IOException {
-//        if(!Objects.equals(socketWrapper.getRemoteAddr(), "10.244.1.1"))
-//        {
-//            logTime.recvRequestTime.add(System.nanoTime());
-//        }
-//        LOGGER.info("Get request && Deserialization start time [{}] [{}]",socketWrapper.getRemoteAddr(),System.nanoTime());
-        if(!Objects.equals(socketWrapper.getRemoteAddr(), "10.244.1.1"))
+        String remote_addr = socketWrapper.getRemoteAddr();
+        boolean CAN_TRACE = !Objects.equals(remote_addr, "10.244.1.1") && !Objects.equals(remote_addr, "10.244.1.7");
+        if(CAN_TRACE)
         {
-            stationLogTime.HTTP11ProcessTime.add(System.nanoTime());
+            logTime.serverHTTP11ProcessTime.add(System.nanoTime());
         }
         RequestInfo rp = this.request.getRequestProcessor();
         rp.setStage(1);
@@ -188,10 +185,6 @@ public class Http11Processor extends AbstractProcessor {
                 this.response.setStatus(400);
                 this.setErrorState(ErrorState.CLOSE_CLEAN, var14);
             }
-            if(!Objects.equals(socketWrapper.getRemoteAddr(), "10.244.1.1"))
-            {
-                stationLogTime.deserializationEndTime.add(System.nanoTime());
-            }
             if (isConnectionToken(this.request.getMimeHeaders(), "upgrade")) {
                 String requestedProtocol = this.request.getHeader("Upgrade");
                 UpgradeProtocol upgradeProtocol = this.protocol.getUpgradeProtocol(requestedProtocol);
@@ -234,9 +227,9 @@ public class Http11Processor extends AbstractProcessor {
             if (this.getErrorState().isIoAllowed()) {
                 try {
                     rp.setStage(3);
-                    if(!Objects.equals(socketWrapper.getRemoteAddr(), "10.244.1.1"))
+                    if(CAN_TRACE)
                     {
-                        stationLogTime.deserializationEndTime.add(System.nanoTime());
+                        logTime.serverDeserializationEndTime.add(System.nanoTime());
                     }
                     this.getAdapter().service(this.request, this.response);
                     if (this.keepAlive && !this.getErrorState().isError() && !this.isAsync() && statusDropsConnection(this.response.getStatus())) {

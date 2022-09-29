@@ -25,7 +25,7 @@ import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
 
-import fdse.microservice.stationLogTime;
+import edu.fudan.common.util.logTime;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -197,12 +197,12 @@ public abstract class AbstractMessageConverterMethodArgumentResolver implements 
                         HttpInputMessage msgToUse =
                                 getAdvice().beforeBodyRead(message, parameter, targetType, converterType);
 
-                            stationLogTime.bodyStartTime.add(System.nanoTime());
+                            logTime.serverBodyStartTime.add(System.nanoTime());
 
                         body = (genericConverter != null ? genericConverter.read(targetType, contextClass, msgToUse) :
                                 ((HttpMessageConverter<T>) converter).read(targetClass, msgToUse));
 
-                            stationLogTime.bodyEndTime.add(System.nanoTime());
+                            logTime.serverBodyEndTime.add(System.nanoTime());
 
                         body = getAdvice().afterBodyRead(body, msgToUse, parameter, targetType, converterType);
                     }

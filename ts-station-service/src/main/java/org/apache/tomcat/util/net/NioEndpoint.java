@@ -53,7 +53,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import javax.net.ssl.SSLEngine;
 
-import fdse.microservice.stationLogTime;
+import edu.fudan.common.util.logTime;
 import org.apache.juli.logging.Log;
 import org.apache.juli.logging.LogFactory;
 import org.apache.tomcat.util.ExceptionUtils;
@@ -851,10 +851,11 @@ public class NioEndpoint extends AbstractJsseEndpoint<NioChannel,SocketChannel> 
                     NioSocketWrapper socketWrapper = (NioSocketWrapper) sk.attachment();
                     // Attachment may be null if another thread has called
                     // cancelledKey()
-                    if(!Objects.equals(socketWrapper.getRemoteAddr(), "10.244.1.1") && socketWrapper.getRemoteAddr() != null && sk.isReadable())
+                    String remote_addr = socketWrapper.getRemoteAddr();
+                    boolean CAN_TRACE = !Objects.equals(remote_addr, "10.244.1.1") && !Objects.equals(remote_addr, "10.244.1.7") && socketWrapper.getRemoteAddr() != null && sk.isReadable();
+                    if(CAN_TRACE )
                     {
-                        stationLogTime.selectEventTime.add(time1);
-//                        log.warn("select read event");
+                        logTime.selectEventTime.add(System.nanoTime());
                     }
                     if (socketWrapper != null) {
                         processKey(sk, socketWrapper);
@@ -881,9 +882,11 @@ public class NioEndpoint extends AbstractJsseEndpoint<NioChannel,SocketChannel> 
                             boolean closeSocket = false;
                             // Read goes before write
                             if (sk.isReadable()) {
-                                if(socketWrapper.getRemoteAddr()!=null && !Objects.equals(socketWrapper.getRemoteAddr(), "10.244.1.1"))
+                                String remote_addr = socketWrapper.getRemoteAddr();
+                                boolean CAN_TRACE = !Objects.equals(remote_addr, "10.244.1.1") && !Objects.equals(remote_addr, "10.244.1.7") && socketWrapper.getRemoteAddr() != null;
+                                if(CAN_TRACE )
                                 {
-                                    stationLogTime.recvRequestTime.add(System.nanoTime());
+                                    logTime.recvRequestTime.add(System.nanoTime());
                                 }
                                 if (socketWrapper.readOperation != null) {
                                     if (!socketWrapper.readOperation.process()) {
@@ -1683,9 +1686,11 @@ public class NioEndpoint extends AbstractJsseEndpoint<NioChannel,SocketChannel> 
             }
 
             try {
-                if(!Objects.equals(socketWrapper.getRemoteAddr(), "10.244.1.1"))
+                String remote_addr = socketWrapper.getRemoteAddr();
+                boolean CAN_TRACE = !Objects.equals(remote_addr, "10.244.1.1") && !Objects.equals(remote_addr, "10.244.1.7") && socketWrapper.getRemoteAddr() != null;
+                if(CAN_TRACE )
                 {
-                    stationLogTime.socketProcessTime.add(System.nanoTime());
+                    logTime.serverSocketProcessTime.add(System.nanoTime());
                 }
                 int handshake = -1;
                 try {
