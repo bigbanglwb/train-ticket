@@ -280,7 +280,7 @@ public abstract class AbstractMessageConverterMethodProcessor extends AbstractMe
                             genericConverter.write(body, targetType, selectedMediaType, outputMessage);
                             Boolean CAN_TRACE  = valueType == Response.class?((Response)body).getMsg()!="clearTime"&& ((Response)body).getMsg()!="loggingTime":false;
                             if(CAN_TRACE){
-                                logTime.serverSerializationStartTime.add(System.nanoTime());
+                                logTime.serverSerializationStartTime.add(time1);
                             }
                         }
                         else {
