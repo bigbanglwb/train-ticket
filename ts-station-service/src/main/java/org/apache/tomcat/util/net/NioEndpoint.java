@@ -882,12 +882,6 @@ public class NioEndpoint extends AbstractJsseEndpoint<NioChannel,SocketChannel> 
                             boolean closeSocket = false;
                             // Read goes before write
                             if (sk.isReadable()) {
-                                String remote_addr = socketWrapper.getRemoteAddr();
-                                boolean CAN_TRACE = !Objects.equals(remote_addr, "10.244.1.1") && !Objects.equals(remote_addr, "10.244.1.7") && socketWrapper.getRemoteAddr() != null;
-                                if(CAN_TRACE )
-                                {
-                                    logTime.recvRequestTime.add(System.nanoTime());
-                                }
                                 if (socketWrapper.readOperation != null) {
                                     if (!socketWrapper.readOperation.process()) {
                                         closeSocket = true;

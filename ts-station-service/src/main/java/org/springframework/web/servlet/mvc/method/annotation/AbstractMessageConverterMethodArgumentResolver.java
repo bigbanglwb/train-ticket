@@ -201,7 +201,7 @@ public abstract class AbstractMessageConverterMethodArgumentResolver implements 
                             long time1 = System.nanoTime();
 
 
-                        body = (genericConverter != null ? genericConverter.read(targetType, contextClass, msgToUse) :
+                            body = (genericConverter != null ? genericConverter.read(targetType, contextClass, msgToUse) :
                                 ((HttpMessageConverter<T>) converter).read(targetClass, msgToUse));
                             long time2 = System.nanoTime();
 
@@ -212,7 +212,7 @@ public abstract class AbstractMessageConverterMethodArgumentResolver implements 
                             if(CAN_TRACE)
                             {
                                 logTime.serverBodyStartTime.add(time1);
-                                logTime.serverBodyStartTime.add(time2);
+                                logTime.serverBodyEndTime.add(time2);
                             }
 
 

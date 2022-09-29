@@ -15,7 +15,7 @@ public class logTime {
 
 
 
-    public static ArrayList<Long> recvRequestTime = new ArrayList<Long>();
+
     public static ArrayList<Long> serverDeserializationEndTime = new ArrayList<Long>();
 
     public static ArrayList<Long> serverSerializationStartTime = new ArrayList<Long>();
@@ -41,7 +41,7 @@ public class logTime {
         clientDeserializationEndTime.clear();
 
         serverDeserializationEndTime.clear();
-        recvRequestTime.clear();
+
         sendResponseTime.clear();
         serverSerializationStartTime.clear();
         selectEventTime.clear();
@@ -67,7 +67,7 @@ public class logTime {
 
 
         list.put("serverDeserializationEndTime",serverDeserializationEndTime);
-        list.put("recvRequestTime",recvRequestTime);
+
         list.put("sendResponseTime ",sendResponseTime);
         list.put("serverSerializationStartTime",serverSerializationStartTime);
         list.put("selectEventTime",selectEventTime);
