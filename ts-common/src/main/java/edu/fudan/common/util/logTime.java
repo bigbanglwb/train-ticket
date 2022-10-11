@@ -28,6 +28,9 @@ public class logTime {
     public static ArrayList<Long> serverBodyStartTime= new ArrayList<Long>();
     public static ArrayList<Long> serverBodyEndTime= new ArrayList<Long>();
 
+
+
+    public static boolean fisrt_send_response = true;
     public static  void clear()
     {
         springEnrtyStart.clear();

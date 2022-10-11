@@ -114,10 +114,11 @@ public class NioBlockingSelector {
             while (!timedout && buf.hasRemaining()) {
                 if (keycount > 0) { //only write if we were registered for a write
                     String remote_addr = socket.getSocketWrapper().remoteAddr;
-                    boolean CAN_TRACE = !Objects.equals(remote_addr, "10.244.1.1") && !Objects.equals(remote_addr, "10.244.1.7");
+                    boolean CAN_TRACE = !Objects.equals(remote_addr, "10.244.1.1") && !Objects.equals(remote_addr, "10.244.1.7") && logTime.fisrt_send_response ;
                     if(CAN_TRACE)
                     {
                         logTime.sendResponseTime.add(System.nanoTime());
+                        logTime.fisrt_send_response = false;
                     }
                     int cnt = socket.write(buf); //write the data
                     if (cnt == -1) {
