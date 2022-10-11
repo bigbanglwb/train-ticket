@@ -388,7 +388,6 @@ public class CoyoteAdapter implements Adapter {
             } else {
                 request.finishRequest();
                 response.finishResponse();
-                logTime.fisrt_send_response = true;
             }
 
         } catch (IOException e) {

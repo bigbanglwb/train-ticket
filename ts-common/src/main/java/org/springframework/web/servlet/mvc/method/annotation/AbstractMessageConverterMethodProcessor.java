@@ -268,6 +268,7 @@ public abstract class AbstractMessageConverterMethodProcessor extends AbstractMe
                             Boolean CAN_TRACE  = valueType == Response.class?((Response)body).getMsg()!="clearTime"&& ((Response)body).getMsg()!="loggingTime":false;
                             if(CAN_TRACE){
                                 logTime.serverSerializationStartTime.add(time1);
+                                logTime.fisrt_send_response = true;
                             }
                         }
                         else {
