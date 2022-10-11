@@ -258,7 +258,7 @@ public class CoyoteAdapter implements Adapter {
             if (!request.isAsync()) {
                 request.finishRequest();
                 response.finishResponse();
-                logTime.fisrt_send_response = true;
+
             }
 
             // Check to see if the processor is in an error state. If it is,
@@ -388,6 +388,7 @@ public class CoyoteAdapter implements Adapter {
             } else {
                 request.finishRequest();
                 response.finishResponse();
+                logTime.fisrt_send_response = true;
             }
 
         } catch (IOException e) {
