@@ -264,12 +264,13 @@ public abstract class AbstractMessageConverterMethodProcessor extends AbstractMe
                         addContentDispositionHeader(inputMessage, outputMessage);
                         if (genericConverter != null) {
                             long time1 = System.nanoTime();
-                            genericConverter.write(body, targetType, selectedMediaType, outputMessage);
                             Boolean CAN_TRACE  = valueType == Response.class?((Response)body).getMsg()!="clearTime"&& ((Response)body).getMsg()!="loggingTime":false;
                             if(CAN_TRACE){
                                 logTime.serverSerializationStartTime.add(time1);
                                 logTime.fisrt_send_response = true;
                             }
+                            genericConverter.write(body, targetType, selectedMediaType, outputMessage);
+
                         }
                         else {
                             ((HttpMessageConverter) converter).write(body, selectedMediaType, outputMessage);
