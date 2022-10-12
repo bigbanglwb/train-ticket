@@ -10,23 +10,23 @@
 
 
 cd ~/train-ticket
-mvn  clean package -Dmaven.test.skip=true -pl ts-station-service -am
-cd ~/train-ticket/ts-station-service || exit
-docker build -t codewisdom/ts-station-service:1.0.0 .
+mvn  clean package -Dmaven.test.skip=true -pl ts-travel-service -am
+cd ~/train-ticket/ts-travel-service || exit
+docker build -t codewisdom/ts-travel-service:1.0.0 .
 # shellcheck disable=SC2046
-kubectl delete pod `kubectl get pods |grep ts-station-service | awk '{print $1}'`
+kubectl delete pod `kubectl get pods |grep ts-travel-service | awk '{print $1}'`
 
 #cd ~/train-ticket
-#mvn  clean package -Dmaven.test.skip=true -pl ts-station-service -am
-#cd ~/train-ticket/ts-station-service || exit
-#docker build -t codewisdom/ts-station-service:1.0.0 .
+#mvn  clean package -Dmaven.test.skip=true -pl ts-travel-service -am
+#cd ~/train-ticket/ts-travel-service || exit
+#docker build -t codewisdom/ts-travel-service:1.0.0 .
 ## shellcheck disable=SC2046
-#kubectl delete pod `kubectl get pods |grep ts-station-service | awk '{print $1}'`
+#kubectl delete pod `kubectl get pods |grep ts-travel-service | awk '{print $1}'`
 
 #kubectl delete deployment  ts-travel-service
-#kubectl delete deployment  ts-station-service
+#kubectl delete deployment  ts-travel-service
 #kubectl delete svc  ts-travel-service
-#kubectl delete svc  ts-station-service
+#kubectl delete svc  ts-travel-service
 #
 #kubectl apply -f /home/liwenbo/train-ticket/deployment/kubernetes-manifests/quickstart-k8s/yamls/deploy.yaml
 #kubectl apply -f /home/liwenbo/train-ticket/deployment/kubernetes-manifests/quickstart-k8s/yamls/svc.yaml
