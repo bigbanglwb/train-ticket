@@ -5,7 +5,7 @@ kubectl delete -f /home/liwenbo/train-ticket/deployment/kubernetes-manifests/qui
 kubectl delete -f /home/liwenbo/train-ticket/deployment/kubernetes-manifests/quickstart-k8s/yamls/svc.yaml
 
 
-python3 ./build_upload_image.py
+python3 ./compile_and_build_image.py
 
 
 kubectl apply -f /home/liwenbo/train-ticket/deployment/kubernetes-manifests/quickstart-k8s/yamls/deploy.yaml
